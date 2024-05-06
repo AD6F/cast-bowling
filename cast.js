@@ -27,6 +27,7 @@ context.addEventListener(cast.framework.system.EventType.READY, () => {
         castDebugLogger.showDebugLogs(true);
         // Clear log messages on debug overlay
         castDebugLogger.clearDebugLogs();
+        document.querySelector("#result").innerText = "connected";
     }
 });
 
