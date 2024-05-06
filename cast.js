@@ -5,14 +5,14 @@ const CH = {
     game : 'urn:x-cast:game'
 };
 
-context.addCustomMessageListener(CH.settings, function(customEvent) {
+context.addCustomMessageListener(CH.settings, (customEvent) => {
 	const pos = customEvent.data.msg;
     console.log(pos)
     document.querySelector("#result").innerText = pos;
     context.sendCustomMessage(CH.settings, undefined, "settings updated")
 });
 
-context.addCustomMessageListener(CH.game, function(customEvent) {
+context.addCustomMessageListener(CH.game, (customEvent) => {
 	const pos = customEvent.data.msg;
     console.log(pos)
     document.querySelector("#result").innerText = pos;
