@@ -255,7 +255,7 @@ const update = (time) =>{
             ball.speed.x = -4;
         }else{
             setTimeout(() => {
-                playBowlingVideo("./fem.mp4", () => {
+                playBowlingVideo("/fem.mp4", () => {
                     setTimeout(() => {
                         ball.speed.x = -0.05;
                         ball.acceleration.x = -0.0825;
