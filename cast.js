@@ -8,7 +8,7 @@ context.addCustomMessageListener(CH, (customEvent) => {
 	const pos = customEvent.data.msg;
     console.log(pos)
     document.querySelector("#result").innerText = pos;
-    context.sendCustomMessage(CH.settings, undefined, "settings updated")
+    context.sendCustomMessage(CH, undefined, "settings updated")
 });
 
 context.addEventListener(cast.framework.system.EventType.READY, () => {
