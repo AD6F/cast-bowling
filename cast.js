@@ -1,7 +1,5 @@
 import { main } from "./main.js";
 
-main();
-
 console.log("VERY START");
 const castDebugLogger = cast.debug.CastDebugLogger.getInstance();
 const context = cast.framework.CastReceiverContext.getInstance();
@@ -60,3 +58,5 @@ context.start(options);
 console.log("PIXI");
 
 console.log("LOADING..");
+
+main();

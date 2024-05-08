@@ -63,6 +63,7 @@ const scoreAdvance = (pinsHit) => {
         flagShouldReset = true;
         if (scorePlayerIndex>=scoreBoard.length){
             updateFrameTop();
+            updateScore();
             scoreFrame++;
             scorePlayerIndex = 0;
         }
@@ -78,7 +79,6 @@ const scoreInit = (playerCount, pNames, roundCount, appToSet, debug) =>{
     bgScore = new PIXI.Graphics()
     .rect(0, 0, app.screen.width/2, app.screen.height)
     .fill(0x000000);
-    bgScore.alpha = (debug) ? 0.3 : 1;
     bgScore.zIndex = 1000;
 
     app.stage.addChild(bgScore);
@@ -90,7 +90,6 @@ const scoreInit = (playerCount, pNames, roundCount, appToSet, debug) =>{
          appToSet.screen.height-adjustHeight(48))
     .fill(0xCCCCCC);
     bgWhiteBG.zIndex = 1100;
-    bgWhiteBG.alpha = (debug) ? 0.5 : 1;
 
     app.stage.addChild(bgWhiteBG);
 
