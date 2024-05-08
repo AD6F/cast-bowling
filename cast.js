@@ -1,3 +1,4 @@
+/*
 const castDebugLogger = cast.debug.CastDebugLogger.getInstance();
 const context = cast.framework.CastReceiverContext.getInstance();
 const CH = {
@@ -45,3 +46,4 @@ options.customNamespaces[CH.game] = cast.framework.system.MessageType.JSON;
 options.disableIdleTimeout = true;
 
 context.start(options);
+*/
