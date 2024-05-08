@@ -161,7 +161,7 @@ const playBowlingVideo = async (url, func) =>{
     let videoSource = await PIXI.Assets.load({
         src: url,
         data:{
-            preload: true,
+            preload: false,
             autoPlay: true,
             loop: false
         }
