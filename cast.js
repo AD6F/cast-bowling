@@ -42,4 +42,10 @@ options.disableIdleTimeout = true;
 
 context.start(options);
 
+console.log("PIXI");
+
+// Create a PixiJS application.
+var app = new PIXI.Application({ width: 1080, height: 720, backgroundColor: 0x1099bb });
+document.querySelector('#container').appendChild(app.view);
+
 console.log("LOADING..");
