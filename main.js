@@ -255,6 +255,7 @@ const update = (time) =>{
             ball.speed.x = -4;
         }else{
             setTimeout(() => {
+                // TODO : Fix issue where chromecast plays the video, but it's not actually visible.
                 playBowlingVideo("./fem.mp4", () => {
                     setTimeout(() => {
                         ball.speed.x = -0.05;
