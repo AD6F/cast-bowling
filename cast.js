@@ -1,7 +1,7 @@
 const castDebugLogger = cast.debug.CastDebugLogger.getInstance();
 const context = cast.framework.CastReceiverContext.getInstance();
 const CH = {
-    settings : 'urn:x-cast:settings',
+    settings : 'urn:x-cast:setting',
     game : 'urn:x-cast:game'
 };
 
