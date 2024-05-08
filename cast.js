@@ -8,14 +8,14 @@ const CH = {
 console.log("INITIALIZE");
 
 context.addCustomMessageListener(CH.settings, (customEvent) => {
-	const pos = customEvent.data.msg;
+	const pos = `${customEvent.data.msg}`;
     console.log(pos);
     document.querySelector("#result").innerText = pos;
     context.sendCustomMessage(CH.settings, undefined, "settings updated");
 });
 
 context.addCustomMessageListener(CH.game, (customEvent) => {
-	const pos = customEvent.data.msg;
+	const pos = `${customEvent.data.msg}`;
     console.log(pos);
     document.querySelector("#game").innerText = pos;
     context.sendCustomMessage(CH.game, undefined, "ball throw");
