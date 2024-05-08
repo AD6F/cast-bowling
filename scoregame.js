@@ -63,9 +63,9 @@ const scoreAdvance = (pinsHit) => {
         flagShouldReset = true;
         if (scorePlayerIndex>=scoreBoard.length){
             updateFrameTop();
-            updateScore();
             scoreFrame++;
             scorePlayerIndex = 0;
+            updateScore();
         }
     }
 
