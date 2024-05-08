@@ -108,10 +108,10 @@ const pinCheckCollision = (pos, pin) => {
     let bigger = Math.max(adjustWidth(dis), adjustHeight(dis))
     if (hypo <=  lerp(smaller, bigger, 0.5)){
         pin.hit = true;
-        pin.offset.xspeed = (Math.random()*0.35)+0.25 // (Math.sqrt(Math.abs(d.x)) * Math.sign(d.x))/2.5
+        pin.offset.xspeed = (Math.sqrt(Math.abs(d.x/3)) * Math.sign(d.x))*-.25
         pin.offset.yspeed = Math.sqrt(Math.abs(d.y/3))*-Math.sign(d.y)
         pin.offset.zspeed = -( (Math.random()*1.5) + 3 )
-        pin.offset.aspeed = pin.offset.xspeed * Math.abs(pin.offset.yspeed) * 10
+        pin.offset.aspeed = pin.offset.xspeed*0.5 * Math.abs(pin.offset.yspeed) * 10
         pin.offset.aspeed += Math.random()*4
         pin.offset.y = -1
     }
