@@ -94,7 +94,12 @@ const visualInit = (theme, appToSet) => {
 
     app.stage.addChild(bgBowlingFloor);
 
-    let gutterPolygon = structuredClone(polygon)
+    let gutterPolygon = [
+        {x: (app.screen.width/2)-adjustWidth(64), y: app.screen.height},
+        {x: (app.screen.width)+adjustWidth(64), y: app.screen.height},
+        {x: app.screen.width*0.8, y:app.screen.height*0.5},
+        {x: app.screen.width*0.7, y:app.screen.height*0.5}
+    ]
     console.log(gutterPolygon)
     gutterPolygon[0].x -= adjustWidth(78)
     gutterPolygon[1].x += adjustWidth(78)
