@@ -1,14 +1,24 @@
 console.log("VERY START");
 const castDebugLogger = cast.debug.CastDebugLogger.getInstance();
 const context = cast.framework.CastReceiverContext.getInstance();
-const CH = 'urn:x-cast:setting';
+const CH = {
+    settings : 'urn:x-cast:setting',
+    game : 'urn:x-cast:game'
+};
 console.log("INITIALIZE");
 
-context.addCustomMessageListener(CH, (customEvent) => {
+context.addCustomMessageListener(CH.settings, (customEvent) => {
 	const pos = customEvent.data.msg;
-    console.log(pos)
+    console.log(pos);
     document.querySelector("#result").innerText = pos;
-    context.sendCustomMessage(CH, undefined, "settings updated")
+    context.sendCustomMessage(CH.settings, undefined, "settings updated");
+});
+
+context.addCustomMessageListener(CH.game, (customEvent) => {
+	const pos = customEvent.data.msg;
+    console.log(pos);
+    document.querySelector("#game").innerText = pos;
+    context.sendCustomMessage(CH.game, undefined, "ball throw");
 });
 
 context.addEventListener(cast.framework.system.EventType.READY, () => {
@@ -37,7 +47,8 @@ console.log("START CAST");
 const options = new cast.framework.CastReceiverOptions();
 
 options.customNamespaces = Object.assign({});
-options.customNamespaces[CH] = cast.framework.system.MessageType.JSON;
+options.customNamespaces[CH.settings] = cast.framework.system.MessageType.JSON;
+options.customNamespaces[CH.game] = cast.framework.system.MessageType.JSON;
 options.disableIdleTimeout = true;
 
 context.start(options);
