@@ -11,6 +11,8 @@ console.log("INITIALIZE");
 
 var settings = undefined;
 
+await mainStart();
+
 context.addCustomMessageListener(CH.settings, (customEvent) => {
 	const pos = JSON.stringify(customEvent.data);
     let obj = JSON.parse(pos);
@@ -65,8 +67,6 @@ context.start(options);
 console.log("PIXI");
 
 console.log("LOADING..");
-
-await mainStart();
 
 console.log("LOOP");
 const intervalId = setInterval((arg1)=>{
