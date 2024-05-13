@@ -305,6 +305,8 @@ const mainStart = async () => {
 
     // Then adding the application's canvas to the DOM body.
     document.querySelector("#pixi-container").appendChild(app.canvas);
+
+    return 0;
 }
 
 // Asynchronous IIFE

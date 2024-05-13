@@ -67,9 +67,11 @@ console.log("LOADING..");
 
 await mainStart();
 
-var intervalId = setInterval(async ()=>{
-    if (settings){
-        await main(["owo", "iwi", "uwu", "ewe"], 10, 0);
+console.log("LOOP");
+const intervalId = setInterval((arg1)=>{
+    console.log("rtest")
+    if (arg1){
+        main(["owo", "iwi", "uwu", "ewe"], 10, 0);
         clearInterval(intervalId);
     }
-}, 100)
+}, 1000, settings)
