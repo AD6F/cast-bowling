@@ -14,7 +14,7 @@ context.addCustomMessageListener(CH.settings, (customEvent) => {
     console.log(pos);
     document.querySelector("#result").innerText = pos;
 
-    let obj = JSON.parse(pos);
+    let obj = customEvent.data
 
     main(obj.players, obj.round, obj.map)
     context.sendCustomMessage(CH.settings, undefined, "settings updated");
