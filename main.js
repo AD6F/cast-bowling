@@ -305,7 +305,7 @@ const main = async (playerNames, roundNb, map) => {
     myApp(app);
 
     // Then adding the application's canvas to the DOM body.
-    document.body.appendChild(app.canvas);
+    document.querySelector("#pixi-container").appendChild(app.canvas);
 
     //Visual
     visualInit(map, app);
