@@ -299,7 +299,7 @@ const mainStart = async () => {
         height : window.innerHeight-4,
         width :  480*2,
         height : 270*2,
-        background: '#000000'
+        background: '#111111'
     });
     myApp(app);
 
