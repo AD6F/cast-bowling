@@ -9,7 +9,7 @@ const CH = {
 };
 console.log("INITIALIZE");
 
-context.addCustomMessageListener(CH.settings, (customEvent) => {
+context.addCustomMessageListener(CH.settings, async (customEvent) => {
 	const pos = JSON.stringify(customEvent.data);
     let obj = JSON.parse(pos);
     
