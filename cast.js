@@ -9,13 +9,16 @@ const CH = {
 };
 console.log("INITIALIZE");
 
+var settings = undefined;
+
 context.addCustomMessageListener(CH.settings, async (customEvent) => {
 	const pos = JSON.stringify(customEvent.data);
     let obj = JSON.parse(pos);
     
     document.querySelector("#result").innerText = pos;
+    
+    settings = obj;
 
-    await main(["owo", "iwi", "uwu", "ewe"], 10, 0);
     context.sendCustomMessage(CH.settings, undefined, "settings updated");
 });
 
@@ -63,3 +66,10 @@ console.log("PIXI");
 console.log("LOADING..");
 
 await mainStart();
+
+var intervalId = setInterval(async ()=>{
+    if (settings){
+        await main(["owo", "iwi", "uwu", "ewe"], 10, 0);
+        clearInterval(intervalId);
+    }
+}, 100)
