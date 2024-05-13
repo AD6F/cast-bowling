@@ -11,14 +11,15 @@ console.log("INITIALIZE");
 
 var settings = undefined;
 
-context.addCustomMessageListener(CH.settings, async (customEvent) => {
+context.addCustomMessageListener(CH.settings, (customEvent) => {
 	const pos = JSON.stringify(customEvent.data);
     let obj = JSON.parse(pos);
+    settings = obj;
+
+    main(["pl1", "pl2", "pl3", "pl4"], 10, 1);
     
     document.querySelector("#result").innerText = pos;
     
-    settings = obj;
-
     context.sendCustomMessage(CH.settings, undefined, "settings updated");
 });
 
@@ -71,7 +72,7 @@ console.log("LOOP");
 const intervalId = setInterval((arg1)=>{
     console.log("rtest")
     if (arg1){
-        main(["owo", "iwi", "uwu", "ewe"], 10, 0);
+        //main(["owo", "iwi", "uwu", "ewe"], 10, 0);
         clearInterval(intervalId);
     }
 }, 1000, settings)
