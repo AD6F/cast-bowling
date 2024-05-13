@@ -16,6 +16,17 @@ const adjustHeight = (px) => {
     return px*yMulti
 }
 
+const getXmulti = () =>{
+    return xMulti
+}
+
+const adjustWidthReverse = (px) => {
+    return px/xMulti
+}
+const adjustHeightReverse = (px) => {
+    return px/yMulti
+}
+
 const lerp = (a, b, percentage) => {
     return a + percentage * (b-a);
 }
@@ -30,4 +41,4 @@ const clamp = (a, min, max) => {
     }
 }
 
-export {adjustWidth, adjustHeight, lerp, clamp, myApp};
+export {getXmulti, adjustWidth, adjustHeight, adjustWidthReverse, adjustHeightReverse, lerp, clamp, myApp};

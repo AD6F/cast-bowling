@@ -1,6 +1,6 @@
 import {score, scoreInit, scoreAdvance} from "./scoregame.js";
 import {visual, visualInit} from "./visualgame.js";
-import { adjustWidth, adjustHeight, myApp, lerp } from "./globalfunc.js";
+import { adjustWidth, adjustHeight, myApp, lerp, adjustWidthReverse, adjustHeightReverse, getXmulti } from "./globalfunc.js";
 
 // Load the bluey texture.
 const texture = await PIXI.Assets.load('./pixelbluey.png');
@@ -22,14 +22,14 @@ var gutterBallLeftPos = 0;
 var gutterBallRightPos = 0;
 
 const pinGravity = .325;
-var pinCollisionSize = 20;
+var pinCollisionSize = 16;
 
-var debug =false;
+var debug = false;
 
 const ball = {
     spr: {x: 0, y: 0}, 
-    speed: {x: 7.1, y:-1.05},
-    acceleration: {x: -0.002, y:0.01485},
+    speed: {x: 8, y:-0.955},
+    acceleration: {x: -0.002, y:0.0150},
     offset: {x: 0, y: 0, ogSize: 125}
 }
 
@@ -100,16 +100,17 @@ const setPinsUp = (fullreset) =>{
     }
 }
 
-const pinCheckCollision = (pos, pin) => {
-    let d = {x: pos.x - pin.pin.x, y: pos.y - pin.pin.y}
-    let hypo = Math.hypot(d.x, d.y)
-    let dis = pinCollisionSize*2;
-    let smaller = Math.min(adjustWidth(dis), adjustHeight(dis))
-    let bigger = Math.max(adjustWidth(dis), adjustHeight(dis))
-    if (hypo <=  lerp(smaller, bigger, 0.5)){
+const pinCheckCollision = (pos, pin, otherSize) => {
+    let d = {
+        x: (pos.x) - (pin.pin.x), 
+        y: (pos.y) - (pin.pin.y)
+    }
+    let hypo = Math.hypot(d.x, d.y);
+    let dis = (pinCollisionSize + otherSize);
+    if (hypo <=  dis){
         pin.hit = true;
-        pin.offset.xspeed = (Math.sqrt(Math.abs(d.x/3)) * Math.sign(d.x))*-.25
-        pin.offset.yspeed = Math.sqrt(Math.abs(d.y/3))*-Math.sign(d.y)
+        pin.offset.xspeed = (Math.sqrt(Math.abs(d.x/2)) * Math.sign(d.x))*-.25
+        pin.offset.yspeed = Math.sqrt(Math.abs(d.y/2))*-Math.sign(d.y)
         pin.offset.zspeed = -( (Math.random()*1.5) + 3 )
         pin.offset.aspeed = pin.offset.xspeed*0.5 * Math.abs(pin.offset.yspeed) * 10
         pin.offset.aspeed += Math.random()*4
@@ -119,10 +120,10 @@ const pinCheckCollision = (pos, pin) => {
 
 const pinMove = (pin, time) => {
     pin.offset.zspeed += pinGravity*time.deltaTime;
-    pin.pin.x += adjustWidth(pin.offset.xspeed*time.deltaTime)
-    pin.pin.y += adjustHeight(pin.offset.yspeed*time.deltaTime)
+    pin.pin.x += (pin.offset.xspeed)*time.deltaTime
+    pin.pin.y += (pin.offset.yspeed)*time.deltaTime
 
-    pin.offset.y += adjustHeight(pin.offset.zspeed*time.deltaTime);
+    pin.offset.y += (pin.offset.zspeed)*time.deltaTime;
     pin.offset.a += pin.offset.aspeed*time.deltaTime;
 
     if (pin.offset.y>=0){
@@ -132,11 +133,11 @@ const pinMove = (pin, time) => {
     }
 
     //Collide with other pins
-    if (pin.offset.y>-adjustHeight(30)){
+    if (pin.offset.y>-adjustHeight(20)){
         for (let k = 0; k < pinList.length; k++) {
             const element = pinList[k];
             if (!element.hit){
-                pinCheckCollision(pin.pin, element);
+                pinCheckCollision(pin.pin, element, pinCollisionSize*0.8);
             }
         }
     }
@@ -147,7 +148,7 @@ const pinUpdate = (time) =>{
         if (pinList[i].hit){
             pinMove(pinList[i], time)
         }else{
-            pinCheckCollision(bluey, pinList[i]);
+            pinCheckCollision(bluey, pinList[i], 24);
             if (pinList[i].hit){
                 console.log("HGIT " + i)
             }
