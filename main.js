@@ -310,7 +310,7 @@ const mainStart = async () => {
 }
 
 // Asynchronous IIFE
-const main = async (playerNames, roundNb, map) => {
+const main = (playerNames, roundNb, map) => {
     //Visual
     visualInit(map, app);
     scoreInit(playerNames.length, playerNames, roundNb, app);
@@ -385,7 +385,7 @@ const main = async (playerNames, roundNb, map) => {
         pinUpdate(time);
     })
 
-    
+    return 0;
 };
 
 export { main, mainStart };
