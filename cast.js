@@ -62,4 +62,4 @@ console.log("PIXI");
 
 console.log("LOADING..");
 
-mainStart();
+await mainStart();
