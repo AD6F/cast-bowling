@@ -14,6 +14,8 @@ context.addCustomMessageListener(CH.settings, (customEvent) => {
     console.log(pos);
     document.querySelector("#result").innerText = pos;
     context.sendCustomMessage(CH.settings, undefined, "settings updated");
+
+    main(customEvent.data.players, customEvent.data.round, customEvent.data.map)
 });
 
 context.addCustomMessageListener(CH.game, (customEvent) => {
@@ -59,4 +61,4 @@ console.log("PIXI");
 
 console.log("LOADING..");
 
-main();
+//main(["owo", "iwi", "uwu", "ewe"], 10, 1);

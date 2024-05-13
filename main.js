@@ -291,7 +291,7 @@ const update = (time) =>{
 }
 
 // Asynchronous IIFE
-const main = async () => {
+const main = async (playerNames, roundNb, map) => {
     // Create a PixiJS application.
 
     // Intialize the application.
@@ -308,8 +308,8 @@ const main = async () => {
     document.body.appendChild(app.canvas);
 
     //Visual
-    visualInit(0, app);
-    scoreInit(4, ["owo", "uwu", "7w7", ".w."], 10, app);
+    visualInit(map, app);
+    scoreInit(playerNames.length, playerNames, roundNb, app);
 
     // Center the sprite's anchor point
     bluey.anchor.set(0.5, 0.5);
