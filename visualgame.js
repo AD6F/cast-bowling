@@ -1,6 +1,6 @@
 import { adjustWidth, adjustHeight, lerp } from "./globalfunc.js";
 
-var bgScore = null;
+var bgGame = null;
 var bgBowlingFloor = null;
 var app = null;
 
@@ -10,6 +10,29 @@ var floor = {
     topLeft : 0,
     topRight : 0
 }
+
+const bgColors = [
+    {
+        sky : 0x111111,
+        alley : new PIXI.Color('burlywood'),
+        gutter : 0x5f5f5f
+    },
+    {
+        sky : 0x111111,
+        alley : new PIXI.Color('burlywood'),
+        gutter : 0x5f5f5f
+    },
+    {
+        sky : 0x111111,
+        alley : new PIXI.Color('burlywood'),
+        gutter : 0x5f5f5f
+    },
+    {
+        sky : 0x111111,
+        alley : new PIXI.Color('burlywood'),
+        gutter : 0x5f5f5f
+    }
+]
 
 // Load the bluey texture.
 const texture = await PIXI.Assets.load('./pixelbluey.png');
@@ -67,12 +90,12 @@ const visualDrawObj = (spr,offset) =>{
 const visualInit = (theme, appToSet) => {
     app = appToSet;
 
-    bgScore = new PIXI.Graphics()
+    bgGame = new PIXI.Graphics()
     .rect(app.screen.width/2, 0, app.screen.width/2, app.screen.height)
-    .fill(0x111111);
-    bgScore.zIndex = 0;
+    .fill(bgColors[theme].sky);
+    bgGame.zIndex = 0;
 
-    app.stage.addChild(bgScore);
+    app.stage.addChild(bgGame);
 
     let polygon = [
         {x: (app.screen.width/2)-adjustWidth(64), y: app.screen.height},
@@ -87,7 +110,7 @@ const visualInit = (theme, appToSet) => {
     floor.topRight = polygon[2].x - app.screen.width*0.75;
 
     bgBowlingFloor = new PIXI.Graphics()
-    .poly(polygon).fill(new PIXI.Color('burlywood'));
+    .poly(polygon).fill(bgColors[theme].alley);
     bgBowlingFloor.zIndex = 10;
 
     console.log(floor)
@@ -109,7 +132,7 @@ const visualInit = (theme, appToSet) => {
     gutterPolygon[3].y += adjustHeight(16)
 
     let bgBowlingGutter = new PIXI.Graphics()
-    .poly(gutterPolygon).fill(0x5f5f5f);
+    .poly(gutterPolygon).fill(bgColors[theme].gutter);
     bgBowlingGutter.zIndex = 2;
 
     app.stage.addChild(bgBowlingGutter)

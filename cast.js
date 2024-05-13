@@ -63,4 +63,4 @@ console.log("PIXI");
 
 console.log("LOADING..");
 
-//main(["owo", "iwi", "uwu", "ewe"], 10, 1);
+//main(["owo", "iwi", "uwu", "ewe"], 10, 0);
