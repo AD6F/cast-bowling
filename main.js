@@ -290,8 +290,7 @@ const update = (time) =>{
 
 }
 
-// Asynchronous IIFE
-const main = async (playerNames, roundNb, map) => {
+const mainStart = async () => {
     // Create a PixiJS application.
 
     // Intialize the application.
@@ -300,13 +299,16 @@ const main = async (playerNames, roundNb, map) => {
         height : window.innerHeight-4,
         width :  480*2,
         height : 270*2,
-        background: '#1099bb'
+        background: '#000000'
     });
     myApp(app);
 
     // Then adding the application's canvas to the DOM body.
     document.querySelector("#pixi-container").appendChild(app.canvas);
+}
 
+// Asynchronous IIFE
+const main = async (playerNames, roundNb, map) => {
     //Visual
     visualInit(map, app);
     scoreInit(playerNames.length, playerNames, roundNb, app);
@@ -384,4 +386,4 @@ const main = async (playerNames, roundNb, map) => {
     
 };
 
-export { main };
+export { main, mainStart };

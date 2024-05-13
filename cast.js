@@ -1,4 +1,4 @@
-import { main } from "./main.js";
+import { main, mainStart } from "./main.js";
 
 console.log("VERY START");
 const castDebugLogger = cast.debug.CastDebugLogger.getInstance();
@@ -62,4 +62,4 @@ console.log("PIXI");
 
 console.log("LOADING..");
 
-//main(["owo", "iwi", "uwu", "ewe"], 10, 0);
+mainStart();
