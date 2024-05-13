@@ -15,7 +15,7 @@ context.addCustomMessageListener(CH.settings, (customEvent) => {
     
     document.querySelector("#result").innerText = pos;
 
-    main(["owo", "iwi", "uwu", "ewe"], obj.round, obj.map);
+    main(["owo", "iwi", "uwu", "ewe"], 10, 0);
     context.sendCustomMessage(CH.settings, undefined, "settings updated");
 });
 
