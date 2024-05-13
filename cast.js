@@ -11,12 +11,12 @@ console.log("INITIALIZE");
 
 context.addCustomMessageListener(CH.settings, (customEvent) => {
 	const pos = JSON.stringify(customEvent.data);
-    console.log(pos);
+    let obj = JSON.parse(pos);
+    
     document.querySelector("#result").innerText = pos;
+    document.querySelector("#game").innerText = obj.players;
 
-    let obj = customEvent.data
-
-    main(obj.players, obj.round, obj.map)
+    main(obj.players, obj.round, obj.map);
     context.sendCustomMessage(CH.settings, undefined, "settings updated");
 });
 
