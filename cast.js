@@ -13,9 +13,11 @@ context.addCustomMessageListener(CH.settings, (customEvent) => {
 	const pos = JSON.stringify(customEvent.data);
     console.log(pos);
     document.querySelector("#result").innerText = pos;
-    context.sendCustomMessage(CH.settings, undefined, "settings updated");
 
-    main(customEvent.data.players, customEvent.data.round, customEvent.data.map)
+    let obj = JSON.parse(pos);
+
+    main(obj.players, obj.round, obj.map)
+    context.sendCustomMessage(CH.settings, undefined, "settings updated");
 });
 
 context.addCustomMessageListener(CH.game, (customEvent) => {
