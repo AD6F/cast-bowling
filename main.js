@@ -312,9 +312,12 @@ const mainStart = async () => {
 // Asynchronous IIFE
 const main = (playerNames, roundNb, map) => {
     //Visual
+    console.log("PIXI_VISUAL");
     visualInit(map, app);
+    console.log("PIXI_SCORE");
     scoreInit(playerNames.length, playerNames, roundNb, app);
 
+    console.log("PIXI_BALL");
     // Center the sprite's anchor point
     bluey.anchor.set(0.5, 0.5);
 
@@ -327,12 +330,15 @@ const main = (playerNames, roundNb, map) => {
 
     ball.spr = bluey;
 
+    console.log("PIXI_GUTTER");
+
     // Gutter Ball
     gutterBallLeftThreshold = app.screen.height*0.25
     gutterBallRightThreshold = app.screen.height*0.75
     gutterBallLeftPos = app.screen.height*0.2
     gutterBallRightPos = app.screen.height*0.8
 
+    console.log("PIXI_PINS");
     //Set up pins
     setPinsUp(true);
 
@@ -378,6 +384,7 @@ const main = (playerNames, roundNb, map) => {
         app.stage.addChild(bluey);
     }
 
+    console.log("PIXI_TICKERS");
     app.ticker.add((time) =>{
         update(time);
         score(time);

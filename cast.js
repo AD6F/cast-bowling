@@ -18,11 +18,15 @@ context.addCustomMessageListener(CH.settings, (customEvent) => {
     let obj = JSON.parse(pos);
     settings = obj;
 
+    console.log("PIXI_BEFORE");
+
     main(["pl1", "pl2", "pl3", "pl4"], 10, 1);
+
+    console.log("PIXI_AFTER");
     
     document.querySelector("#result").innerText = pos;
     
-    context.sendCustomMessage(CH.settings, undefined, "settings updated");
+    //context.sendCustomMessage(CH.settings, undefined, "settings updated");
 });
 
 context.addCustomMessageListener(CH.game, (customEvent) => {
