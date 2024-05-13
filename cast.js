@@ -14,9 +14,8 @@ context.addCustomMessageListener(CH.settings, (customEvent) => {
     let obj = JSON.parse(pos);
     
     document.querySelector("#result").innerText = pos;
-    document.querySelector("#game").innerText = obj.players;
 
-    main(obj.players, obj.round, obj.map);
+    main(["owo", "iwi", "uwu", "ewe"], obj.round, obj.map);
     context.sendCustomMessage(CH.settings, undefined, "settings updated");
 });
 
