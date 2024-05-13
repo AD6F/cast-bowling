@@ -18,11 +18,7 @@ context.addCustomMessageListener(CH.settings, (customEvent) => {
     let obj = JSON.parse(pos);
     settings = obj;
 
-    console.log("PIXI_BEFORE");
-
-    main(["pl1", "pl2", "pl3", "pl4"], 10, 1);
-
-    console.log("PIXI_AFTER");
+    main(obj.players, obj.round, obj.map);
     
     document.querySelector("#result").innerText = pos;
     
