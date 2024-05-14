@@ -24,7 +24,7 @@ var gutterBallRightPos = 0;
 const pinGravity = .325;
 var pinCollisionSize = 16;
 
-var debug = false;
+var debug = true;
 
 const ball = {
     spr: {x: 0, y: 0}, 
@@ -269,23 +269,36 @@ const update = (time) =>{
     }else if (ball.spr.x < -200 && ball.speed.x<0){
         let pinsHit = checkPinsHit();
         let result = scoreAdvance(pinsHit);
-        setPinsUp(result);
 
-        ball.spr.x = -200;
-        ball.spr.y = app.screen.height*(Math.random()*0.25) + (app.screen.height*0.375);
-
-        ball.speed = {
-            x: (7 + Math.random()*2),
-            y: (Math.random()*2) - 1
-        }
+        if (result==2){
+            ball.spr.x = adjustWidth(200);
+            ball.spr.y = app.screen.height/2;
+            let frameText = new PIXI.Text({text:`Fin.`});
         
-        ball.acceleration = {
-            x: -(Math.random()*0.01),
-            y: (Math.random()*0.0075) - (0.0075*0.5)
-        }
+            frameText.x = app.screen.width*0.75;
+            frameText.y = app.screen.height*0.4;
+            frameText.zIndex = 1200;
 
-        ball.offset.x = 0;
-        ball.offset.y = 0;
+            app.stage.addChild(frameText);
+        }else{
+            setPinsUp(result);
+
+            ball.spr.x = -200;
+            ball.spr.y = app.screen.height*(Math.random()*0.25) + (app.screen.height*0.375);
+
+            ball.speed = {
+                x: (7 + Math.random()*2),
+                y: (Math.random()*2) - 1
+            }
+            
+            ball.acceleration = {
+                x: -(Math.random()*0.01),
+                y: (Math.random()*0.0075) - (0.0075*0.5)
+            }
+
+            ball.offset.x = 0;
+            ball.offset.y = 0;
+        }
     }
 
 }

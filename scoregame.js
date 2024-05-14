@@ -38,7 +38,7 @@ const updateScore = () => {
   for (let pId = 0; pId < scoreBoard.length; pId++) {
     for (let fId = minFrame; fId < maxFrame; fId++) {
         let txt = "";
-        console.log({pId: pId, fId: fId, sc: scoreBoard[pId][fId]});
+        
         for (let rId = 0; rId < scoreBoard[pId][fId].length; rId++) {
             let score = scoreBoard[pId][fId][rId]
             txt += (score==undefined) ? 
@@ -57,7 +57,7 @@ const updateScore = () => {
 // Bowling scoring reference https://www.wikihow.com/Score-Bowling
 const scoreAdvance = (pinsHit) => {
     let flagShouldReset = false;
-    console.log(pinsHit)
+    
     scoreBoard[scorePlayerIndex][scoreFrame][scoreRound] = pinsHit;
 
     scoreRound++;
@@ -76,6 +76,9 @@ const scoreAdvance = (pinsHit) => {
     }
 
     console.log(scoreBoard);
+    if (scoreFrame>=maxRound){
+        return 2
+    }
     return flagShouldReset;
 }
 
