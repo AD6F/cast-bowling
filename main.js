@@ -319,6 +319,34 @@ const mainStart = async () => {
     // Then adding the application's canvas to the DOM body.
     document.querySelector("#pixi-container").appendChild(app.canvas);
 
+    let txtMainStyle = new PIXI.TextStyle({
+        fill: 0xFFFFFF, fontSize: 40,
+        stroke: {color:0x000000, width:6, join:"round"}
+    })
+    let txtHintStyle = new PIXI.TextStyle({
+        fill: 0xFFFFFF, fontSize: 20,
+        stroke: {color:0x000000, width:2, join:"round"},
+        wordWrap : true, wordWrapWidth : 300
+    })
+
+    let textMain = new PIXI.Text({
+        text: "Bowling",
+        x : adjustWidth(34),
+        y : adjustHeight(45),
+        style: txtMainStyle
+    });
+
+    let textHint = new PIXI.Text({
+        text: "To start the game, press \"Play\" on your phone and adjust the settings to your preferences.",
+        x : adjustWidth(55),
+        y : adjustHeight(100),
+        style: txtHintStyle
+    });
+
+
+    app.stage.addChild(textMain);
+    app.stage.addChild(textHint);
+
     return 0;
 }
 
