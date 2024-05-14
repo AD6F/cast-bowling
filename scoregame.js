@@ -63,7 +63,7 @@ const scoreAdvance = (pinsHit) => {
     scoreRound++;
     updateScore();
     
-    if ( ( (scoreRound>1 && scoreFrame<9) || (scoreRound>2) ) || pinsHit==10 ){
+    if ( ( (scoreRound>1 && scoreFrame<(maxRound-1)) || (scoreRound>2) ) || pinsHit==10 ){
         scoreRound = 0;
         scorePlayerIndex++;
         flagShouldReset = true;
