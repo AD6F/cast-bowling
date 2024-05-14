@@ -69,10 +69,5 @@ console.log("PIXI");
 console.log("LOADING..");
 
 console.log("LOOP");
-const intervalId = setInterval((arg1)=>{
-    console.log("rtest")
-    if (arg1){
-        //main(["owo", "iwi", "uwu", "ewe"], 10, 0);
-        clearInterval(intervalId);
-    }
-}, 1000, settings)
+
+main(["owo", "iwi"], 5, 0);

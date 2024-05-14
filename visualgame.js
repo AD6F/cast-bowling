@@ -31,6 +31,11 @@ const bgColors = [
         sky : 0x111111,
         alley : new PIXI.Color('burlywood'),
         gutter : 0x5f5f5f
+    },
+    {
+        sky : 0x111111,
+        alley : new PIXI.Color('burlywood'),
+        gutter : 0x5f5f5f
     }
 ]
 

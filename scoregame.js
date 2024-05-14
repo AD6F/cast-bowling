@@ -11,13 +11,18 @@ var playerNames = []
 var scorePlayerIndex = 0;
 var scoreFrame = 0;
 var scoreRound = 0;
+var maxRound = 0;
 
 var scoreShowcase = [
     
 ]
 
+const getMinFrameDisplay = (frame) => {
+    return Math.min(frame, maxRound-4);
+}
+
 const updateFrameTop = () => {
-    let minFrame = Math.min(scoreFrame, 10-4);
+    let minFrame = getMinFrameDisplay(scoreFrame);
     console.log("min frame" + minFrame)
     for (let i = 0; i < scoreShowcase.length; i++) {
         const element = scoreShowcase[i];
@@ -27,12 +32,13 @@ const updateFrameTop = () => {
 
 const updateScore = () => {
     // TODO : rework this
-    let minFrame = Math.min(scoreFrame-1, 10-4);
+    let minFrame = getMinFrameDisplay(scoreFrame-1);
     minFrame = (minFrame<=0) ? 0 : minFrame;
     let maxFrame = Math.min(minFrame+4, 10);
   for (let pId = 0; pId < scoreBoard.length; pId++) {
     for (let fId = minFrame; fId < maxFrame; fId++) {
         let txt = "";
+        console.log({pId: pId, fId: fId, sc: scoreBoard[pId][fId]});
         for (let rId = 0; rId < scoreBoard[pId][fId].length; rId++) {
             let score = scoreBoard[pId][fId][rId]
             txt += (score==undefined) ? 
@@ -75,6 +81,8 @@ const scoreAdvance = (pinsHit) => {
 
 const scoreInit = (playerCount, pNames, roundCount, appToSet, debug) =>{
     app = appToSet;
+
+    maxRound = roundCount;
 
     bgScore = new PIXI.Graphics()
     .rect(0, 0, app.screen.width/2, app.screen.height)
