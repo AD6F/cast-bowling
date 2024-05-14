@@ -303,6 +303,8 @@ const update = (time) =>{
 
 }
 
+var menuObjList = [];
+
 const mainStart = async () => {
     // Create a PixiJS application.
 
