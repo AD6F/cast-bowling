@@ -36,7 +36,7 @@ const bgColors = [
     },
     { // Cold Sea
         sky : 0x10243d,
-        alley : new PIXI.Color({h: 185, s: 94, v: 93, a: 0.5}),
+        alley : new PIXI.Color({r: 0x80, g: 0x9b, b: 0xce, a: 0.5}),
         gutter : new PIXI.Color({h: 5, s: 34, v: 23, a: 0.25})
     },
     { // Infiltration

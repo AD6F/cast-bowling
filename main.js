@@ -24,7 +24,7 @@ var gutterBallRightPos = 0;
 const pinGravity = .325;
 var pinCollisionSize = 16;
 
-var debug = true;
+var debug = false;
 
 const ball = {
     spr: {x: 0, y: 0}, 
@@ -271,8 +271,10 @@ const update = (time) =>{
         let result = scoreAdvance(pinsHit);
 
         if (result==2){
-            ball.spr.x = adjustWidth(200);
+            ball.spr.x = adjustWidth(300);
             ball.spr.y = app.screen.height/2;
+            ball.speed.y = 0; ball.speed.x = 0;
+            ball.acceleration.y = 0; ball.acceleration.x = 0;
             let frameText = new PIXI.Text({text:`Fin.`});
         
             frameText.x = app.screen.width*0.75;
