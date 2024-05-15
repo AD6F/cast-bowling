@@ -65,8 +65,10 @@ const visualDrawObj = (spr,offset) =>{
     }
 }
 
-const visualInit = (theme, appToSet) => {
+const visualInit = async (theme, appToSet) => {
     app = appToSet;
+
+    await bgColors[theme].init(app);
 
     bgGame = new PIXI.Graphics()
     .rect(app.screen.width/2, 0, app.screen.width/2, app.screen.height)
