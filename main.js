@@ -170,6 +170,8 @@ const playBowlingVideo = async (url, func) =>{
     
     let video = new PIXI.Sprite(videoSource);
 
+    video.zIndex = 10;
+
     video.texture.source.source.resource.addEventListener("ended", async (event) => {
         func();
         await PIXI.Assets.unload(url);
