@@ -73,7 +73,7 @@ const visualInit = async (theme, appToSet) => {
     bgGame = new PIXI.Graphics()
     .rect(app.screen.width/2, 0, app.screen.width/2, app.screen.height)
     .fill(bgColors[theme].sky);
-    bgGame.zIndex = 0;
+    bgGame.zIndex = -1;
 
     app.stage.addChild(bgGame);
 

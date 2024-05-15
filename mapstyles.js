@@ -24,6 +24,40 @@ const setXpos = (app) => {
     return app.screen.width*(0.5 + (Math.random()*0.5))
 }
 
+const floatingSpritesEffect = async (app, sprites, xSpeed, speedMin, speedFlicker, alphaMin, alphaFlicker) => {
+    var tex = new Array(sprites.length);
+
+    for(let i = 0; i < tex.length; i++){
+        tex[i] = await PIXI.Assets.load(sprites[i]);
+    }
+
+    var list = new Array(64);
+
+    for(let i = 0; i < list.length; i++){
+        let spr = tex[i%tex.length];
+        list[i] = new PIXI.Sprite(spr);
+        list[i].xstart = setXpos(app);
+        list[i].y = (app.screen.height*Math.random());
+        list[i].speed = speedMin + (Math.random()*speedFlicker);
+        list[i].xspeed = Math.random()*xSpeed;
+        app.stage.addChild(list[i]);
+    }
+
+    app.ticker.add( (time) => {
+        for(let i = 0; i < list.length; i++){
+            list[i].xspeed += time.deltaTime*0.005
+            list[i].x = list[i].xstart + (Math.sin(list[i].xspeed)*xSpeed);
+            list[i].y += time.deltaTime*list[i].speed;
+            list[i].alpha = (Math.random()*alphaFlicker) + alphaMin;
+
+            if (list[i].y > app.screen.height){
+                list[i].y = -32;
+                list[i].xstart= setXpos(app);
+            }
+        }
+    })
+}
+
 const bgColors = [
     {
         sky : 0x111111,
@@ -44,7 +78,7 @@ const bgColors = [
         sky : bgSkyNY,
         alley : new PIXI.Color('#948270'),
         gutter : new PIXI.Color('#38302a'),
-        init : () => {
+        init : async () => {
             
         }
     },
@@ -53,32 +87,8 @@ const bgColors = [
         alley : gutterUndercover,
         gutter : new PIXI.Color({h: 0, s: 10, v: 10}),
         init : async (app) => {
-            var digitTex0 = await PIXI.Assets.load('./digit0.png');
-            var digitTex1 = await PIXI.Assets.load('./digit1.png');
-
-            var list = new Array(64);
-
-            for(let i = 0; i < list.length; i++){
-                let spr = (i%2) ? digitTex0 : digitTex1;
-                list[i] = new PIXI.Sprite(spr);
-                list[i].x = setXpos(app);
-                list[i].y = (app.screen.height*Math.random());
-                list[i].speed = 0.5 + (Math.random()*1.5);
-                list[i].zIndex = 1;
-                app.stage.addChild(list[i]);
-            }
-
-            app.ticker.add( (time) => {
-                for(let i = 0; i < list.length; i++){
-                    list[i].y += time.deltaTime*list[i].speed;
-                    list[i].alpha = (Math.random()*0.5) + 0.25;
-
-                    if (list[i].y > app.screen.height){
-                        list[i].y = -10;
-                        list[i].x = setXpos(app);
-                    }
-                }
-            })
+            floatingSpritesEffect(app, ["./digit0.png", "./digit1.png"], 
+                0, 0.5, 1.5, 0.5, 0.25);
         }
     },
     { // Cold Sea
@@ -86,6 +96,20 @@ const bgColors = [
         alley : new PIXI.Color({r: 0x80, g: 0x9b, b: 0xce, a: 0.5}),
         gutter : new PIXI.Color({h: 5, s: 34, v: 23, a: 0.25}),
         init : async (app) => {
+            floatingSpritesEffect(app, ["./waterBubble.png"], 
+                48, 0.15, 0.5, 0.125, 0);
+
+            var waterTex0 = await PIXI.Assets.load('./waterWave.png');
+            var listWater = new Array(16);
+            
+            for (let i = 0; i < listWater.length; i++){
+                let sprWater = new PIXI.Sprite(waterTex0);
+                sprWater.x = (app.screen.width*0.5) + 32*i;
+
+                listWater[i] = sprWater;
+                app.stage.addChild(sprWater);
+            }
+
             var timer = 0;
 
             let lightPolygon = [
@@ -114,7 +138,14 @@ const bgColors = [
             app.ticker.add( (time) => {
                 timer += time.deltaTime*0.005
                 lightShineGraphic.angle  = (Math.sin(timer)*0.5);
-                lightShineGraphic2.angle = (Math.sin(timer)*1.0);
+                lightShineGraphic2.angle = (Math.sin(timer)*1.5);
+
+                let resetPos = listWater[0].x < ((app.screen.width*0.5)-32);
+                for (let i = 0; i < listWater.length; i++){
+                    listWater[i].x = (resetPos) ? 
+                        (app.screen.width*0.5) + 32*i : 
+                        listWater[i].x - (time.deltaTime/8);
+                }
             })
         }
     },
@@ -122,7 +153,7 @@ const bgColors = [
         sky : 0x111111,
         alley : new PIXI.Color('burlywood'),
         gutter : 0x5f5f5f,
-        init : () => {
+        init : async () => {
             
         }
     }
