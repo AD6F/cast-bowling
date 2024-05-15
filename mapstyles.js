@@ -86,25 +86,25 @@ const bgColors = [
         alley : new PIXI.Color({r: 0x80, g: 0x9b, b: 0xce, a: 0.5}),
         gutter : new PIXI.Color({h: 5, s: 34, v: 23, a: 0.25}),
         init : async (app) => {
-            var timer = 0
+            var timer = 0;
 
             let lightPolygon = [
                 {x: 0, y: -adjustHeight(30)},
                 {x: 0, y: -adjustHeight(30)},
-                {x: -adjustWidth(148), y:app.screen.height*1.5},
-                {x: adjustWidth(148), y:app.screen.height*1.5}
+                {x: -adjustWidth(90), y:app.screen.height*0.7025},
+                {x:  adjustWidth(90), y:app.screen.height*0.7025}
             ]
         
             var lightShineGraphic = new PIXI.Graphics()
             .poly(lightPolygon).fill(0xDDDDDD);
             lightShineGraphic.alpha = 0.1; lightShineGraphic.zIndex = 1;
-            lightShineGraphic.x = app.screen.width*0.55;
+            lightShineGraphic.x = app.screen.width*0.75;
             lightShineGraphic.y = -app.screen.width*0.05;
         
             var lightShineGraphic2 = new PIXI.Graphics()
             .poly(lightPolygon).fill(0x777777);
             lightShineGraphic2.alpha = 0.1; lightShineGraphic2.zIndex = 1;
-            lightShineGraphic2.x = app.screen.width*0.55;
+            lightShineGraphic2.x = app.screen.width*0.75;
             lightShineGraphic2.y = -app.screen.width*0.05;
             lightShineGraphic2.scale.x = 1.25
 
@@ -112,9 +112,9 @@ const bgColors = [
             app.stage.addChild(lightShineGraphic2);
 
             app.ticker.add( (time) => {
-                timer += time.deltaTime*0.001
-                lightShineGraphic.angle  = -21 + (Math.sin(timer)*5);
-                lightShineGraphic2.angle = -21 + (Math.sin(timer)*6);
+                timer += time.deltaTime*0.005
+                lightShineGraphic.angle  = (Math.sin(timer)*0.5);
+                lightShineGraphic2.angle = (Math.sin(timer)*1.0);
             })
         }
     },
