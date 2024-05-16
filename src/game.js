@@ -13,6 +13,8 @@ var elapsedTime = 0;
 var deltaTime = 0; 
 var halfTime = 0;
 
+var isWaitingForThrow = false
+
 var gutterBallLeftThreshold = 0;
 var gutterBallRightThreshold = 0;
 var gutterBallLeftPos = 0;
@@ -219,17 +221,27 @@ const checkGutter = (obj) => {
     }
 }
 
+const throwBall = (values) => {
+    ball.offset.x = 0;
+    ball.offset.y = 0;
+
+    ball.spr.x = -500;
+    ball.spr.y = lerp(
+        gutterBallLeftThreshold, 
+        gutterBallRightThreshold, 
+        values.position
+    );
+
+    ball.speed = values.speed;
+
+    ball.acceleration = values.acceleration;
+}
+
 var yPosTo = 0;
 const update = (time) =>{
     elapsedTime += time.elapsedMS;
     deltaTime = time.deltaTime;
     halfTime = deltaTime/2;
-
-    //bluey.rotation += time.deltaTime * 0.01;
-    //bluey.alpha = Math.abs(Math.sin(elapsedTime/750));
-    //bluey.skew = new PIXI.Point((Math.sin(elapsedTime/750))*1.25, -0.5*(Math.sin(elapsedTime/750)));
-    bluey.tint = new PIXI.Color(`hsl(${((elapsedTime/20)%360)}, 100%, 70%, 50%)`).toNumber();
-    //console.log(elapsedTime);
 
     moveSelf(ball);
     checkGutter(ball);
@@ -242,8 +254,7 @@ const update = (time) =>{
     if (ball.spr.x> app.screen.width && ball.speed.x!=0){
         ball.spr.x = app.screen.width;
         ball.speed = {x: 0, y:0};
-        ball.acceleration.x = 0;
-        ball.acceleration.y = 0;
+        ball.acceleration = {x: 0, y:0};
         if (ball.spr.y>(app.screen.height/2)){
             yPosTo = gutterBallRightPos+adjustHeight(32);
         }else{
@@ -256,7 +267,6 @@ const update = (time) =>{
             ball.speed.x = -4;
         }else{
             setTimeout(() => {
-                // TODO : Fix issue where chromecast plays the video, but it's not actually visible.
                 playBowlingVideo("./assets/video/fem.mp4", () => {
                     setTimeout(() => {
                         ball.speed.x = -0.05;
@@ -271,7 +281,7 @@ const update = (time) =>{
         let result = scoreAdvance(pinsHit);
 
         if (result==2){
-            ball.spr.x = adjustWidth(300);
+            ball.spr.x = -adjustWidth(300);
             ball.spr.y = app.screen.height/2;
             ball.speed.y = 0; ball.speed.x = 0;
             ball.acceleration.y = 0; ball.acceleration.x = 0;
@@ -284,22 +294,8 @@ const update = (time) =>{
             app.stage.addChild(frameText);
         }else{
             setPinsUp(result);
-
-            ball.spr.x = -200;
-            ball.spr.y = app.screen.height*(Math.random()*0.25) + (app.screen.height*0.375);
-
-            ball.speed = {
-                x: (7 + Math.random()*2),
-                y: (Math.random()*2) - 1
-            }
-            
-            ball.acceleration = {
-                x: -(Math.random()*0.01),
-                y: (Math.random()*0.0075) - (0.0075*0.5)
-            }
-
-            ball.offset.x = 0;
-            ball.offset.y = 0;
+            ball.spr.x = -180; ball.speed.x = 0;
+            ball.acceleration = { x: 0, y: 0};
         }
     }
 
@@ -367,7 +363,7 @@ const main = (playerNames, roundNb, map) => {
     bluey.circular = true;
 
     // Move the sprite to the center of the screen
-    bluey.x = -100;
+    bluey.x = -500;
     bluey.y = app.screen.height*0.5;
 
     ball.spr = bluey;
@@ -433,4 +429,4 @@ const main = (playerNames, roundNb, map) => {
     return 0;
 };
 
-export { main, mainStart };
+export { main, mainStart, throwBall };

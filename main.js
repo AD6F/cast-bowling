@@ -1,4 +1,4 @@
-import { main, mainStart } from "./src/game.js";
+import { main, mainStart, throwBall } from "./src/game.js";
 
 console.log("VERY START");
 const castDebugLogger = cast.debug.CastDebugLogger.getInstance();
@@ -29,6 +29,9 @@ context.addCustomMessageListener(CH.game, (customEvent) => {
 	const pos = JSON.stringify(customEvent.data);
     console.log(pos);
     document.querySelector("#game").innerText = pos;
+
+    throwBall(customEvent.data);
+
     context.sendCustomMessage(CH.game, undefined, "ball throw");
 });
 
@@ -70,4 +73,13 @@ console.log("LOADING..");
 
 console.log("LOOP");
 
-main(["owo", "iwi"], 5, 0);
+//main(["owo", "iwi"], 4, 3);
+//
+//
+//setTimeout( () => {
+//    throwBall({ 
+//        speed: {x: 8, y:-0.955},
+//        acceleration: {x: -0.002, y:0.0150},
+//        position: 0.275
+//    })
+//}, 1000);
