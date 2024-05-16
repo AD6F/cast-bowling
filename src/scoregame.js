@@ -90,7 +90,7 @@ const scoreInit = (playerCount, pNames, roundCount, appToSet, debug) =>{
     bgScore = new PIXI.Graphics()
     .rect(0, 0, app.screen.width/2, app.screen.height)
     .fill(0x000000);
-    bgScore.zIndex = 1000;
+    bgScore.zIndex = 10000;
 
     app.stage.addChild(bgScore);
 
@@ -100,7 +100,7 @@ const scoreInit = (playerCount, pNames, roundCount, appToSet, debug) =>{
         (appToSet.screen.width/2)-adjustHeight(48), 
          appToSet.screen.height-adjustHeight(48))
     .fill(0xCCCCCC);
-    bgWhiteBG.zIndex = 1100;
+    bgWhiteBG.zIndex = 11000;
 
     app.stage.addChild(bgWhiteBG);
 
@@ -155,7 +155,7 @@ const scoreInit = (playerCount, pNames, roundCount, appToSet, debug) =>{
         .rect(posX, posY, 
         1, yStart+(3.5*yOff)-adjustHeight(5))
         .fill(0x000000);
-        vSeperator.zIndex = 1200;
+        vSeperator.zIndex = 12000;
 
         app.stage.addChild(vSeperator);
         
@@ -166,7 +166,7 @@ const scoreInit = (playerCount, pNames, roundCount, appToSet, debug) =>{
             
             scoreText.x = posX + (xOff*0.75);
             scoreText.y = yStart-(yOff*0.35) + (yOff*(j+0.35));
-            scoreText.zIndex = 1200;
+            scoreText.zIndex = 12000;
 
             app.stage.addChild(scoreText);
         }
@@ -174,7 +174,7 @@ const scoreInit = (playerCount, pNames, roundCount, appToSet, debug) =>{
         
         frameText.x = posX+adjustWidth(5);
         frameText.y = yStart-(yOff*0.35);
-        frameText.zIndex = 1200;
+        frameText.zIndex = 12000;
 
         app.stage.addChild(frameText);
         scoreShowcase[i].unshift(frameText)
