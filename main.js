@@ -30,10 +30,11 @@ context.addCustomMessageListener(CH.game, (customEvent) => {
     const angle = (data.direction/100)*180;
     const radian = angle * Math.PI /180;
     const force = data.force/5;
+
     var result = { 
-        speed: {x: Math.sin(radian)*force, y:Math.cos(radian)*force},
+        speed: {x: Math.sin(radian)*force, y:Math.cos(radian)*force*0.25},
         acceleration: {x: -0.002, y:0.0150},
-        position: 0.275
+        position: 0.5
     }
 
     throwBall(result);
