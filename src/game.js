@@ -195,7 +195,8 @@ const checkGutter = (obj) => {
 }
 
 const throwBall = (values) => {
-    ball.offset = {x: 0, y: 0};
+    ball.offset.x = 0;
+    ball.offset.y = 0;
 
     ball.spr.x = -500;
     ball.spr.y = lerp(gutterBallLeftThreshold, 
