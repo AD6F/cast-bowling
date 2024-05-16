@@ -183,9 +183,9 @@ const bgColors = [
         }
     },
     { // Infiltration
-        sky : 0x222231,
-        alley : new PIXI.Color({r: 0xc0, g: 0xc0, b: 0xc0, a:0.25}),
-        gutter : new PIXI.Color({r: 0x47, g: 0x4e, b: 0x5e, a: 0.25 }),
+        sky : 0,
+        alley : new PIXI.Color({r: 0xc0, g: 0xc0, b: 0xc0, a:0.125}),
+        gutter : new PIXI.Color({r: 0x47, g: 0x4e, b: 0x5e, a: 0.125 }),
         init : async (app) => {
             let colorOfLaser = {width:2, color:0xFF0000, alpha: 0.4};
 
@@ -217,11 +217,21 @@ const bgColors = [
             var bgTex = await PIXI.Assets.load("./vault.png");
             var bgSpr = new PIXI.Sprite(bgTex);
 
-            bgSpr.anchor.set(0.5, 0.025);
+            bgSpr.anchor.set(0.5, 0.1);
             bgSpr.x = app.screen.width*0.75;
-            bgSpr.scale = 1; bgSpr.zIndex = -0.5
+            bgSpr.scale = 0.775; bgSpr.zIndex = -0.5
 
             app.stage.addChild(bgSpr);
+
+            var camTex = await PIXI.Assets.load("./securitycam.png");
+            var camSpr = new PIXI.Sprite(camTex);
+
+            camSpr.anchor.set(0.5, -0.1);
+            camSpr.x = app.screen.width*0.945;
+            camSpr.scale = 0.1; camSpr.zIndex = -0.25;
+            camSpr.angle = 4; camSpr.tint = 0xAAAAAA;
+
+            app.stage.addChild(camSpr);
         }
     },
     { // Galaxy
