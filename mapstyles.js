@@ -184,10 +184,10 @@ const bgColors = [
     },
     { // Infiltration
         sky : 0x222231,
-        alley : new PIXI.Color('silver'),
-        gutter : 0x474e5e,
+        alley : new PIXI.Color({r: 0xc0, g: 0xc0, b: 0xc0, a:0.25}),
+        gutter : new PIXI.Color({r: 0x47, g: 0x4e, b: 0x5e, a: 0.25 }),
         init : async (app) => {
-            let colorOfLaser = {width:2, color:0xFF0000, alpha: 0.25};
+            let colorOfLaser = {width:2, color:0xFF0000, alpha: 0.4};
 
             var laser = new PIXI.Graphics()
             .moveTo(app.screen.width*0.5,0)
@@ -213,6 +213,15 @@ const bgColors = [
             app.stage.addChild(laser2);
             app.stage.addChild(laser3);
             app.stage.addChild(laser4);
+
+            var bgTex = await PIXI.Assets.load("./vault.png");
+            var bgSpr = new PIXI.Sprite(bgTex);
+
+            bgSpr.anchor.set(0.5, 0.025);
+            bgSpr.x = app.screen.width*0.75;
+            bgSpr.scale = 1; bgSpr.zIndex = -0.5
+
+            app.stage.addChild(bgSpr);
         }
     },
     { // Galaxy
