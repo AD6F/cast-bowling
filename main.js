@@ -30,7 +30,17 @@ context.addCustomMessageListener(CH.game, (customEvent) => {
     console.log(pos);
     document.querySelector("#game").innerText = pos;
 
-    throwBall(customEvent.data);
+    const data = customEvent.data;
+    const angle = (data.direction/100)*180;
+    const radian = angle * Math.PI /180;
+    const force = data.force;
+    var result = { 
+        speed: {x: Math.sin(radian)*force, y:Math.cos(radian)*force},
+        acceleration: {x: -0.002, y:0.0150},
+        position: 0.275
+    }
+
+    throwBall(result);
 
     context.sendCustomMessage(CH.game, undefined, "ball throw");
 });

@@ -35,8 +35,7 @@ const floatingSpritesEffect = async (app, sprites, val) => {
 
     for(let i = 0; i < list.length; i++){
         let spr = tex[i%tex.length];
-        list[i] = new PIXI.Sprite(spr);
-        list[i].xstart = setXpos(app);
+        list[i] = new PIXI.Sprite(spr); list[i].xstart = setXpos(app);
         list[i].y = (app.screen.height*Math.random());
         list[i].speed = val.speedMin + (Math.random()*val.speedFlicker);
         list[i].xOffTimer = Math.random()*val.xOff;
@@ -47,11 +46,10 @@ const floatingSpritesEffect = async (app, sprites, val) => {
     app.ticker.add( (time) => {
         for(let i = 0; i < list.length; i++){
             list[i].xOffTimer += time.deltaTime*0.005
-            list[i].x = list[i].xstart + 
-                (Math.sin(list[i].xOffTimer)*val.xOff);
+            list[i].x = list[i].xstart + (Math.sin(list[i].xOffTimer)*val.xOff);
+                
             list[i].y += time.deltaTime*list[i].speed;
-            list[i].alpha = val.alphaMin + 
-                (Math.random()*val.alphaFlicker);
+            list[i].alpha = val.alphaMin + (Math.random()*val.alphaFlicker);
 
             if (list[i].y > app.screen.height){
                 list[i].y = -32;
@@ -63,10 +61,8 @@ const floatingSpritesEffect = async (app, sprites, val) => {
 
 const bgColors = [
     {
-        sky : 0x111111,
-        alley : new PIXI.Color('burlywood'),
-        gutter : 0x5f5f5f,
-        init : async (app) => {
+        sky : 0x111111, alley : new PIXI.Color('burlywood'),
+        gutter : 0x5f5f5f, init : async (app) => {
             let bgGame = new PIXI.Graphics()
             .rect(app.screen.width*0.575, 1, app.screen.width*0.35, (app.screen.height*0.38) + 1)
             .fill(0x222222)
@@ -78,50 +74,36 @@ const bgColors = [
         }
     },
     { // New York
-        sky : 0x0,
-        alley : new PIXI.Color('#948270'),
-        gutter : new PIXI.Color('#38302a'),
-        init : async (app) => {
+        sky : 0x0, alley : new PIXI.Color('#948270'),
+        gutter : new PIXI.Color('#38302a'), init : async (app) => {
             var bgTex = await PIXI.Assets.load({
                 src: "./assets/img/newyorkBG.mp4",
-                data:{
-                    loop: true
-                }
+                data:{ loop: true }
             });
             var bgSpr = new PIXI.Sprite(bgTex);
+            var bgSpr2 = new PIXI.Sprite(bgTex);
 
             bgSpr.anchor.set(0.5, 0.1);
             bgSpr.x = app.screen.width*0.75;
-            bgSpr.scale = 0.665;
-            bgSpr.zIndex = -0.5;
-
-            app.stage.addChild(bgSpr);
-
-            var bgSpr2 = new PIXI.Sprite(bgTex);
+            bgSpr.scale = 0.665; bgSpr.zIndex = -0.5;
 
             bgSpr2.anchor.set(0.5, 1);
             bgSpr2.x = app.screen.width*0.75;
             bgSpr2.y = app.screen.height*0.785;
-            bgSpr2.zIndex = -0.5;
-            bgSpr2.scale.x = 0.665;
-            bgSpr2.scale.y = 0.735;
-            bgSpr2.zIndex = -0.75;
+            bgSpr2.zIndex = -0.5; bgSpr2.zIndex = -0.75;
+            bgSpr2.scale.x = 0.665; bgSpr2.scale.y = 0.735;
 
+            app.stage.addChild(bgSpr);
             app.stage.addChild(bgSpr2);
         }
     },
     { // Matrix
-        sky : 0x000000,
-        alley : alleyMatrix,
+        sky : 0x000000, alley : alleyMatrix,
         gutter : new PIXI.Color({h: 0, s: 10, v: 10}),
         init : async (app) => {
             floatingSpritesEffect(app, ["./assets/img/digit0.png", "./assets/img/digit1.png"], {
-                xOff: 0, 
-                speedMin: 0.5, 
-                speedFlicker: 1.5, 
-                alphaMin: 0.5, 
-                alphaFlicker:0.25,
-                nb: 128
+                xOff: 0, speedMin: 0.5, speedFlicker: 1.5, 
+                alphaMin: 0.5, alphaFlicker:0.25, nb: 128
             });
         }
     },
@@ -131,26 +113,22 @@ const bgColors = [
         gutter : 0x01082d,
         init : async (app) => {
             floatingSpritesEffect(app, ["./assets/img/waterBubble.png"], {
-                xOff: 64, 
-                speedMin: 0.15, 
-                speedFlicker: 0.5, 
-                alphaMin: 0.125, 
-                alphaFlicker: 0,
-                nb: 64
+                xOff: 64, speedMin: 0.15, speedFlicker: 0.5, 
+                alphaMin: 0.125, alphaFlicker: 0, nb: 64
             });
 
             var waterTex0 = await PIXI.Assets.load('./assets/img/waterWave.png');
             var listWater = new Array(16);
+            var timer = 0;
             
             for (let i = 0; i < listWater.length; i++){
                 let sprWater = new PIXI.Sprite(waterTex0);
                 sprWater.x = (app.screen.width*0.5) + 32*i;
                 sprWater.zIndex = 2;
+                
                 listWater[i] = sprWater;
                 app.stage.addChild(sprWater);
             }
-
-            var timer = 0;
 
             let lightPolygon = [
                 {x: 0, y: -adjustHeight(30)},
@@ -193,8 +171,7 @@ const bgColors = [
 
             sharkSpr.x = app.screen.width*2;
             sharkSpr.scale.x = -0.75; sharkSpr.scale.y = 0.75;
-            sharkSpr.tint = 0x181818;
-            sharkSpr.angle = -3;
+            sharkSpr.tint = 0x181818; sharkSpr.angle = -3;
 
             app.ticker.add( (time) => {
                 sharkSpr.x -= time.deltaTime;
@@ -282,8 +259,7 @@ const bgColors = [
                 starSpr.scale = 0.125 + (Math.random()*0.3);
                 starSpr.alpha = 0.25 + starSpr.scale.x;
                 starSpr.animationSpeed = 0.025 + (starSpr.alpha*0.075); 
-                starSpr.play(); 
-                starSpr.anchor.set(0.5);
+                starSpr.anchor.set(0.5); starSpr.play(); 
 
                 app.stage.addChild(starSpr);
 
@@ -306,9 +282,7 @@ const bgColors = [
 
             var bgTex = await PIXI.Assets.load({
                 src: "./assets/img/galatic.mp4",
-                data:{
-                    loop: true
-                }
+                data:{ loop: true }
             });
             var bgSpr = new PIXI.Sprite(bgTex);
 
