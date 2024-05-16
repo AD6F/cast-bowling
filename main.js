@@ -34,7 +34,7 @@ context.addCustomMessageListener(CH.game, (customEvent) => {
     var result = { 
         speed: {x: Math.sin(radian)*force, y:Math.cos(radian)*force*0.125},
         acceleration: {x: -0.002, y:0.0150},
-        position: 0.5
+        position: 0.5 - (Math.sin(radian)*0.25)
     }
 
     throwBall(result);
