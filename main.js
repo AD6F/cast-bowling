@@ -33,7 +33,7 @@ context.addCustomMessageListener(CH.game, (customEvent) => {
     const data = customEvent.data;
     const angle = (data.direction/100)*180;
     const radian = angle * Math.PI /180;
-    const force = data.force;
+    const force = data.force/5;
     var result = { 
         speed: {x: Math.sin(radian)*force, y:Math.cos(radian)*force},
         acceleration: {x: -0.002, y:0.0150},
