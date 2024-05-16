@@ -247,16 +247,17 @@ const bgColors = [
                 await PIXI.Assets.load("./assets/img/starSparkle3.png")
             ];
 
-            var list = new Array(180);
+            var list = new Array(200);
 
             for(let i = 0; i < list.length; i++){
                 let starSpr = new PIXI.AnimatedSprite(starTex);
                 starSpr.x = app.screen.width*(0.5 + Math.random()/2); 
                 starSpr.y = app.screen.height*Math.random(); 
                 starSpr.angle = Math.floor(Math.random()*16)*22.5
-                starSpr.animationSpeed = 0.05; starSpr.play(); 
                 starSpr.scale = 0.125 + (Math.random()*0.3);
-                starSpr.alpha = 0.25 + (Math.random()*0.5);
+                starSpr.alpha = 0.25 + starSpr.scale.x;
+                starSpr.animationSpeed = 0.025 + (starSpr.alpha*0.075); 
+                starSpr.play(); 
                 starSpr.anchor.set(0.5);
 
                 app.stage.addChild(starSpr);
@@ -269,8 +270,8 @@ const bgColors = [
             app.ticker.add( (time) => {
                 for(let i = 0; i < list.length; i++){
                     const star = list[i];
-                    star.x -= time.deltaTime*star.scale.x*star.alpha;
-                    star.angle += time.deltaTime*star.alpha
+                    star.x -= time.deltaTime*(star.scale.x**2)*star.alpha;
+                    star.angle += time.deltaTime*star.alpha/2;
                     if (star.x <= (xMin-32)){
                         star.x += xMin+64;
                         star.y = app.screen.height*Math.random(); 
@@ -288,7 +289,7 @@ const bgColors = [
 
             bgSpr.anchor.set(0.5, 0);
             bgSpr.x = app.screen.width*0.75;
-            bgSpr.width = app.screen.width*0.5;
+            bgSpr.width = app.screen.height;
             bgSpr.height = app.screen.height;
             bgSpr.zIndex = -0.5; bgSpr.alpha = 0.75;
 
