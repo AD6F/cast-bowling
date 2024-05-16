@@ -3,7 +3,7 @@ import {visual, visualInit} from "./visualgame.js";
 import { adjustWidth, adjustHeight, myApp, lerp, adjustWidthReverse, adjustHeightReverse, getXmulti } from "./globalfunc.js";
 
 // Load the bluey texture.
-const texture = await PIXI.Assets.load('./pixelbluey.png');
+const texture = await PIXI.Assets.load('./assets/img/pixelbluey.png');
 
 // Create a new Sprite from an image path
 const bluey = new PIXI.Sprite(texture);
@@ -259,7 +259,7 @@ const update = (time) =>{
         }else{
             setTimeout(() => {
                 // TODO : Fix issue where chromecast plays the video, but it's not actually visible.
-                playBowlingVideo("./fem.mp4", () => {
+                playBowlingVideo("./assets/video/fem.mp4", () => {
                     setTimeout(() => {
                         ball.speed.x = -0.05;
                         ball.acceleration.x = -0.0825;

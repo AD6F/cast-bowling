@@ -90,7 +90,7 @@ const bgColors = [
         alley : gutterUndercover,
         gutter : new PIXI.Color({h: 0, s: 10, v: 10}),
         init : async (app) => {
-            floatingSpritesEffect(app, ["./digit0.png", "./digit1.png"], {
+            floatingSpritesEffect(app, ["./assets/img/digit0.png", "./assets/img/digit1.png"], {
                 xOff: 0, 
                 speedMin: 0.5, 
                 speedFlicker: 1.5, 
@@ -104,7 +104,7 @@ const bgColors = [
         alley : new PIXI.Color({r: 0x80, g: 0x9b, b: 0xce, a: 0.5}),
         gutter : 0x01082d,
         init : async (app) => {
-            floatingSpritesEffect(app, ["./waterBubble.png"], {
+            floatingSpritesEffect(app, ["./assets/img/waterBubble.png"], {
                 xOff: 64, 
                 speedMin: 0.15, 
                 speedFlicker: 0.5, 
@@ -112,7 +112,7 @@ const bgColors = [
                 alphaFlicker: 0
             });
 
-            var waterTex0 = await PIXI.Assets.load('./waterWave.png');
+            var waterTex0 = await PIXI.Assets.load('./assets/img/waterWave.png');
             var listWater = new Array(16);
             
             for (let i = 0; i < listWater.length; i++){
@@ -161,7 +161,7 @@ const bgColors = [
                 }
             })
 
-            var sharkTex = await PIXI.Assets.load("./blahaj.png");
+            var sharkTex = await PIXI.Assets.load("./assets/img/blahaj.png");
             var sharkSpr = new PIXI.Sprite(sharkTex);
 
             sharkSpr.x = app.screen.width*2;
@@ -214,7 +214,7 @@ const bgColors = [
             app.stage.addChild(laser3);
             app.stage.addChild(laser4);
 
-            var bgTex = await PIXI.Assets.load("./vault.png");
+            var bgTex = await PIXI.Assets.load("./assets/img/vault.png");
             var bgSpr = new PIXI.Sprite(bgTex);
 
             bgSpr.anchor.set(0.5, 0.1);
@@ -223,7 +223,7 @@ const bgColors = [
 
             app.stage.addChild(bgSpr);
 
-            var camTex = await PIXI.Assets.load("./securitycam.png");
+            var camTex = await PIXI.Assets.load("./assets/img/securitycam.png");
             var camSpr = new PIXI.Sprite(camTex);
 
             camSpr.anchor.set(0.5, -0.1);
@@ -240,9 +240,9 @@ const bgColors = [
         gutter : new PIXI.Color({h: 5, s: 34, v: 23, a: 0.25}),
         init : async (app) => {
             var starTex = [
-                await PIXI.Assets.load("./starSparkle1.png"), 
-                await PIXI.Assets.load("./starSparkle2.png"), 
-                await PIXI.Assets.load("./starSparkle3.png")
+                await PIXI.Assets.load("./assets/img/starSparkle1.png"), 
+                await PIXI.Assets.load("./assets/img/starSparkle2.png"), 
+                await PIXI.Assets.load("./assets/img/starSparkle3.png")
             ];
 
             let starSpr = new PIXI.AnimatedSprite(starTex);

@@ -13,8 +13,8 @@ var floor = {
 }
 
 // Load the bluey texture.
-const texture = await PIXI.Assets.load('./pixelbluey.png');
-const texturePin = await PIXI.Assets.load('./bin.webp');
+const texture = await PIXI.Assets.load('./assets/img/pixelbluey.png');
+const texturePin = await PIXI.Assets.load('./assets/img/bin.webp');
 
 // Create a new Sprite from an image path
 const ballSpr = new PIXI.Sprite(texture);
