@@ -78,11 +78,36 @@ const bgColors = [
         }
     },
     { // New York
-        sky : bgSkyNY,
+        sky : 0x0,
         alley : new PIXI.Color('#948270'),
         gutter : new PIXI.Color('#38302a'),
         init : async (app) => {
-            
+            var bgTex = await PIXI.Assets.load({
+                src: "./assets/img/newyorkBG.mp4",
+                data:{
+                    loop: true
+                }
+            });
+            var bgSpr = new PIXI.Sprite(bgTex);
+
+            bgSpr.anchor.set(0.5, 0.1);
+            bgSpr.x = app.screen.width*0.75;
+            bgSpr.scale = 0.665;
+            bgSpr.zIndex = -0.5;
+
+            app.stage.addChild(bgSpr);
+
+            var bgSpr2 = new PIXI.Sprite(bgTex);
+
+            bgSpr2.anchor.set(0.5, 1);
+            bgSpr2.x = app.screen.width*0.75;
+            bgSpr2.y = app.screen.height*0.785;
+            bgSpr2.zIndex = -0.5;
+            bgSpr2.scale.x = 0.665;
+            bgSpr2.scale.y = 0.735;
+            bgSpr2.zIndex = -0.75;
+
+            app.stage.addChild(bgSpr2);
         }
     },
     { // Matrix
