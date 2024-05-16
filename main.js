@@ -11,13 +11,10 @@ var settings = undefined;
 
 await mainStart();
 
-context.addCustomMessageListener(CH.settings,(customEvent) => {
-    document.querySelector("#pixi-container").removeChild(document.querySelector("canvas"));
-	
+context.addCustomMessageListener(CH.settings,(customEvent) => {	
     const pos = JSON.stringify(customEvent.data);
     settings = customEvent.data;
 
-    mainStart();
     main(settings.players, settings.round, settings.map);
     
     document.querySelector("#result").innerText = pos;
