@@ -40,6 +40,7 @@ const floatingSpritesEffect = async (app, sprites, val) => {
         list[i].y = (app.screen.height*Math.random());
         list[i].speed = val.speedMin + (Math.random()*val.speedFlicker);
         list[i].xOffTimer = Math.random()*val.xOff;
+        list[i].zIndex = 1;
         app.stage.addChild(list[i]);
     }
 
@@ -117,7 +118,7 @@ const bgColors = [
             for (let i = 0; i < listWater.length; i++){
                 let sprWater = new PIXI.Sprite(waterTex0);
                 sprWater.x = (app.screen.width*0.5) + 32*i;
-
+                sprWater.zIndex = 2;
                 listWater[i] = sprWater;
                 app.stage.addChild(sprWater);
             }
@@ -159,6 +160,26 @@ const bgColors = [
                         listWater[i].x - (time.deltaTime/8);
                 }
             })
+
+            var sharkTex = await PIXI.Assets.load("./blahaj.png");
+            var sharkSpr = new PIXI.Sprite(sharkTex);
+
+            sharkSpr.x = app.screen.width*2;
+            sharkSpr.scale.x = -0.75; sharkSpr.scale.y = 0.75;
+            sharkSpr.tint = 0x181818;
+            sharkSpr.angle = -3;
+
+            app.ticker.add( (time) => {
+                sharkSpr.x -= time.deltaTime;
+                sharkSpr.y += time.deltaTime*0.05;
+
+                if (sharkSpr.x<0){
+                    sharkSpr.x = app.screen.width*(2 + (Math.random()*2));
+                    sharkSpr.y = app.screen.height*((Math.random()*0.32)-0.28);
+                }
+            })
+
+            app.stage.addChild(sharkSpr);
         }
     },
     { // Infiltration
