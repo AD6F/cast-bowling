@@ -128,12 +128,12 @@ const scoreInit = (playerCount, pNames, roundCount, appToSet, debug) =>{
         
         player.x = xStart;
         player.y = yStart + (i*yOff);
-        player.zIndex = 1200;
+        player.zIndex = 12000;
         
         let hbar = new PIXI.Graphics()
         .rect(xStart-xOff, player.y-adjustWidth(5), xLength, 1)
         .fill(0x000000);
-        hbar.zIndex = 1200;
+        hbar.zIndex = 12000;
 
         app.stage.addChild(player);
         app.stage.addChild(hbar);

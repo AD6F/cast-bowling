@@ -73,7 +73,7 @@ console.log("LOADING..");
 
 console.log("LOOP");
 
-//main(["owo", "iwi"], 4, 3);
+//main(["owo", "iwi"], 4, 5);
 //
 //
 //setTimeout( () => {

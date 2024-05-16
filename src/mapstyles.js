@@ -10,14 +10,14 @@ colorsStopsNY.forEach((number, index) =>
     bgSkyNY.addColorStop(ratio, number);
 });
 
-const gutterUndercover = new PIXI.FillGradient(0, 0, 150, 2000)
-const colorsStopsUC = [0x010a01, 0x0b780b];
+const alleyMatrix = new PIXI.FillGradient(0, 0, 150, 2000)
+const colorStopMX = [0x010a01, 0x0b780b];
 
-colorsStopsUC.forEach((number, index) =>
+colorStopMX.forEach((number, index) =>
 {
-    const ratio = index / (colorsStopsUC.length+1);
+    const ratio = index / (colorStopMX.length+1);
 
-    gutterUndercover.addColorStop(ratio, number);
+    alleyMatrix.addColorStop(ratio, number);
 });
 
 const setXpos = (app) => {
@@ -31,7 +31,7 @@ const floatingSpritesEffect = async (app, sprites, val) => {
         tex[i] = await PIXI.Assets.load(sprites[i]);
     }
 
-    var list = new Array(64);
+    var list = new Array(val.nb);
 
     for(let i = 0; i < list.length; i++){
         let spr = tex[i%tex.length];
@@ -87,7 +87,7 @@ const bgColors = [
     },
     { // Matrix
         sky : 0x000000,
-        alley : gutterUndercover,
+        alley : alleyMatrix,
         gutter : new PIXI.Color({h: 0, s: 10, v: 10}),
         init : async (app) => {
             floatingSpritesEffect(app, ["./assets/img/digit0.png", "./assets/img/digit1.png"], {
@@ -95,13 +95,14 @@ const bgColors = [
                 speedMin: 0.5, 
                 speedFlicker: 1.5, 
                 alphaMin: 0.5, 
-                alphaFlicker:0.25
+                alphaFlicker:0.25,
+                nb: 128
             });
         }
     },
     { // Cold Sea
         sky : 0x10243d,
-        alley : new PIXI.Color({r: 0x80, g: 0x9b, b: 0xce, a: 0.5}),
+        alley : new PIXI.Color({r: 0x80, g: 0x9b, b: 0xce, a: 0.375}),
         gutter : 0x01082d,
         init : async (app) => {
             floatingSpritesEffect(app, ["./assets/img/waterBubble.png"], {
@@ -109,7 +110,8 @@ const bgColors = [
                 speedMin: 0.15, 
                 speedFlicker: 0.5, 
                 alphaMin: 0.125, 
-                alphaFlicker: 0
+                alphaFlicker: 0,
+                nb: 64
             });
 
             var waterTex0 = await PIXI.Assets.load('./assets/img/waterWave.png');
@@ -235,8 +237,8 @@ const bgColors = [
         }
     },
     { // Galaxy
-        sky : 0x401A57,
-        alley : new PIXI.Color({r: 0x80, g: 0x9b, b: 0xce, a: 0.5}),
+        sky : 0x1a0929,
+        alley : new PIXI.Color({r: 0x80, g: 0x9b, b: 0xce, a: 0.2}),
         gutter : new PIXI.Color({h: 5, s: 34, v: 23, a: 0.25}),
         init : async (app) => {
             var starTex = [
@@ -245,22 +247,52 @@ const bgColors = [
                 await PIXI.Assets.load("./assets/img/starSparkle3.png")
             ];
 
-            let starSpr = new PIXI.AnimatedSprite(starTex);
-            starSpr.x = app.screen.width*0.5; starSpr.play();
-            starSpr.animationSpeed = 0.05; starSpr.scale = 0.5
-
-            console.log(starSpr)
-
-            app.stage.addChild(starSpr);
-
-            var list = new Array(64);
+            var list = new Array(240);
 
             for(let i = 0; i < list.length; i++){
-                //list[i] = new PIXI.AnimatedSprite(star);
-                //list[i].x = setXpos(app);
-                //list[i].y = (app.screen.height*Math.random());
-                //app.stage.addChild(list[i]);
+                let starSpr = new PIXI.AnimatedSprite(starTex);
+                starSpr.x = app.screen.width*(0.5 + Math.random()/2); 
+                starSpr.y = app.screen.height*Math.random(); 
+                starSpr.angle = Math.floor(Math.random()*16)*22.5
+                starSpr.animationSpeed = 0.05; starSpr.play(); 
+                starSpr.scale = 0.125 + (Math.random()*0.3);
+                starSpr.alpha = 0.25 + (Math.random()*0.5);
+                starSpr.anchor.set(0.5);
+
+                app.stage.addChild(starSpr);
+
+                list[i] = starSpr;
             }
+
+            const xMin = app.screen.width*0.5
+
+            app.ticker.add( (time) => {
+                for(let i = 0; i < list.length; i++){
+                    const star = list[i];
+                    star.x -= time.deltaTime*star.scale.x*star.alpha;
+                    star.angle += time.deltaTime*star.alpha
+                    if (star.x <= (xMin-32)){
+                        star.x += xMin+64;
+                        star.y = app.screen.height*Math.random(); 
+                    }
+                }
+            });
+
+            var bgTex = await PIXI.Assets.load({
+                src: "./assets/img/galatic.mp4",
+                data:{
+                    loop: true
+                }
+            });
+            var bgSpr = new PIXI.Sprite(bgTex);
+
+            bgSpr.anchor.set(0.5, 0);
+            bgSpr.x = app.screen.width*0.75;
+            bgSpr.width = app.screen.width*0.5;
+            bgSpr.height = app.screen.height;
+            bgSpr.zIndex = -0.5; bgSpr.alpha = 0.75;
+
+            app.stage.addChild(bgSpr);
             
         }
     }

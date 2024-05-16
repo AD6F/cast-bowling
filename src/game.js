@@ -22,8 +22,8 @@ var gutterBallRightPos = 0;
 
 const ball = {
     spr: {x: 0, y: 0}, 
-    speed: {x: 8, y:-0.955},
-    acceleration: {x: -0.002, y:0.0150},
+    speed: {x: 0, y:-0.0},
+    acceleration: {x: -0.00, y:0.0},
     offset: {x: 0, y: 0, ogSize: 125}
 }
 
