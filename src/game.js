@@ -9,22 +9,14 @@ const texture = await PIXI.Assets.load('./assets/img/pixelbluey.png');
 const bluey = new PIXI.Sprite(texture);
 const app = new PIXI.Application();
 
-
 var elapsedTime = 0;
 var deltaTime = 0; 
 var halfTime = 0;
-
-var pinList = new Array(10)
 
 var gutterBallLeftThreshold = 0;
 var gutterBallRightThreshold = 0;
 var gutterBallLeftPos = 0;
 var gutterBallRightPos = 0;
-
-const pinGravity = .325;
-var pinCollisionSize = 16;
-
-var debug = false;
 
 const ball = {
     spr: {x: 0, y: 0}, 
@@ -32,6 +24,12 @@ const ball = {
     acceleration: {x: -0.002, y:0.0150},
     offset: {x: 0, y: 0, ogSize: 125}
 }
+
+var debug = false;
+
+var pinList = new Array(10)
+const pinGravity = .325;
+var pinCollisionSize = 16;
 
 const pinPos = [
     {x: 0.950, y: 0.355},

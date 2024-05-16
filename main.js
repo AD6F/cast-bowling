@@ -70,4 +70,4 @@ console.log("LOADING..");
 
 console.log("LOOP");
 
-//main(["owo", "iwi"], 5, 0);
+main(["owo", "iwi"], 5, 0);
