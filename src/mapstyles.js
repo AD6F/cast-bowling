@@ -295,6 +295,55 @@ const bgColors = [
             app.stage.addChild(bgSpr);
             
         }
+    },
+    { // Grimace
+        sky : 0x201331, alley : 0x530b62, gutter : 0x340351,
+        init : async (app) => {
+            var bgTex = await PIXI.Assets.load("./assets/img/grimache.jpg");
+            var shakeTex = await PIXI.Assets.load("./assets/img/gshake.png");
+            var lightTex = await PIXI.Assets.load("./assets/img/lightray.png");
+            var bgSpr = new PIXI.Sprite(bgTex);
+            var shakeL = new PIXI.Sprite(shakeTex);
+            var shakeR = new PIXI.Sprite(shakeTex);
+            var lightL = new PIXI.Sprite(lightTex);
+            var lightR = new PIXI.Sprite(lightTex);
+
+            // Grimache alt (big head)
+            //bgSpr.anchor.set(0.48, 0); bgSpr.scale = 0.8
+            //bgSpr.x = app.screen.width*0.75;
+            //bgSpr.zIndex = -0.5; bgSpr.alpha = 0.75;
+
+            bgSpr.anchor.set(0.575, 0.05); bgSpr.scale = 0.8
+            bgSpr.x = app.screen.width*0.75;
+            bgSpr.zIndex = -0.5; bgSpr.alpha = 0.75;
+
+            app.stage.addChild(bgSpr);
+
+            shakeL.anchor.set(0.5, 0.75); shakeL.scale = 0.35;
+            shakeL.x = app.screen.width*0.55;
+            shakeL.y = app.screen.height*0.75;
+            shakeL.angle = -8;
+
+            shakeR.anchor.set(0.5, 0.75); shakeR.scale = 0.35;
+            shakeR.x = app.screen.width*0.95;
+            shakeR.y = app.screen.height*0.75;
+            shakeR.angle = 8;
+
+            lightL.anchor.set(0.5, 1);  lightL.angle = -5;
+            lightL.x = app.screen.width*0.6;
+            lightL.y = app.screen.height*0.65;
+            lightL.scale.set(-1, 1.5);
+
+            lightR.anchor.set(0.5, 1);  lightR.angle = 5;
+            lightR.x = app.screen.width*0.9;
+            lightR.y = app.screen.height*0.65;
+            lightR.scale.set(1, 1.5);
+
+            app.stage.addChild(shakeL);
+            app.stage.addChild(shakeR);
+            app.stage.addChild(lightL);
+            app.stage.addChild(lightR);
+        }
     }
 ]
 
