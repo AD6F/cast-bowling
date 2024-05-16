@@ -247,7 +247,7 @@ const bgColors = [
                 await PIXI.Assets.load("./assets/img/starSparkle3.png")
             ];
 
-            var list = new Array(240);
+            var list = new Array(180);
 
             for(let i = 0; i < list.length; i++){
                 let starSpr = new PIXI.AnimatedSprite(starTex);

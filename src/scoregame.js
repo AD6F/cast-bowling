@@ -119,14 +119,14 @@ const scoreInit = (playerCount, pNames, roundCount, appToSet, debug) =>{
 
     playerNames = new Array(pNames.length);
 
-    let xStart = adjustWidth(48); let xOff = adjustWidth(12);
-    let yOff = adjustHeight(100); let xLength = adjustWidth(400)
+    let xStart = adjustWidth(40); let xOff = adjustWidth(12);
+    let yOff = adjustHeight(100); let xLength = adjustWidth(420)
     let yStart = yOff-16;
     for (let i = 0; i < pNames.length; i++) {
         playerNames[i] = new PIXI.Text({text:pNames[i]});
         const player = playerNames[i];
         
-        player.x = xStart;
+        player.x = xStart-8;
         player.y = yStart + (i*yOff);
         player.zIndex = 12000;
         
