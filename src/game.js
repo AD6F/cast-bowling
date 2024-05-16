@@ -2,12 +2,21 @@ import {score, scoreInit, scoreAdvance} from "./scoregame.js";
 import {visual, visualInit} from "./visualgame.js";
 import { adjustWidth, adjustHeight, myApp, lerp, adjustWidthReverse, adjustHeightReverse, getXmulti } from "./globalfunc.js";
 
-// Load the bluey texture.
 const texture = await PIXI.Assets.load('./assets/img/pixelbluey.png');
 
-// Create a new Sprite from an image path
 const bluey = new PIXI.Sprite(texture);
 const app = new PIXI.Application();
+
+const pinGravity = .325;
+
+const ball = {
+    spr: {x: 0, y: 0}, 
+    speed: {x: 0, y:-0.0},
+    acceleration: {x: -0.00, y:0.0},
+    offset: {x: 0, y: 0, ogSize: 125}
+}
+
+var debug = false;
 
 var elapsedTime = 0;
 var deltaTime = 0; 
@@ -20,17 +29,8 @@ var gutterBallRightThreshold = 0;
 var gutterBallLeftPos = 0;
 var gutterBallRightPos = 0;
 
-const ball = {
-    spr: {x: 0, y: 0}, 
-    speed: {x: 0, y:-0.0},
-    acceleration: {x: -0.00, y:0.0},
-    offset: {x: 0, y: 0, ogSize: 125}
-}
-
-var debug = false;
 
 var pinList = new Array(10)
-const pinGravity = .325;
 var pinCollisionSize = 16;
 
 const pinPos = [
@@ -46,19 +46,13 @@ const pinPos = [
     {x: 0.800, y: 0.50}
 ]
 
-
 const setPin = (pinNb) =>{
     let newPin = {
-        id: pinNb, 
+        id: pinNb, hit: false,
         pin: {x: pinPos[pinNb].x, y: pinPos[pinNb].y}, 
-        hit: false,
         offset : {
-            x: 0, y: 0, z: 0, a: 0,
-            ogSize:200, 
-            xspeed: 0, 
-            yspeed: 0,
-            zspeed: 0,
-            aspeed: 0
+            x: 0, y: 0, z: 0, a: 0, ogSize:200, 
+            xspeed: 0, yspeed: 0, zspeed: 0, aspeed: 0
         }
     }
     newPin.pin.x = newPin.pin.x*app.screen.width
@@ -70,17 +64,14 @@ const setPin = (pinNb) =>{
 const checkPinsHit = () => {
     let hits = 0;
     for (let i = 0; i < pinList.length; i++) {
-        const element = pinList[i];
-        if (element.hit==1){
-            hits++;
-            element.hit = 2;
+        if (pinList[i].hit==1){
+            hits++; pinList[i].hit = 2;
         }
     }
     return hits;
 }
 
 const setPinsUp = (fullreset) =>{
-    //Set up pins
     for (let i = 0; i < pinList.length; i++) {
         if (fullreset){
             pinList[i] = setPin(i);
@@ -88,8 +79,7 @@ const setPinsUp = (fullreset) =>{
             if (pinList[i].hit == 0){
                 pinList[i] = setPin(i);
             }else{
-                pinList[i].pin.x = -30000;
-                pinList[i].pin.y = 0;
+                pinList[i].pin = { x: -30000, y: 0};
                 pinList[i].offset.xspeed = 0;
                 pinList[i].offset.yspeed = 0;
                 pinList[i].offset.zspeed = 0;
@@ -101,20 +91,16 @@ const setPinsUp = (fullreset) =>{
 }
 
 const pinCheckCollision = (pos, pin, otherSize) => {
-    let d = {
-        x: (pos.x) - (pin.pin.x), 
-        y: (pos.y) - (pin.pin.y)
-    }
+    let d = { x: (pos.x) - (pin.pin.x), y: (pos.y) - (pin.pin.y) };
     let hypo = Math.hypot(d.x, d.y);
     let dis = (pinCollisionSize + otherSize);
     if (hypo <=  dis){
-        pin.hit = true;
+        pin.hit = true; pin.offset.y = -1;
         pin.offset.xspeed = (Math.sqrt(Math.abs(d.x/2)) * Math.sign(d.x))*-.25
         pin.offset.yspeed = Math.sqrt(Math.abs(d.y/2))*-Math.sign(d.y)
         pin.offset.zspeed = -( (Math.random()*1.5) + 3 )
         pin.offset.aspeed = pin.offset.xspeed*0.5 * Math.abs(pin.offset.yspeed) * 10
-        pin.offset.aspeed += Math.random()*4
-        pin.offset.y = -1
+        pin.offset.aspeed += Math.random()*4;
     }
 }
 
@@ -132,12 +118,10 @@ const pinMove = (pin, time) => {
         pin.offset.y = -1
     }
 
-    //Collide with other pins
     if (pin.offset.y>-adjustHeight(20)){
-        for (let k = 0; k < pinList.length; k++) {
-            const element = pinList[k];
-            if (!element.hit){
-                pinCheckCollision(pin.pin, element, pinCollisionSize*0.8);
+        for (let i = 0; i < pinList.length; i++) {
+            if (!pinList[i].hit){
+                pinCheckCollision(pin.pin, pinList[i], pinCollisionSize*0.8);
             }
         }
     }
@@ -146,40 +130,30 @@ const pinMove = (pin, time) => {
 const pinUpdate = (time) =>{
     for (let i = 0; i < pinList.length; i++) {
         if (pinList[i].hit){
-            pinMove(pinList[i], time)
+            pinMove(pinList[i], time);
         }else{
             pinCheckCollision(bluey, pinList[i], 24);
-            if (pinList[i].hit){
-                console.log("HGIT " + i)
-            }
         }
         
     }
 }
 
 //https://stackoverflow.com/questions/59725062/pixi-js-how-to-detect-end-of-movie-callback-for-ended-event
-const playBowlingVideo = async (url, func) =>{
+const playBowlingVideo = async (url, customFunc) =>{
     let videoSource = await PIXI.Assets.load({
-        src: url,
-        data:{
-            preload: false,
-            autoPlay: true,
-            loop: false
-        }
+        src: url, data:{ preload: false, autoPlay: true, loop: false }
     });
     
     let video = new PIXI.Sprite(videoSource);
-
     video.zIndex = 10;
 
     video.texture.source.source.resource.addEventListener("ended", async (event) => {
-        func();
-        await PIXI.Assets.unload(url);
+        customFunc(); 
+        await PIXI.Assets.unload(url); 
         video.destroy();
     });
 
     video.anchor.set(0.5, 0);
-    
     video.x = app.screen.width * 0.75;
     video.y = app.screen.height*0.005;
 
@@ -201,7 +175,6 @@ const moveSelf = (obj) => {
 
 const approach = (curPos, tPos, perc) => {
     curPos += (tPos-curPos)*perc
-
     return curPos;
 }
 
@@ -222,15 +195,11 @@ const checkGutter = (obj) => {
 }
 
 const throwBall = (values) => {
-    ball.offset.x = 0;
-    ball.offset.y = 0;
+    ball.offset = {x: 0, y: 0};
 
     ball.spr.x = -500;
-    ball.spr.y = lerp(
-        gutterBallLeftThreshold, 
-        gutterBallRightThreshold, 
-        values.position
-    );
+    ball.spr.y = lerp(gutterBallLeftThreshold, 
+        gutterBallRightThreshold, values.position);
 
     ball.speed = values.speed;
 
@@ -240,11 +209,9 @@ const throwBall = (values) => {
 var yPosTo = 0;
 const update = (time) =>{
     elapsedTime += time.elapsedMS;
-    deltaTime = time.deltaTime;
-    halfTime = deltaTime/2;
+    deltaTime = time.deltaTime; halfTime = deltaTime/2;
 
-    moveSelf(ball);
-    checkGutter(ball);
+    moveSelf(ball); checkGutter(ball);
 
     if (ball.speed.x==0){
         ball.offset.y = approach(ball.offset.y, adjustHeight(32), 1/25*halfTime);
@@ -304,19 +271,14 @@ const update = (time) =>{
 var menuObjList = [];
 
 const mainStart = async () => {
-    // Create a PixiJS application.
-
-    // Intialize the application.
     await app.init({ 
         width  : window.innerWidth -4,
         height : window.innerHeight-4,
-        width :  480*2,
-        height : 270*2,
+        width :  480*2, height : 270*2,
         background: '#111111'
     });
     myApp(app);
 
-    // Then adding the application's canvas to the DOM body.
     document.querySelector("#pixi-container").appendChild(app.canvas);
 
     let txtMainStyle = new PIXI.TextStyle({
@@ -330,16 +292,13 @@ const mainStart = async () => {
     })
 
     let textMain = new PIXI.Text({
-        text: "Bowling",
-        x : adjustWidth(34),
-        y : adjustHeight(45),
-        style: txtMainStyle
+        text: "Bowling", style: txtMainStyle,
+        x : adjustWidth(34), y : adjustHeight(45)
     });
 
     let textHint = new PIXI.Text({
         text: "To start the game, press \"Play\" on your phone and adjust the settings to your preferences.",
-        x : adjustWidth(55),
-        y : adjustHeight(100),
+        x : adjustWidth(55), y : adjustHeight(100),
         style: txtHintStyle
     });
 
@@ -347,38 +306,39 @@ const mainStart = async () => {
     app.stage.addChild(textMain);
     app.stage.addChild(textHint);
 
+    menuObjList = [textMain, textHint];
+
     return 0;
 }
 
 // Asynchronous IIFE
 const main = (playerNames, roundNb, map) => {
-    //Visual
+    menuObjList.forEach( (value) => {
+        app.stage.removeChild(value);
+    });
+
+    menuObjList = [];
+
     visualInit(map, app);
     scoreInit(playerNames.length, playerNames, roundNb, app);
 
-    // Center the sprite's anchor point
     bluey.anchor.set(0.5, 0.5);
 
     bluey.setSize(adjustHeight(50));
     bluey.circular = true;
 
-    // Move the sprite to the center of the screen
-    bluey.x = -500;
-    bluey.y = app.screen.height*0.5;
+    bluey.x = -500; bluey.y = app.screen.height*0.5;
 
     ball.spr = bluey;
 
-    // Gutter Ball
     gutterBallLeftThreshold = app.screen.height*0.25
     gutterBallRightThreshold = app.screen.height*0.75
     gutterBallLeftPos = app.screen.height*0.2
     gutterBallRightPos = app.screen.height*0.8
 
-    //Set up pins
     setPinsUp(true);
 
     // Behind the scenes debug
-    // outside lanes
     if (debug){
         let laneLeft = new PIXI.Graphics()
         .rect(0, gutterBallLeftThreshold, app.screen.width, 1)
@@ -405,9 +365,7 @@ const main = (playerNames, roundNb, map) => {
             .circle(0, 0, pinCollisionSize)
             .fill(0x1FA955);
 
-            spr.x = pinList[i].pin.x;
-            spr.y = pinList[i].pin.y;
-
+            spr.x = pinList[i].pin.x; spr.y = pinList[i].pin.y;
             spr.zIndex = 600
 
             app.stage.addChild(spr);
@@ -420,8 +378,7 @@ const main = (playerNames, roundNb, map) => {
     }
 
     app.ticker.add((time) =>{
-        update(time);
-        score(time);
+        update(time); score(time);
         visual(time,  ball, pinList);
         pinUpdate(time);
     })
