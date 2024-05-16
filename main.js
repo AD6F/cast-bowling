@@ -26,10 +26,6 @@ context.addCustomMessageListener(CH.settings, (customEvent) => {
 });
 
 context.addCustomMessageListener(CH.game, (customEvent) => {
-	const pos = JSON.stringify(customEvent.data);
-    console.log(pos);
-    document.querySelector("#game").innerText = pos;
-
     const data = customEvent.data;
     const angle = (data.direction/100)*180;
     const radian = angle * Math.PI /180;
@@ -41,6 +37,8 @@ context.addCustomMessageListener(CH.game, (customEvent) => {
     }
 
     throwBall(result);
+
+    document.querySelector("#game").innerText = JSON.stringify(result);
 
     context.sendCustomMessage(CH.game, undefined, "ball throw");
 });
