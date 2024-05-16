@@ -67,7 +67,7 @@ options.disableIdleTimeout = true;
 
 context.start(options);
 
-main(["owo", "iwi"], 4, 6);
+//main(["owo", "iwi"], 4, 6);
 //
 //
 //setTimeout( () => {
