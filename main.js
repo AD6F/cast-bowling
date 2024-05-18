@@ -24,13 +24,19 @@ context.addCustomMessageListener(CH.settings,(customEvent) => {
 
 context.addCustomMessageListener(CH.game, (customEvent) => {
     const data = customEvent.data;
-    const angle = (data.rotation/100)*180;
-    const radian = angle * Math.PI /180;
+    const throwAngle = ( (data.rotation/100)*180 ) - 90;
+    const radian = throwAngle * Math.PI /180;
     const force = data.force/3;
 
+    const accelAngle = ((data.tilt-70)*90) * Math.PI /180
+    const accelForce = force/20;
+
     var result = { 
-        speed: {x: Math.sin(radian)*force, y:Math.cos(radian)*force*0.125},
-        acceleration: {x: -0.002, y:0.0150},
+        speed: {x: Math.cos(radian)*force, y:Math.sin(radian)*force*0.125},
+        acceleration: {
+            x: Math.cos(accelAngle)*accelForce, 
+            y:Math.sin(accelAngle)*accelForce
+        },
         position: 0.5 - (Math.sin(radian)*0.25)
     }
 
@@ -66,6 +72,12 @@ options.customNamespaces[CH.game] = cast.framework.system.MessageType.JSON;
 options.disableIdleTimeout = true;
 
 context.start(options);
+
+const sendToPhone = (channel, msg) => {
+    context.sendCustomMessage(channel, undefined, msg);
+}
+
+export { CH, sendToPhone }
 
 //main(["owo", "iwi"], 4, 6);
 //

@@ -17,6 +17,10 @@ var scoreShowcase = [
     
 ]
 
+const getCurrentPlayer = () => {
+    return playerNames[scorePlayerIndex]
+}
+
 const getMinFrameDisplay = (frame) => {
     return Math.min(frame, maxRound-4);
 }
@@ -193,4 +197,4 @@ const score = (time) => {
     }
 }
 
-export {score, scoreInit, scoreAdvance};
+export {score, scoreInit, scoreAdvance, getCurrentPlayer};

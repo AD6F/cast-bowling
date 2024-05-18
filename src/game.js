@@ -1,6 +1,7 @@
-import {score, scoreInit, scoreAdvance} from "./scoregame.js";
+import {score, scoreInit, scoreAdvance, getCurrentPlayer} from "./scoregame.js";
 import {visual, visualInit} from "./visualgame.js";
-import { adjustWidth, adjustHeight, myApp, lerp, adjustWidthReverse, adjustHeightReverse, getXmulti } from "./globalfunc.js";
+import { adjustWidth, adjustHeight, myApp, lerp} from "./globalfunc.js";
+import { CH, sendToPhone } from "../main.js";
 
 const texture = await PIXI.Assets.load('./assets/img/pixelbluey.png');
 
@@ -246,6 +247,7 @@ const update = (time) =>{
         }
     }else if (ball.spr.x < -200 && ball.speed.x<0){
         let pinsHit = checkPinsHit();
+        let previousPlayer = getCurrentPlayer();
         let result = scoreAdvance(pinsHit);
 
         if (result==2){
@@ -261,6 +263,11 @@ const update = (time) =>{
 
             app.stage.addChild(frameText);
         }else{
+            sendToPhone(CH.game, {
+                nextPlayer: getCurrentPlayer(), 
+                playerName: previousPlayer, 
+                score: pinsHit
+            })
             setPinsUp(result);
             ball.spr.x = -180; ball.speed.x = 0;
             ball.acceleration = { x: 0, y: 0};
