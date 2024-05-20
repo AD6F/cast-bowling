@@ -217,6 +217,7 @@ const update = (time) =>{
     moveSelf(ball); checkGutter(ball);
 
     if (ball.speed.x==0){
+        obj.acceleration.x = 0;
         ball.offset.y = approach(ball.offset.y, adjustHeight(32), 1/25*halfTime);
         ball.spr.y = approach(ball.spr.y, yPosTo, 1/18*halfTime);
     }
