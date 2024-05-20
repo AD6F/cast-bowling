@@ -8,8 +8,9 @@ const CH = {
     data : 'urn:x-cast:data'
 };
 
-const rebuildGame = async (action) => {
+const rebuildGame = (action) => {
     mainRestart();
+
     if (action==0){
         main(settings.players, settings.round, settings.map);
     }
@@ -41,6 +42,7 @@ context.addCustomMessageListener(CH.game, (customEvent) => {
     const data = customEvent.data;
 
     if (data["endGameAction"]!=undefined){
+        document.querySelector("#game").innerText = data["endGameAction"]
         rebuildGame(data["endgameAction"])
 
         return 0;
