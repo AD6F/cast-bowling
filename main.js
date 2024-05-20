@@ -19,9 +19,8 @@ context.addCustomMessageListener(CH.settings,(customEvent) => {
     main(settings.players, settings.round, settings.map);
     
     document.querySelector("#result").innerText = pos;
-    setTimeout( () => {
-        context.sendCustomMessage(CH.game, undefined, {player: settings.players[0]});
-    }, 1000)
+    
+    context.sendCustomMessage(CH.game, undefined, {player: settings.players[0]});
 });
 
 context.addCustomMessageListener(CH.game, (customEvent) => {
@@ -30,8 +29,8 @@ context.addCustomMessageListener(CH.game, (customEvent) => {
     const throwRadian = throwAngle * Math.PI /180;
     const force = data.force/12.5;
 
-    const accelAngle = (((data.tilt-70)/100)*90) * Math.PI /180
-    const accelForce = force/48;
+    const accelAngle = (((data.tilt-70)/10)*90) * Math.PI /180
+    const accelForce = force/64;
 
     var result = { 
         speed: {x: Math.abs(Math.cos(throwRadian)*force), y:Math.sin(throwRadian)*force*0.125},
