@@ -26,19 +26,19 @@ context.addCustomMessageListener(CH.settings,(customEvent) => {
 context.addCustomMessageListener(CH.game, (customEvent) => {
     const data = customEvent.data;
     const throwAngle = (( (data.rotation/100)*180 ) - 90)*0.9;
-    const radian = throwAngle * Math.PI /180;
+    const throwRadian = throwAngle * Math.PI /180;
     const force = data.force/12.5;
 
-    const accelAngle = ((data.tilt-70)*90) * Math.PI /180
+    const accelAngle = (((data.tilt-70)/10)*90) * Math.PI /180
     const accelForce = force/32;
 
     var result = { 
-        speed: {x: Math.abs(Math.cos(radian)*force), y:Math.sin(radian)*force*0.125},
+        speed: {x: Math.abs(Math.cos(throwRadian)*force), y:Math.sin(throwRadian)*force*0.125},
         acceleration: {
             x: Math.cos(accelAngle)*accelForce*0.65, 
             y:Math.sin(accelAngle)*accelForce
         },
-        position: 0.5 - (Math.sin(radian)*0.105)
+        position: 0.5 - (Math.sin(accelAngle)*0.105)
     }
 
     throwBall(result);
