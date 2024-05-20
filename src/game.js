@@ -304,26 +304,17 @@ const update = (time) =>{
 
 var menuObjList = [];
 
-const mainStart = async () => {
-    await app.init({ 
-        width  : window.innerWidth -4,
-        height : window.innerHeight-4,
-        width :  480*2, height : 270*2,
-        background: '#111111'
-    });
-    myApp(app);
+const txtMainStyle = new PIXI.TextStyle({
+    fill: 0xFFFFFF, fontSize: 40,
+    stroke: {color:0x000000, width:6, join:"round"}
+})
+const txtHintStyle = new PIXI.TextStyle({
+    fill: 0xFFFFFF, fontSize: 20,
+    stroke: {color:0x000000, width:2, join:"round"},
+    wordWrap : true, wordWrapWidth : 300
+})
 
-    document.querySelector("#pixi-container").appendChild(app.canvas);
-
-    let txtMainStyle = new PIXI.TextStyle({
-        fill: 0xFFFFFF, fontSize: 40,
-        stroke: {color:0x000000, width:6, join:"round"}
-    })
-    let txtHintStyle = new PIXI.TextStyle({
-        fill: 0xFFFFFF, fontSize: 20,
-        stroke: {color:0x000000, width:2, join:"round"},
-        wordWrap : true, wordWrapWidth : 300
-    })
+const mainMenuShowup = () => {
 
     let textMain = new PIXI.Text({
         text: "Bowling", style: txtMainStyle,
@@ -341,12 +332,44 @@ const mainStart = async () => {
     app.stage.addChild(textHint);
 
     menuObjList = [textMain, textHint];
+}
+
+const mainRestart = () => {
+    console.log(app.stage.children)
+    while (app.stage.children.length>0) {
+        app.stage.removeChildAt(0);
+    }
+    mainMenuShowup();
+}
+
+const mainStart = async () => {
+    await app.init({ 
+        width  : window.innerWidth -4,
+        height : window.innerHeight-4,
+        width :  480*2, height : 270*2,
+        background: '#111111'
+    });
+    myApp(app);
+
+    document.querySelector("#pixi-container").appendChild(app.canvas);
+
+    mainMenuShowup();
 
     return 0;
 }
 
 // Asynchronous IIFE
-const main = (playerNames, roundNb, map) => {
+const main = (playerNames, roundNb, map) => { 
+    let loadTime = 500
+    let textLoad = new PIXI.Text({
+        text: "Loading....",
+        x : adjustWidth(705), y : adjustHeight(400),
+        style: txtMainStyle
+    });
+    app.stage.addChild(textLoad)
+    menuObjList.push(textLoad);
+
+setTimeout( () => {
     menuObjList.forEach( (value) => {
         app.stage.removeChild(value);
     });
@@ -423,8 +446,10 @@ const main = (playerNames, roundNb, map) => {
             console.error(e);
         }
     })
+    
+}, loadTime)
 
     return 0;
 };
 
-export { main, mainStart, throwBall };
+export { main, mainStart, throwBall, mainRestart };

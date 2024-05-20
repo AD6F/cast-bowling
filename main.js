@@ -1,4 +1,4 @@
-import { main, mainStart, throwBall } from "./src/game.js";
+import { main, mainRestart, mainStart, throwBall } from "./src/game.js";
 
 const castDebugLogger = cast.debug.CastDebugLogger.getInstance();
 const context = cast.framework.CastReceiverContext.getInstance();
@@ -8,7 +8,10 @@ const CH = {
     data : 'urn:x-cast:data'
 };
 
-var settings = undefined;
+var settings = {
+    players: ["P1", "Doggy", "Achr", "Meow"],
+    round: 10, map: 0
+};
 
 await mainStart();
 
@@ -23,8 +26,24 @@ context.addCustomMessageListener(CH.settings,(customEvent) => {
     context.sendCustomMessage(CH.game, undefined, {player: settings.players[0]});
 });
 
+const rebuildGame = async (action) => {
+    mainRestart();
+    if (action==0){
+        main(settings.players, settings.round, settings.map);
+    }
+}
+
 context.addCustomMessageListener(CH.game, (customEvent) => {
     const data = customEvent.data;
+
+    if (data["endGameAction"]!=undefined){
+        document.querySelector("canvas").remove()
+
+        rebuildGame(data["endgameAction"])
+
+        return 0;
+    }
+
     const throwAngle = (( (data.rotation/100)*180 ) - 90)*0.9;
     const throwRadian = throwAngle * Math.PI /180;
     const force = data.force/12.5;
@@ -93,9 +112,14 @@ const sendToPhone = (channel, msg) => {
     context.sendCustomMessage(channel, undefined, msg);
 }
 
+//main(["owo", "iwi"], 4, 5);
+//
+//setTimeout( () => {
+//    rebuildGame(0)
+//}, 2000)
+
 export { CH, sendToPhone }
 
-//main(["owo", "iwi"], 4, 5);
 //throwBall({ 
 //    speed: {x: 8, y:-0.955},
 //    acceleration: {x: -0.002, y:0.0150},
