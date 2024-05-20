@@ -386,9 +386,13 @@ const main = (playerNames, roundNb, map) => {
     }
 
     app.ticker.add((time) =>{
-        update(time); score(time);
-        visual(time,  ball, pinList);
-        pinUpdate(time);
+        try{
+            update(time); score(time);
+            visual(time,  ball, pinList);
+            pinUpdate(time);
+        }catch(e){
+            document.querySelector("#error").innerText = JSON.stringify(e);
+        }
     })
 
     return 0;
