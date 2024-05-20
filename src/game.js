@@ -242,8 +242,9 @@ const update = (time) =>{
         
         
         if (debug){
-            ball.spr.x = -270;
-            ball.speed.x = -4;
+            ball.spr.x = -470;
+            ball.speed.x = -.001;
+            ball.offset.y = 1
         }else{
             setTimeout(() => {
                 playBowlingVideo("./assets/video/fem.mp4", () => {
@@ -274,15 +275,28 @@ const update = (time) =>{
             app.stage.addChild(frameText);
             sendToPhone(CH.game, {player: ""});
         }else{
-            try{
-                sendToPhone(CH.game, {player: getCurrentPlayer()});
-            }catch(e){
-                document.querySelector("#result").innerText = "error: " + getCurrentPlayer()
+            setPinsUp(result);
+
+            if (debug){
+                throwBall({
+                    speed: {
+                        x: 12+Math.random(), 
+                        y: Math.sin(Math.random()*Math.PI*2)*2
+                    }, acceleration: {
+                        x: Math.sin(Math.random()*Math.PI*2)*0.008, 
+                        y: Math.sin(Math.random()*Math.PI*2)*0.025
+                    }, position: 0.5
+                })
+            }else{
+                try{
+                    sendToPhone(CH.game, {player: getCurrentPlayer()});
+                }catch(e){
+                    document.querySelector("#result").innerText = "error: " + getCurrentPlayer()
+                }
+                ball.spr.x = -180; ball.speed.x = 0;
+                ball.acceleration = { x: 0, y: 0};
             }
             
-            setPinsUp(result);
-            ball.spr.x = -180; ball.speed.x = 0;
-            ball.acceleration = { x: 0, y: 0};
         }
     }
 
@@ -348,6 +362,8 @@ const main = (playerNames, roundNb, map) => {
     bluey.circular = true;
 
     bluey.x = -500; bluey.y = app.screen.height*0.5;
+
+    if (debug){ ball.speed.x = 12 }
 
     ball.spr = bluey;
 
