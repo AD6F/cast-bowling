@@ -13,6 +13,7 @@ const rebuildGame = (action) => {
 
     if (action==0){
         main(settings.players, settings.round, settings.map);
+        context.sendCustomMessage(CH.game, undefined, {player: settings.players[0]});
     }
 }
 

@@ -35,7 +35,6 @@ const updateFrameTop = () => {
 }
 
 const updateScore = () => {
-    // TODO : rework this
     let minFrame = getMinFrameDisplay(scoreFrame-1);
     minFrame = (minFrame<=0) ? 0 : minFrame;
     let maxFrame = Math.min(minFrame+4, 10);
