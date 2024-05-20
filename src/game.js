@@ -17,7 +17,7 @@ const ball = {
     offset: {x: 0, y: 0, ogSize: 125}
 }
 
-var debug = false;
+var debug = true;
 
 var elapsedTime = 0;
 var deltaTime = 0; 
