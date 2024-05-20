@@ -35,6 +35,7 @@ const updateFrameTop = () => {
 }
 
 const updateScore = () => {
+    document.querySelector("#result").innerText = "UpdateScore in error";
     let minFrame = getMinFrameDisplay(scoreFrame-1);
     minFrame = (minFrame<=0) ? 0 : minFrame;
     let maxFrame = Math.min(minFrame+4, 10);
