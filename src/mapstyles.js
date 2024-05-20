@@ -77,7 +77,7 @@ const bgColors = [
         sky : 0x0, alley : new PIXI.Color('#948270'),
         gutter : new PIXI.Color('#38302a'), init : async (app) => {
             var bgTex = await PIXI.Assets.load({
-                src: "./assets/img/newyorkBG.mp4",
+                src: "./assets/video/newyorkBG.mp4",
                 data:{ loop: true }
             });
             var bgSpr = new PIXI.Sprite(bgTex);
@@ -281,7 +281,7 @@ const bgColors = [
             });
 
             var bgTex = await PIXI.Assets.load({
-                src: "./assets/img/galatic.mp4",
+                src: "./assets/video/galatic.mp4",
                 data:{ loop: true }
             });
             var bgSpr = new PIXI.Sprite(bgTex);
