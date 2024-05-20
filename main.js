@@ -4,7 +4,8 @@ const castDebugLogger = cast.debug.CastDebugLogger.getInstance();
 const context = cast.framework.CastReceiverContext.getInstance();
 const CH = {
     settings : 'urn:x-cast:setting',
-    game : 'urn:x-cast:game'
+    game : 'urn:x-cast:game',
+    data : 'urn:x-cast:data'
 };
 
 var settings = undefined;
@@ -29,20 +30,22 @@ context.addCustomMessageListener(CH.game, (customEvent) => {
     const force = data.force/12.5;
 
     const accelAngle = ((data.tilt-70)*90) * Math.PI /180
-    const accelForce = force/30;
+    const accelForce = force/32;
 
     var result = { 
         speed: {x: Math.abs(Math.cos(radian)*force), y:Math.sin(radian)*force*0.125},
         acceleration: {
-            x: Math.cos(accelAngle)*accelForce*0.75, 
+            x: Math.cos(accelAngle)*accelForce*0.65, 
             y:Math.sin(accelAngle)*accelForce
         },
-        position: 0.5 - (Math.sin(radian)*0.125)
+        position: 0.5 - (Math.sin(radian)*0.105)
     }
 
     throwBall(result);
 
     document.querySelector("#game").innerText = JSON.stringify(result);
+
+    sendToPhone(CH.data, {throw: data, result: result});
 });
 
 context.addEventListener(cast.framework.system.EventType.READY, () => {
