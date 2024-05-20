@@ -263,13 +263,7 @@ const update = (time) =>{
 
             app.stage.addChild(frameText);
         }else{
-            /*
-            sendToPhone(CH.game, {
-                nextPlayer: getCurrentPlayer(), 
-                playerName: previousPlayer, 
-                score: pinsHit
-            })
-            */
+            sendToPhone(CH.game, getCurrentPlayer());
             setPinsUp(result);
             ball.spr.x = -180; ball.speed.x = 0;
             ball.acceleration = { x: 0, y: 0};
