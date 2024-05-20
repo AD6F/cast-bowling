@@ -43,8 +43,6 @@ context.addCustomMessageListener(CH.game, (customEvent) => {
     throwBall(result);
 
     document.querySelector("#game").innerText = JSON.stringify(result);
-
-    context.sendCustomMessage(CH.game, undefined, "ball throw");
 });
 
 context.addEventListener(cast.framework.system.EventType.READY, () => {
