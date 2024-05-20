@@ -439,7 +439,7 @@ setTimeout( () => {
             visual(time,  ball, pinList);
             pinUpdate(time);
         }catch(e){
-            document.querySelector("#error").innerText = JSON.stringify(e);
+            document.querySelector("#error").innerText = e;
             console.error(e);
         }
     })
