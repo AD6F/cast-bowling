@@ -92,6 +92,10 @@ const scoreAdvance = (pinsHit) => {
 }
 
 const scoreInit = (playerCount, pNames, roundCount, appToSet, debug) =>{
+    scorePlayerIndex = 0;
+    scoreFrame = 0;
+    scoreRound = 0;
+
     app = appToSet;
 
     maxRound = roundCount;
