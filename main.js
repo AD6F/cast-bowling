@@ -41,8 +41,6 @@ context.addCustomMessageListener(CH.game, (customEvent) => {
     const data = customEvent.data;
 
     if (data["endGameAction"]!=undefined){
-        document.querySelector("canvas").remove()
-
         rebuildGame(data["endgameAction"])
 
         return 0;
