@@ -272,7 +272,7 @@ const update = (time) =>{
             frameText.zIndex = 1200;
 
             app.stage.addChild(frameText);
-            sendToPhone(CH.game, {player: null});
+            sendToPhone(CH.game, {player: undefined});
         }else{
             try{
                 sendToPhone(CH.game, {player: getCurrentPlayer()});
