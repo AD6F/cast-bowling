@@ -19,8 +19,9 @@ context.addCustomMessageListener(CH.settings,(customEvent) => {
     main(settings.players, settings.round, settings.map);
     
     document.querySelector("#result").innerText = pos;
-    
-    context.sendCustomMessage(CH.game, undefined, {player: settings.players[0]});
+    setTimeout( () => {
+        context.sendCustomMessage(CH.game, undefined, {player: settings.players[0]});
+    }, 1000)
 });
 
 context.addCustomMessageListener(CH.game, (customEvent) => {
