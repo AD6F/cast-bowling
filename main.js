@@ -25,7 +25,7 @@ context.addCustomMessageListener(CH.settings,(customEvent) => {
 
 context.addCustomMessageListener(CH.game, (customEvent) => {
     const data = customEvent.data;
-    const throwAngle = ( (data.rotation/100)*180 ) - 90;
+    const throwAngle = (( (data.rotation/100)*180 ) - 90)*0.9;
     const radian = throwAngle * Math.PI /180;
     const force = data.force/12.5;
 
