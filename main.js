@@ -19,7 +19,7 @@ context.addCustomMessageListener(CH.settings,(customEvent) => {
     
     document.querySelector("#result").innerText = pos;
     
-    //context.sendCustomMessage(CH.settings, undefined, "settings updated");
+    context.sendCustomMessage(CH.settings, undefined, "settings updated");
 });
 
 context.addCustomMessageListener(CH.game, (customEvent) => {
