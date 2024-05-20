@@ -26,10 +26,10 @@ context.addCustomMessageListener(CH.game, (customEvent) => {
     const data = customEvent.data;
     const throwAngle = ( (data.rotation/100)*180 ) - 90;
     const radian = throwAngle * Math.PI /180;
-    const force = data.force/3;
+    const force = data.force/10;
 
     const accelAngle = ((data.tilt-70)*90) * Math.PI /180
-    const accelForce = force/20;
+    const accelForce = force/15;
 
     var result = { 
         speed: {x: Math.abs(Math.cos(radian)*force), y:Math.sin(radian)*force*0.125},
@@ -84,7 +84,7 @@ options.disableIdleTimeout = true;
 context.start(options);
 
 const sendToPhone = (channel, msg) => {
-    context.sendCustomMessage(channel, undefined, msg);
+    context.sendCustomMessage(channel, undefined, `${msg}`);
 }
 
 export { CH, sendToPhone }
