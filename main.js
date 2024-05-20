@@ -48,6 +48,10 @@ context.addCustomMessageListener(CH.game, (customEvent) => {
     sendToPhone(CH.data, {throw: data, result: result});
 });
 
+context.addCustomMessageListener(CH.data, (customEvent) => {
+    
+});
+
 context.addEventListener(cast.framework.system.EventType.READY, () => {
     if (!castDebugLogger.debugOverlayElement_) {
         // Enable debug logger and show a 'DEBUG MODE' overlay at top left corner.
