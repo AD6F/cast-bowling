@@ -77,7 +77,7 @@ const bgColors = [
         sky : 0x0, alley : new PIXI.Color('#948270'),
         gutter : new PIXI.Color('#38302a'), init : async (app) => {
             var bgTex = await PIXI.Assets.load({
-                src: "./assets/video/newyorkBG.mp4",
+                src: "./assets/mapBG/newyorkBG.mp4",
                 data:{ loop: true }
             });
             var bgSpr = new PIXI.Sprite(bgTex);
@@ -218,7 +218,7 @@ const bgColors = [
             app.stage.addChild(laser3);
             app.stage.addChild(laser4);
 
-            var bgTex = await PIXI.Assets.load("./assets/img/vault.png");
+            var bgTex = await PIXI.Assets.load("./assets/mapBG/vault.png");
             var bgSpr = new PIXI.Sprite(bgTex);
 
             bgSpr.anchor.set(0.5, 0.1);
@@ -281,7 +281,7 @@ const bgColors = [
             });
 
             var bgTex = await PIXI.Assets.load({
-                src: "./assets/video/galatic.mp4",
+                src: "./assets/mapBG/galatic.mp4",
                 data:{ loop: true }
             });
             var bgSpr = new PIXI.Sprite(bgTex);
@@ -299,7 +299,7 @@ const bgColors = [
     { // Grimace
         sky : 0x201331, alley : 0x530b62, gutter : 0x340351,
         init : async (app) => {
-            var bgTex = await PIXI.Assets.load("./assets/img/grimache.jpg");
+            var bgTex = await PIXI.Assets.load("./assets/mapBG/grimache.jpg");
             var shakeTex = await PIXI.Assets.load("./assets/img/gshake.png");
             var lightTex = await PIXI.Assets.load("./assets/img/lightray.png");
             var bgSpr = new PIXI.Sprite(bgTex);
