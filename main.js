@@ -74,7 +74,7 @@ options.disableIdleTimeout = true;
 context.start(options);
 
 const sendToPhone = (channel, msg) => {
-    context.sendCustomMessage(channel, undefined, msg);
+    context.sendCustomMessage(channel, undefined, JSON.stringify(msg));
 }
 
 export { CH, sendToPhone }
