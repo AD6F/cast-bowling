@@ -112,14 +112,14 @@ const sendToPhone = (channel, msg) => {
     context.sendCustomMessage(channel, undefined, msg);
 }
 
+
+export { CH, sendToPhone }
+
 //main(["owo", "iwi"], 4, 5);
 //
 //setTimeout( () => {
 //    rebuildGame(0)
 //}, 2000)
-
-export { CH, sendToPhone }
-
 //throwBall({ 
 //    speed: {x: 8, y:-0.955},
 //    acceleration: {x: -0.002, y:0.0150},
