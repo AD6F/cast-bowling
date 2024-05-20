@@ -1,3 +1,4 @@
+import { sendToPhone } from "../main.js";
 import { adjustWidth, adjustHeight } from "./globalfunc.js";
 
 var bgScore = null;
@@ -60,8 +61,11 @@ const updateScore = () => {
 // Bowling scoring reference https://www.wikihow.com/Score-Bowling
 const scoreAdvance = (pinsHit) => {
     let flagShouldReset = false;
-    
+
+    sendToPhone(CH.data, {error: "begin score advance"});
+
     scoreBoard[scorePlayerIndex][scoreFrame][scoreRound] = pinsHit;
+    sendToPhone(CH.data, {error: "set score"});
 
     scoreRound++;
     updateScore();
