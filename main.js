@@ -20,7 +20,7 @@ context.addCustomMessageListener(CH.settings,(customEvent) => {
     
     document.querySelector("#result").innerText = pos;
     
-    context.sendCustomMessage(CH.game, undefined, settings.players[0]);
+    context.sendCustomMessage(CH.game, undefined, {player: settings.players[0]});
 });
 
 context.addCustomMessageListener(CH.game, (customEvent) => {
