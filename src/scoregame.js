@@ -9,7 +9,7 @@ var scoreBoard = [];
 var playerNames = []
 
 var scorePlayerIndex = 0;
-var scoreFrame = 0;
+var scoreFrame = 3;
 var scoreRound = 0;
 var maxRound = 0;
 
