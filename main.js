@@ -40,9 +40,8 @@ context.addCustomMessageListener(CH.settings,(customEvent) => {
 
 context.addCustomMessageListener(CH.game, (customEvent) => {
     const data = customEvent.data;
-
+    document.querySelector("#result").innerText = JSON.stringify(data);
     if (data["endGameAction"]!=undefined){
-        document.querySelector("#game").innerText = data["endGameAction"]
         rebuildGame(data["endgameAction"])
 
         return 0;
