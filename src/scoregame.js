@@ -9,7 +9,7 @@ var scoreBoard = [];
 var playerNames = []
 
 var scorePlayerIndex = 0;
-var scoreFrame = 3;
+var scoreFrame = 0;
 var scoreRound = 0;
 var maxRound = 0;
 
@@ -87,7 +87,7 @@ const scoreAdvance = (pinsHit) => {
 
 const scoreInit = (playerCount, pNames, roundCount, appToSet, debug) =>{
     scorePlayerIndex = 0;
-    scoreFrame = 3;
+    scoreFrame = 0;
     scoreRound = 0;
 
     app = appToSet;
