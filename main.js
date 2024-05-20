@@ -60,8 +60,12 @@ context.addEventListener(cast.framework.system.EventType.READY, () => {
 });
 
 context.addEventListener(cast.framework.system.EventType.ERROR, (e) => {
-    if (!castDebugLogger.debugOverlayElement_) {
-        document.querySelector("#result").innerText = JSON.stringify(e);
+    try{
+        if (!castDebugLogger.debugOverlayElement_) {
+            document.querySelector("#result").innerText = JSON.stringify(e);
+        }
+    }catch(e){
+        document.querySelector("#result").innerText = "Even the error event is messed up."
     }
 });
 
