@@ -59,6 +59,12 @@ context.addEventListener(cast.framework.system.EventType.READY, () => {
     }
 });
 
+context.addEventListener(cast.framework.system.EventType.ERROR, (e) => {
+    if (!castDebugLogger.debugOverlayElement_) {
+        document.querySelector("#result").innerText = JSON.stringify(e);
+    }
+});
+
 castDebugLogger.loggerLevelByEvents = {
   'cast.framework.events.category.CORE': cast.framework.LoggerLevel.INFO,
   'cast.framework.events.EventType.MEDIA_STATUS': cast.framework.LoggerLevel.DEBUG
