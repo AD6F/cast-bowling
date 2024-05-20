@@ -30,13 +30,13 @@ context.addCustomMessageListener(CH.game, (customEvent) => {
     const throwRadian = throwAngle * Math.PI /180;
     const force = data.force/12.5;
 
-    const accelAngle = (((data.tilt-70)/10)*90) * Math.PI /180
-    const accelForce = force/32;
+    const accelAngle = (((data.tilt-70)/100)*90) * Math.PI /180
+    const accelForce = force/48;
 
     var result = { 
         speed: {x: Math.abs(Math.cos(throwRadian)*force), y:Math.sin(throwRadian)*force*0.125},
         acceleration: {
-            x: Math.cos(accelAngle)*accelForce*0.65, 
+            x: Math.cos(accelAngle)*accelForce, 
             y:Math.sin(accelAngle)*accelForce
         },
         position: 0.5 - (Math.sin(accelAngle)*0.105)
