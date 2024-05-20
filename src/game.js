@@ -391,7 +391,7 @@ const main = (playerNames, roundNb, map) => {
             visual(time,  ball, pinList);
             pinUpdate(time);
         }catch(e){
-            document.querySelector("#error").innerText = JSON.stringify(e);
+            document.querySelector("#error").innerText = e.message;
         }
     })
 
