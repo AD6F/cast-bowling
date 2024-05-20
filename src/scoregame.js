@@ -18,7 +18,7 @@ var scoreShowcase = [
 ]
 
 const getCurrentPlayer = () => {
-    return playerNames[scorePlayerIndex]
+    return playerNames[scorePlayerIndex].text
 }
 
 const getMinFrameDisplay = (frame) => {
@@ -188,13 +188,7 @@ const scoreInit = (playerCount, pNames, roundCount, appToSet, debug) =>{
 }
 
 const score = (time) => {
-    for (let i = 0; i < scoreBoard.length; i++) {
-        for (let j = 0; j < scoreBoard[i].length; j++) {
-            for (let k = 0; k < scoreBoard[i][j].length; k++) {
-                
-            }
-        }
-    }
+    
 }
 
 export {score, scoreInit, scoreAdvance, getCurrentPlayer};
