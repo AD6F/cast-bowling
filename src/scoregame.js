@@ -1,4 +1,3 @@
-import { CH, sendToPhone } from "../main.js";
 import { adjustWidth, adjustHeight } from "./globalfunc.js";
 
 var bgScore = null;
@@ -62,12 +61,7 @@ const updateScore = () => {
 const scoreAdvance = (pinsHit) => {
     let flagShouldReset = false;
 
-    sendToPhone(CH.data, {error: "begin score advance"});
-
-    sendToPhone(CH.data, {scoreBoard: scoreBoard});
-
     scoreBoard[scorePlayerIndex][scoreFrame][scoreRound] = pinsHit;
-    sendToPhone(CH.data, {error: "set score"});
 
     scoreRound++;
     updateScore();
@@ -93,7 +87,7 @@ const scoreAdvance = (pinsHit) => {
 
 const scoreInit = (playerCount, pNames, roundCount, appToSet, debug) =>{
     scorePlayerIndex = 0;
-    scoreFrame = 0;
+    scoreFrame = 3;
     scoreRound = 0;
 
     app = appToSet;

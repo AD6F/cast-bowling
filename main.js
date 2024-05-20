@@ -52,7 +52,7 @@ context.addCustomMessageListener(CH.game, (customEvent) => {
     const throwRadian = throwAngle * Math.PI /180;
     const force = data.force/12.5;
 
-    const accelAngle = (((data.tilt-70)/40)*75) * Math.PI /180
+    const accelAngle = ( ( (data.tilt/100)*180) - 90 )* Math.PI /180
     const accelForce = force/64;
 
     var result = { 
