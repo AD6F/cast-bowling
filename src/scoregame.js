@@ -1,4 +1,4 @@
-import { sendToPhone } from "../main.js";
+import { CH, sendToPhone } from "../main.js";
 import { adjustWidth, adjustHeight } from "./globalfunc.js";
 
 var bgScore = null;
