@@ -263,7 +263,12 @@ const update = (time) =>{
 
             app.stage.addChild(frameText);
         }else{
-            sendToPhone(CH.game, getCurrentPlayer());
+            try{
+                sendToPhone(CH.game, getCurrentPlayer());
+            }catch(e){
+                document.querySelector("#result").innerText = "error: " + getCurrentPlayer()
+            }
+            
             setPinsUp(result);
             ball.spr.x = -180; ball.speed.x = 0;
             ball.acceleration = { x: 0, y: 0};
@@ -387,7 +392,8 @@ const main = (playerNames, roundNb, map) => {
             visual(time,  ball, pinList);
             pinUpdate(time);
         }catch(e){
-            document.querySelector("#error").innerText = e.message;
+            document.querySelector("#error").innerText = e;
+            console.error(e);
         }
     })
 
