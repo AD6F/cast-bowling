@@ -165,9 +165,15 @@ const playBowlingVideo = async (url, customFunc) =>{
 }
 
 const moveSelf = (obj) => {
+    if (obj.speed.x<2 && obj.offset.y==0){
+        obj.speed.x = 2
+        obj.acceleration.x = 0
+        obj.acceleration.y *= 1.15
+    }
     obj.speed.x += obj.acceleration.x * halfTime;
     obj.spr.x += adjustWidth(obj.speed.x) * deltaTime;
     obj.speed.x += obj.acceleration.x * halfTime;
+
 
     obj.speed.y += obj.acceleration.y * halfTime;
     obj.spr.y += adjustHeight(obj.speed.y) * deltaTime;
@@ -190,7 +196,10 @@ const checkGutter = (obj) => {
     }
 
     if (flag){
-        obj.acceleration.x = 0.01;
+        if (obj.offset.y==0){ 
+            obj.acceleration.x = 0; 
+            obj.speed.x = Math.max(obj.speed.x, 6);
+        }
         obj.acceleration.y = 0; obj.speed.y = 0;
         obj.offset.y = approach(obj.offset.y, 20, moveAmnt)
     }
@@ -217,7 +226,6 @@ const update = (time) =>{
     moveSelf(ball); checkGutter(ball);
 
     if (ball.speed.x==0){
-        obj.acceleration.x = 0;
         ball.offset.y = approach(ball.offset.y, adjustHeight(32), 1/25*halfTime);
         ball.spr.y = approach(ball.spr.y, yPosTo, 1/18*halfTime);
     }
