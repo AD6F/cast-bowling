@@ -8,6 +8,17 @@ const CH = {
     data : 'urn:x-cast:data'
 };
 
+const rebuildGame = async (action) => {
+    mainRestart();
+    if (action==0){
+        main(settings.players, settings.round, settings.map);
+    }
+}
+
+const sendToPhone = (channel, msg) => {
+    context.sendCustomMessage(channel, undefined, msg);
+}
+
 var settings = {
     players: ["P1", "Doggy", "Achr", "Meow"],
     round: 10, map: 0
@@ -25,13 +36,6 @@ context.addCustomMessageListener(CH.settings,(customEvent) => {
     
     context.sendCustomMessage(CH.game, undefined, {player: settings.players[0]});
 });
-
-const rebuildGame = async (action) => {
-    mainRestart();
-    if (action==0){
-        main(settings.players, settings.round, settings.map);
-    }
-}
 
 context.addCustomMessageListener(CH.game, (customEvent) => {
     const data = customEvent.data;
@@ -108,9 +112,6 @@ options.disableIdleTimeout = true;
 
 context.start(options);
 
-const sendToPhone = (channel, msg) => {
-    context.sendCustomMessage(channel, undefined, msg);
-}
 
 
 export { CH, sendToPhone }

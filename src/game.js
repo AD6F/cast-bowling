@@ -303,7 +303,6 @@ const update = (time) =>{
 }
 
 var menuObjList = [];
-
 const txtMainStyle = new PIXI.TextStyle({
     fill: 0xFFFFFF, fontSize: 40,
     stroke: {color:0x000000, width:6, join:"round"}
@@ -314,8 +313,7 @@ const txtHintStyle = new PIXI.TextStyle({
     wordWrap : true, wordWrapWidth : 300
 })
 
-const mainMenuShowup = () => {
-
+const mainMenuShow = () => {
     let textMain = new PIXI.Text({
         text: "Bowling", style: txtMainStyle,
         x : adjustWidth(34), y : adjustHeight(45)
@@ -327,11 +325,10 @@ const mainMenuShowup = () => {
         style: txtHintStyle
     });
 
-
     app.stage.addChild(textMain);
     app.stage.addChild(textHint);
 
-    menuObjList = [textMain, textHint];
+    menuObjList = [...menuObjList, textMain, textHint];
 }
 
 const mainRestart = () => {
@@ -339,7 +336,7 @@ const mainRestart = () => {
     while (app.stage.children.length>0) {
         app.stage.removeChildAt(0);
     }
-    mainMenuShowup();
+    mainMenuShow();
 }
 
 const mainStart = async () => {
@@ -353,7 +350,7 @@ const mainStart = async () => {
 
     document.querySelector("#pixi-container").appendChild(app.canvas);
 
-    mainMenuShowup();
+    mainMenuShow();
 
     return 0;
 }
