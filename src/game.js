@@ -190,6 +190,7 @@ const checkGutter = (obj) => {
     }
 
     if (flag){
+        obj.acceleration.x = 0.01;
         obj.acceleration.y = 0; obj.speed.y = 0;
         obj.offset.y = approach(obj.offset.y, 20, moveAmnt)
     }
