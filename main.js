@@ -13,18 +13,16 @@ var settings = undefined;
 await mainStart();
 
 context.addCustomMessageListener(CH.settings,(customEvent) => {	
-    setTimeout( () => {
-        const pos = JSON.stringify(customEvent.data);
-        settings = customEvent.data;
+    const pos = JSON.stringify(customEvent.data);
+    settings = customEvent.data;
 
-        main(settings.players, settings.round, settings.map);
-        
-        document.querySelector("#result").innerText = pos;
-        
-        setTimeout( ()=> {
-            context.sendCustomMessage(CH.game, undefined, {player: settings.players[0]});
-        }, 3000)
-    }, 2000)
+    main(settings.players, settings.round, settings.map);
+    
+    document.querySelector("#result").innerText = pos;
+    
+    setTimeout( ()=> {
+        context.sendCustomMessage(CH.game, undefined, {player: settings.players[0]});
+    }, 3000)
 });
 
 context.addCustomMessageListener(CH.game, (customEvent) => {
