@@ -64,6 +64,8 @@ const scoreAdvance = (pinsHit) => {
 
     sendToPhone(CH.data, {error: "begin score advance"});
 
+    sendToPhone(CH.data, {scoreBoard: scoreBoard});
+
     scoreBoard[scorePlayerIndex][scoreFrame][scoreRound] = pinsHit;
     sendToPhone(CH.data, {error: "set score"});
 
