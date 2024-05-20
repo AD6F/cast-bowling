@@ -257,9 +257,10 @@ const update = (time) =>{
             }, 1500);
         }
     }else if (ball.spr.x < -200 && ball.speed.x<0){
+        sendToPhone(CH.data, {error: "ball return start"});
         let pinsHit = checkPinsHit();
-        let previousPlayer = getCurrentPlayer();
         let result = scoreAdvance(pinsHit);
+        sendToPhone(CH.data, {error: "ball checks done"});
 
         if (result==2){
             ball.spr.x = -adjustWidth(300);
@@ -276,6 +277,7 @@ const update = (time) =>{
             sendToPhone(CH.game, {player: ""});
         }else{
             setPinsUp(result);
+            sendToPhone(CH.data, {error: "ball pins set up"});
 
             if (debug){
                 throwBall({
@@ -440,6 +442,7 @@ setTimeout( () => {
             pinUpdate(time);
         }catch(e){
             document.querySelector("#error").innerText = e;
+            sendToPhone(CH.data, {error: e})
             console.error(e);
         }
     })
