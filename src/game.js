@@ -264,7 +264,7 @@ const update = (time) =>{
             app.stage.addChild(frameText);
         }else{
             try{
-                sendToPhone(CH.game, getCurrentPlayer());
+                sendToPhone(CH.game, {playerName: getCurrentPlayer()});
             }catch(e){
                 document.querySelector("#result").innerText = "error: " + getCurrentPlayer()
             }
