@@ -165,6 +165,11 @@ const playBowlingVideo = async (url, customFunc) =>{
 }
 
 const moveSelf = (obj) => {
+    if (obj.speed.x<2 && obj.offset.y==0 && obj.spr.x<0 && obj.speed.x!=0){
+        obj.speed.x = 2
+        obj.acceleration.x = 0
+        obj.acceleration.y *= 1.15
+    }
     obj.speed.x += obj.acceleration.x * halfTime;
     obj.spr.x += adjustWidth(obj.speed.x) * deltaTime;
     obj.speed.x += obj.acceleration.x * halfTime;

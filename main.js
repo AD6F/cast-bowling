@@ -95,7 +95,12 @@ const sendToPhone = (channel, msg) => {
 
 export { CH, sendToPhone }
 
-//main(["owo", "iwi"], 4, 6);
+main(["owo", "iwi"], 4, 6);
+//throwBall({ 
+//    speed: {x: 8, y:-0.955},
+//    acceleration: {x: -0.002, y:0.0150},
+//    position: 0.275
+//})
 //
 //
 //setTimeout( () => {
