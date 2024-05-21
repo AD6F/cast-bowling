@@ -460,7 +460,7 @@ setTimeout( () => {
 
     console.log(app.ticker)
 
-    context.sendCustomMessage(CH.game, undefined, {player: playerNames[0]});
+    sendToPhone(CH.game, {player: playerNames[0]});
     
 }, loadTime)
 
