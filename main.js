@@ -90,6 +90,10 @@ context.addEventListener(cast.framework.system.EventType.READY, () => {
     }
 });
 
+context.addEventListener(cast.framework.system.EventType.SHUTDOWN, () => {
+    sendToPhone(CH.settings, "end");
+});
+
 context.addEventListener(cast.framework.system.EventType.ERROR, (e) => {
     try{
         if (!castDebugLogger.debugOverlayElement_) {
