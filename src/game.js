@@ -349,9 +349,11 @@ const mainStart = async () => {
         width  : window.innerWidth -4,
         height : window.innerHeight-4,
         width :  480*2, height : 270*2,
-        background: '#111111'
+        background: '#111111',
+        //scale_mode: PIXI.SCALE_MODES.NEAREST
     });
     myApp(app);
+    //PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST
 
     document.querySelector("#pixi-container").appendChild(app.canvas);
 
