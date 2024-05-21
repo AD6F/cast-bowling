@@ -44,8 +44,12 @@ const updateScore = () => {
         
         for (let rId = 0; rId < scoreBoard[pId][fId].length; rId++) {
             let score = scoreBoard[pId][fId][rId]
+            let scoreTotal = score;
+            for (let rId2 = 0; rId2 < rId; rId2++){
+                scoreTotal += scoreBoard[pId][fId][rId2];
+            }
             txt += (score==undefined) ? 
-                "-" : (score == 10) ? "X": score;
+                "-" : (score == 10) ? "X": (scoreTotal==10) ? "/" : score;
             txt += " ";
         }
         const txtElement = scoreShowcase[fId-minFrame][pId + 1]
