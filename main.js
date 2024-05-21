@@ -91,7 +91,7 @@ context.addEventListener(cast.framework.system.EventType.READY, () => {
 });
 
 context.addEventListener(cast.framework.system.EventType.SHUTDOWN, () => {
-    sendToPhone(CH.settings, "end");
+    sendToPhone(CH.settings, {action: "end"});
 });
 
 context.addEventListener(cast.framework.system.EventType.ERROR, (e) => {
