@@ -440,6 +440,8 @@ setTimeout( () => {
         app.stage.addChild(bluey);
     }
 
+    app.ticker.remove(mainLoop);
+
     mainLoop = (time) =>{
         try{
             update(time); score(time);
