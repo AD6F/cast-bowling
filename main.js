@@ -23,7 +23,7 @@ const sendToPhone = (channel, msg) => {
 
 var settings = {
     players: ["P1", "Doggy", "Achr", "Meow"],
-    round: 10, map: 0
+    round: 10, map: 5
 };
 
 await mainStart();
@@ -123,11 +123,11 @@ context.start(options);
 
 export { CH, sendToPhone }
 
-//main(["owo", "iwi"], 4, 5);
+//main(["owo", "iwi"], 4, 3);
 //
 //setTimeout( () => {
 //    rebuildGame(0)
-//}, 2000)
+//}, 5000)
 //throwBall({ 
 //    speed: {x: 8, y:-0.955},
 //    acceleration: {x: -0.002, y:0.0150},

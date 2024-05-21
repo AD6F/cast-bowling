@@ -1,5 +1,5 @@
 import { adjustWidth, adjustHeight, lerp } from "./globalfunc.js";
-import { bgColors } from "./mapstyles.js";
+import { bgMap } from "./mapstyles.js";
 
 var bgGame = null;
 var bgBowlingFloor = null;
@@ -68,11 +68,11 @@ const visualDrawObj = (spr,offset) =>{
 const visualInit = async (theme, appToSet) => {
     app = appToSet;
 
-    await bgColors[theme].init(app);
+    await bgMap[theme].init(app);
 
     bgGame = new PIXI.Graphics()
     .rect(app.screen.width/2, 0, app.screen.width/2, app.screen.height)
-    .fill(bgColors[theme].sky);
+    .fill(bgMap[theme].sky);
     bgGame.zIndex = -1;
 
     app.stage.addChild(bgGame);
@@ -90,7 +90,7 @@ const visualInit = async (theme, appToSet) => {
     floor.topRight = polygon[2].x - app.screen.width*0.75;
 
     bgBowlingFloor = new PIXI.Graphics()
-    .poly(polygon).fill(bgColors[theme].alley);
+    .poly(polygon).fill(bgMap[theme].alley);
     bgBowlingFloor.zIndex = 10;
 
     console.log(floor)
@@ -112,7 +112,7 @@ const visualInit = async (theme, appToSet) => {
     gutterPolygon[3].y += adjustHeight(16)
 
     let bgBowlingGutter = new PIXI.Graphics()
-    .poly(gutterPolygon).fill(bgColors[theme].gutter);
+    .poly(gutterPolygon).fill(bgMap[theme].gutter);
     bgBowlingGutter.zIndex = 2;
 
     app.stage.addChild(bgBowlingGutter)

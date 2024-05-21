@@ -2,6 +2,7 @@ import {score, scoreInit, scoreAdvance, getCurrentPlayer} from "./scoregame.js";
 import {visual, visualInit} from "./visualgame.js";
 import { adjustWidth, adjustHeight, myApp, lerp} from "./globalfunc.js";
 import { CH, sendToPhone } from "../main.js";
+import { clearMapTicker } from "./mapstyles.js";
 
 const texture = await PIXI.Assets.load('./assets/img/pixelbluey.png');
 
@@ -33,6 +34,8 @@ var gutterBallRightPos = 0;
 
 var pinList = new Array(10)
 var pinCollisionSize = 16;
+
+var mainLoop = undefined
 
 const pinPos = [
     {x: 0.950, y: 0.355},
@@ -331,10 +334,13 @@ const mainMenuShow = () => {
 }
 
 const mainRestart = () => {
+    clearMapTicker(app);
+    app.ticker.remove(mainLoop)
     console.log(app.stage.children)
     while (app.stage.children.length>0) {
         app.stage.removeChildAt(0);
     }
+    app.ticker
     mainMenuShow();
 }
 
@@ -432,7 +438,7 @@ setTimeout( () => {
         app.stage.addChild(bluey);
     }
 
-    app.ticker.add((time) =>{
+    mainLoop = (time) =>{
         try{
             update(time); score(time);
             visual(time,  ball, pinList);
@@ -442,7 +448,10 @@ setTimeout( () => {
             sendToPhone(CH.data, {error: e.message})
             console.error(e);
         }
-    })
+    }
+    app.ticker.add(mainLoop)
+
+    console.log(app.ticker)
     
 }, loadTime)
 

@@ -13,6 +13,8 @@ colorsStopsNY.forEach((number, index) =>
 const alleyMatrix = new PIXI.FillGradient(0, 0, 150, 2000)
 const colorStopMX = [0x010a01, 0x0b780b];
 
+const mapTickerList = []
+
 colorStopMX.forEach((number, index) =>
 {
     const ratio = index / (colorStopMX.length+1);
@@ -22,6 +24,12 @@ colorStopMX.forEach((number, index) =>
 
 const setXpos = (app) => {
     return app.screen.width*(0.5 + (Math.random()*0.5))
+}
+
+const clearMapTicker = (app) => {
+    mapTickerList.forEach( (value, index) => {
+        app.ticker.remove(value);
+    })
 }
 
 const floatingSpritesEffect = async (app, sprites, val) => {
@@ -43,7 +51,7 @@ const floatingSpritesEffect = async (app, sprites, val) => {
         app.stage.addChild(list[i]);
     }
 
-    app.ticker.add( (time) => {
+    let timer = (time) => {
         for(let i = 0; i < list.length; i++){
             list[i].xOffTimer += time.deltaTime*0.005
             list[i].x = list[i].xstart + (Math.sin(list[i].xOffTimer)*val.xOff);
@@ -56,10 +64,13 @@ const floatingSpritesEffect = async (app, sprites, val) => {
                 list[i].xstart= setXpos(app);
             }
         }
-    })
+    }
+
+    app.ticker.add( timer )
+    mapTickerList.push(timer)
 }
 
-const bgColors = [
+const bgMap = [
     {
         sky : 0x111111, alley : new PIXI.Color('burlywood'),
         gutter : 0x5f5f5f, init : async (app) => {
@@ -153,7 +164,16 @@ const bgColors = [
             app.stage.addChild(lightShineGraphic);
             app.stage.addChild(lightShineGraphic2);
 
-            app.ticker.add( (time) => {
+            var sharkTex = await PIXI.Assets.load("./assets/img/blahaj.png");
+            var sharkSpr = new PIXI.Sprite(sharkTex);
+
+            sharkSpr.x = app.screen.width*2;
+            sharkSpr.scale.x = -0.75; sharkSpr.scale.y = 0.75;
+            sharkSpr.tint = 0x181818; sharkSpr.angle = -3;
+
+            app.stage.addChild(sharkSpr);
+
+            let ticker = (time) => {
                 timer += time.deltaTime*0.005
                 lightShineGraphic.angle  = (Math.sin(timer)*0.5);
                 lightShineGraphic2.angle = (Math.sin(timer)*1.5);
@@ -164,16 +184,7 @@ const bgColors = [
                         (app.screen.width*0.5) + 32*i : 
                         listWater[i].x - (time.deltaTime/8);
                 }
-            })
 
-            var sharkTex = await PIXI.Assets.load("./assets/img/blahaj.png");
-            var sharkSpr = new PIXI.Sprite(sharkTex);
-
-            sharkSpr.x = app.screen.width*2;
-            sharkSpr.scale.x = -0.75; sharkSpr.scale.y = 0.75;
-            sharkSpr.tint = 0x181818; sharkSpr.angle = -3;
-
-            app.ticker.add( (time) => {
                 sharkSpr.x -= time.deltaTime;
                 sharkSpr.y += time.deltaTime*0.05;
 
@@ -181,9 +192,9 @@ const bgColors = [
                     sharkSpr.x = app.screen.width*(2 + (Math.random()*2));
                     sharkSpr.y = app.screen.height*((Math.random()*0.32)-0.28);
                 }
-            })
-
-            app.stage.addChild(sharkSpr);
+            }
+            app.ticker.add( ticker )
+            mapTickerList.push(ticker);
         }
     },
     { // Infiltration
@@ -268,7 +279,7 @@ const bgColors = [
 
             const xMin = app.screen.width*0.5
 
-            app.ticker.add( (time) => {
+            let timer = (time) => {
                 for(let i = 0; i < list.length; i++){
                     const star = list[i];
                     star.x -= time.deltaTime*(star.scale.x**2)*star.alpha;
@@ -278,7 +289,10 @@ const bgColors = [
                         star.y = app.screen.height*Math.random(); 
                     }
                 }
-            });
+            };
+
+            app.ticker.add(timer);
+            mapTickerList.push(timer);
 
             var bgTex = await PIXI.Assets.load({
                 src: "./assets/mapBG/galatic.mp4",
@@ -347,4 +361,4 @@ const bgColors = [
     }
 ]
 
-export {bgColors}
+export {bgMap, clearMapTicker}
