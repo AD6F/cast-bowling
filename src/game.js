@@ -252,8 +252,8 @@ const update = (time) =>{
             setTimeout(() => {
                 playBowlingVideo("./assets/video/fem.mp4", () => {
                     setTimeout(() => {
-                        ball.speed.x = -0.05;
-                        ball.acceleration.x = -0.105;
+                        ball.speed.x = -0.075;
+                        ball.acceleration.x = -0.15;
                         console.log("imgettingreset");
                     }, 1000);
                 })
