@@ -333,15 +333,16 @@ const mainMenuShow = () => {
     menuObjList = [...menuObjList, textMain, textHint];
 }
 
-const mainRestart = () => {
+const mainRestart = (includeMenu = true) => {
     clearMapTicker(app);
     app.ticker.remove(mainLoop)
     console.log(app.stage.children)
     while (app.stage.children.length>0) {
         app.stage.removeChildAt(0);
     }
-    app.ticker
-    mainMenuShow();
+    
+    if (includeMenu)
+        mainMenuShow();
 }
 
 const mainStart = async () => {
@@ -363,7 +364,9 @@ const mainStart = async () => {
 }
 
 // Asynchronous IIFE
-const main = (playerNames, roundNb, map) => { 
+const main = (playerNames, roundNb, map) => {
+    mainRestart(false);
+    
     let loadTime = 500
     let textLoad = new PIXI.Text({
         text: "Loading....",
