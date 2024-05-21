@@ -456,6 +456,8 @@ setTimeout( () => {
     app.ticker.add(mainLoop)
 
     console.log(app.ticker)
+
+    context.sendCustomMessage(CH.game, undefined, {player: playerNames[0]});
     
 }, loadTime)
 

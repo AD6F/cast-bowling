@@ -35,8 +35,6 @@ context.addCustomMessageListener(CH.settings,(customEvent) => {
     main(settings.players, settings.round, settings.map);
     
     document.querySelector("#result").innerText = pos;
-    
-    context.sendCustomMessage(CH.game, undefined, {player: settings.players[0]});
 });
 
 context.addCustomMessageListener(CH.game, (customEvent) => {
