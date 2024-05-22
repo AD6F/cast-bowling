@@ -5,6 +5,8 @@ import { CH, sendToPhone } from "../main.js";
 import { clearMapTicker } from "./mapstyles.js";
 
 const texture = await PIXI.Assets.load('./assets/img/pixelbluey.png');
+const safetyTexture = await PIXI.Assets.load('./assets/img/safety.jpg');
+const loadTexture = await PIXI.Assets.load('./assets/img/loadingScreen.png');
 
 const bluey = new PIXI.Sprite(texture);
 const app = new PIXI.Application();
@@ -304,7 +306,7 @@ const update = (time) =>{
 
 }
 
-var menuObjList = [];
+var menuObjList = new Array();
 const txtMainStyle = new PIXI.TextStyle({
     fill: 0xFFFFFF, fontSize: 40,
     stroke: {color:0x000000, width:6, join:"round"}
@@ -327,10 +329,18 @@ const mainMenuShow = () => {
         style: txtHintStyle
     });
 
+    let safetyImage = new PIXI.Sprite(safetyTexture)
+    safetyImage.scale = 0.5
+    safetyImage.x = adjustWidth(400)
+    safetyImage.y = adjustHeight(32)
+
     app.stage.addChild(textMain);
     app.stage.addChild(textHint);
+    app.stage.addChild(safetyImage);
 
-    menuObjList = [...menuObjList, textMain, textHint];
+    menuObjList.push(textMain);
+    menuObjList.push(textHint);
+    menuObjList.push(safetyImage);
 }
 
 const mainRestart = (includeMenu = true) => {
@@ -367,23 +377,24 @@ const mainStart = async () => {
 const main = (playerNames, roundNb, map) => {
     mainRestart(false);
     
-    let loadTime = 500
+    let loadTime = 1000
+    let loadingImage = new PIXI.Sprite(loadTexture)
+    loadingImage.zIndex = 9999
+
     let textLoad = new PIXI.Text({
         text: "Loading....",
-        x : adjustWidth(705), y : adjustHeight(400),
-        style: txtMainStyle
+        x : adjustWidth(705), y : adjustHeight(100),
+        style: txtMainStyle,
+        zIndex: 999999
     });
+
     app.stage.addChild(textLoad)
+    app.stage.addChild(loadingImage)
     menuObjList.push(textLoad);
+    menuObjList.push(loadingImage);
 
-setTimeout( () => {
-    menuObjList.forEach( (value) => {
-        app.stage.removeChild(value);
-    });
-
-    menuObjList = [];
-
-    visualInit(map, app);
+setTimeout( async () => {
+    await visualInit(map, app);
     scoreInit(playerNames.length, playerNames, roundNb, app);
 
     bluey.anchor.set(0.5, 0.5);
@@ -460,7 +471,14 @@ setTimeout( () => {
 
     console.log(app.ticker)
 
+    console.log(menuObjList)
+
+    while(menuObjList.length>0){
+        app.stage.removeChild(menuObjList.shift())
+    }
+
     sendToPhone(CH.game, {player: playerNames[0]});
+
     
 }, loadTime)
 
