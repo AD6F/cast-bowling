@@ -15,6 +15,7 @@ const videos = {
         "strikefall"
     ],
     "gutter":[
+        "ballfall",
         "gutterballed",
         "wronggutter",
         "disappointed"
@@ -25,7 +26,6 @@ const videos = {
         "splitter"
     ],
     "miss":[
-        "ballfall",
         "ballmiss",
         "backbowl",
         "pinJumped",
