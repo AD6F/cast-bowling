@@ -12,3 +12,8 @@ canvas {
     left: calc(50% - 480px);
     top : calc(50% - 270px);
 }
+
+#logo {
+    position: fixed;
+    top : calc(100% - 55px);
+}
