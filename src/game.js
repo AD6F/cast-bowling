@@ -284,7 +284,7 @@ const update = (time) =>{
             let frameText = new PIXI.Text({text:`Fin.`, style: textMainStyle});
             let endScreen = new PIXI.Sprite(endTexture);
         
-            frameText.x = app.screen.width*0.82;
+            frameText.x = app.screen.width*0.88;
             frameText.y = app.screen.height*0.07;
             frameText.zIndex = 1300;
 

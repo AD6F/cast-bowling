@@ -131,9 +131,6 @@ export { CH, sendToPhone }
 
 //main(["owo", "axol"], 4, 5);
 //
-//setTimeout( () => {
-//    rebuildGame(0)
-//}, 5000)
 //throwBall({ 
 //    speed: {x: 35, y:-0.955},
 //    acceleration: {x: -0.002, y:0.0150},
