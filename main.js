@@ -132,16 +132,20 @@ export { CH, sendToPhone }
 //main(["owo", "axol"], 4, 5);
 //
 //throwBall({ 
-//    speed: {x: 35, y:-0.955},
+//    speed: {x: 35, y:-1.085},
 //    acceleration: {x: -0.002, y:0.0150},
-//    position: 0.275
+//    position: 0.25
 //})
 //
 //
 //setInterval( () => {
-//    throwBall({ 
-//        speed: {x: 35, y:-1.085},
-//        acceleration: {x: -0.002, y:0.0150},
-//        position: 0.5
+//    throwBall({
+//        speed: {
+//            x: 12+Math.random(), 
+//            y: Math.sin(Math.random()*Math.PI*2)*2
+//        }, acceleration: {
+//            x: Math.sin(Math.random()*Math.PI*2)*0.008, 
+//            y: Math.sin(Math.random()*Math.PI*2)*0.025
+//        }, position: Math.random()
 //    })
 //}, 8000);

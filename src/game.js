@@ -1,8 +1,9 @@
-import {score, scoreInit, scoreAdvance, getCurrentPlayer, finalScoreShowcase} from "./scoregame.js";
+import {score, scoreInit, scoreAdvance, getCurrentPlayer, finalScoreShowcase, getCurrentPlayerScore} from "./scoregame.js";
 import {visual, visualInit} from "./visualgame.js";
 import { adjustWidth, adjustHeight, myApp, lerp} from "./globalfunc.js";
 import { CH, sendToPhone } from "../main.js";
 import { clearMapTicker } from "./mapstyles.js";
+import { playBowlingVideo } from "./videoPlayer.js";
 
 const texture = await PIXI.Assets.load('./assets/img/pixelbluey.png');
 const safetyTexture = await PIXI.Assets.load('./assets/img/safety.jpg');
@@ -31,7 +32,7 @@ var gutterBallLeftThreshold = 0;
 var gutterBallRightThreshold = 0;
 var gutterBallLeftPos = 0;
 var gutterBallRightPos = 0;
-
+var gotGutter = false;
 
 var pinList = new Array(10)
 var pinCollisionSize = 16;
@@ -83,11 +84,12 @@ const setPin = (pinNb) =>{
     return newPin;
 }
 
-const checkPinsHit = () => {
+const checkPinsHit = (hidePin = true) => {
     let hits = 0;
     for (let i = 0; i < pinList.length; i++) {
         if (pinList[i].hit==1){
-            hits++; pinList[i].hit = 2;
+            hits++; 
+            if (hidePin) { pinList[i].hit = 2; }
         }
     }
     return hits;
@@ -160,30 +162,6 @@ const pinUpdate = (time) =>{
     }
 }
 
-//https://stackoverflow.com/questions/59725062/pixi-js-how-to-detect-end-of-movie-callback-for-ended-event
-const playBowlingVideo = async (url, customFunc) =>{
-    let videoSource = await PIXI.Assets.load({
-        src: url, data:{ preload: false, autoPlay: true, loop: false }
-    });
-    
-    let video = new PIXI.Sprite(videoSource);
-    video.zIndex = 10;
-
-    video.texture.source.source.resource.addEventListener("ended", async (event) => {
-        customFunc(); 
-        await PIXI.Assets.unload(url); 
-        video.destroy();
-    });
-
-    video.anchor.set(0.5, 0);
-    video.x = app.screen.width * 0.75;
-    video.y = app.screen.height*0.005;
-
-    video.width = adjustWidth(320);
-    video.height = adjustHeight(200);
-
-    app.stage.addChild(video);
-}
 
 const moveSelf = (obj) => {
     if (obj.speed.x<2 && obj.offset.y==0 && obj.spr.x<0 && obj.speed.x!=0){
@@ -224,6 +202,8 @@ const checkGutter = (obj) => {
         obj.acceleration.y = 0; obj.speed.y = 0;
         obj.offset.y = approach(obj.offset.y, 20, moveAmnt)
     }
+
+    return flag;
 }
 
 const throwBall = (values) => {
@@ -237,6 +217,11 @@ const throwBall = (values) => {
     ball.speed = values.speed;
 
     ball.acceleration = values.acceleration;
+
+    console.log(lerp(gutterBallLeftThreshold, 
+        gutterBallRightThreshold, values.position))
+
+    gotGutter = false;
 }
 
 var yPosTo = 0;
@@ -244,11 +229,14 @@ const update = (time) =>{
     elapsedTime += time.elapsedMS;
     deltaTime = time.deltaTime; halfTime = deltaTime/2;
 
-    moveSelf(ball); checkGutter(ball);
+    moveSelf(ball);
+    let isInGutter = checkGutter(ball);
 
     if (ball.speed.x==0){
         ball.offset.y = approach(ball.offset.y, adjustHeight(32), 1/25*halfTime);
         ball.spr.y = approach(ball.spr.y, yPosTo, 1/18*halfTime);
+    }else if (isInGutter){
+        gotGutter = true;
     }
 
     if (ball.spr.x> app.screen.width && ball.speed.x!=0){
@@ -268,7 +256,11 @@ const update = (time) =>{
             ball.offset.y = 1
         }else{
             setTimeout(() => {
-                playBowlingVideo("./assets/video/fem.mp4", () => {
+                playBowlingVideo(
+                    getCurrentPlayerScore(), 
+                    checkPinsHit(false), 
+                    gotGutter,
+                    () => {
                     setTimeout(() => {
                         ball.speed.x = -0.075;
                         ball.acceleration.x = -0.185;
@@ -313,7 +305,7 @@ const update = (time) =>{
                     }, acceleration: {
                         x: Math.sin(Math.random()*Math.PI*2)*0.008, 
                         y: Math.sin(Math.random()*Math.PI*2)*0.025
-                    }, position: 0.5
+                    }, position: Math.random()
                 })
             }else{
                 try{

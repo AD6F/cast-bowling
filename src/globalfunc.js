@@ -8,6 +8,9 @@ const myApp = (a) => {
     yMulti = (1/540)*app.screen.height;
 };
 
+const getApp = () => {
+    return app;
+}
 
 const adjustWidth = (px) => {
     return px*xMulti
@@ -28,7 +31,7 @@ const adjustHeightReverse = (px) => {
 }
 
 const lerp = (a, b, percentage) => {
-    return a + percentage * (b-a);
+    return a + (percentage * (b-a));
 }
 
 const clamp = (a, min, max) => {
@@ -41,4 +44,14 @@ const clamp = (a, min, max) => {
     }
 }
 
-export {getXmulti, adjustWidth, adjustHeight, adjustWidthReverse, adjustHeightReverse, lerp, clamp, myApp};
+export {
+    getXmulti, 
+    adjustWidth, 
+    adjustHeight, 
+    adjustWidthReverse, 
+    adjustHeightReverse, 
+    lerp, 
+    clamp,
+    myApp,
+    getApp
+};
