@@ -69,6 +69,7 @@ const finalScoreShowcase = (textStyle) => {
 
 const updateFrameTop = () => {
     let minFrame = getMinFrameDisplay(scoreFrame);
+    scoreShowcase[scoreFrame-minFrame][0].style.fill = colorBlack;
     
     for (let i = 0; i < scoreShowcase.length; i++) {
         const element = scoreShowcase[i];
@@ -100,6 +101,9 @@ const updateScore = () => {
             }
         }
     }
+
+    //currentRoundBox.x = xStart-xOff + xLength*((scoreFrame-minFrame+1)/(barSepAmnt+1));
+    scoreShowcase[scoreFrame-minFrame][0].style.fill = colorPurple
 }
 
 // Bowling scoring reference https://www.wikihow.com/Score-Bowling
@@ -107,7 +111,6 @@ const scoreAdvance = (pinsHit) => {
     let flagShouldReset = false;
 
     playerNames[scorePlayerIndex].style.fill = colorBlack
-    scoreShowcase[scoreFrame][0].style.fill = colorBlack
 
     scoreBoard[scorePlayerIndex][scoreFrame][scoreRound] = pinsHit;
 
@@ -119,15 +122,11 @@ const scoreAdvance = (pinsHit) => {
         scorePlayerIndex++;
         flagShouldReset = true;
         if (scorePlayerIndex>=scoreBoard.length){
-            updateFrameTop();
-            scoreFrame++;
-            scorePlayerIndex = 0;
-            updateScore();
+            updateFrameTop(); scoreFrame++;
+            scorePlayerIndex = 0; updateScore();
         }
     }
-    console.log(playerNames[scorePlayerIndex].style)
     playerNames[scorePlayerIndex].style.fill = colorPurple
-    scoreShowcase[scoreFrame][0].style.fill = colorPurple
 
     if (scoreFrame>=maxRound){
         return 2
