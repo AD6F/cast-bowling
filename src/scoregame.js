@@ -25,6 +25,38 @@ const getMinFrameDisplay = (frame) => {
     return Math.min(frame, maxRound-4);
 }
 
+const finalScoreShowcase = (textStyle) => {
+    let totalScores = new Array(scoreBoard.length)
+    for (let pId = 0; pId < scoreBoard.length; pId++) {
+        totalScores[pId] = [playerNames[pId].text, 0];
+        for (let fId = 0; fId < scoreBoard[pId].length; fId++) {
+            for (let rId = 0; rId < scoreBoard[pId][fId].length; rId++) {
+                let pts = scoreBoard[pId][fId][rId]
+                totalScores[pId][1] += (pts==undefined) ? 0 : pts
+            }
+        }
+    }
+
+    totalScores.sort( (a, b) => {
+        return b[1] - a[1]
+    })
+
+    for(let i = 0; i < totalScores.length; i++){
+        const player = totalScores[i]
+        let text = new PIXI.Text({
+            text: `${i+1}:  ${player[0]} | ${player[1]}pts`,
+            style: textStyle
+        })
+        text.x = adjustWidth(496)
+        text.y = adjustHeight(20 + (i*(46)))
+        text.zIndex = 12568
+
+        app.stage.addChild(text)
+    }
+
+    console.log(totalScores)
+}
+
 const updateFrameTop = () => {
     let minFrame = getMinFrameDisplay(scoreFrame);
     console.log("min frame" + minFrame)
@@ -198,4 +230,4 @@ const score = (time) => {
     
 }
 
-export {score, scoreInit, scoreAdvance, getCurrentPlayer};
+export {score, scoreInit, scoreAdvance, getCurrentPlayer, finalScoreShowcase};

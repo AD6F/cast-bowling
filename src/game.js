@@ -1,4 +1,4 @@
-import {score, scoreInit, scoreAdvance, getCurrentPlayer} from "./scoregame.js";
+import {score, scoreInit, scoreAdvance, getCurrentPlayer, finalScoreShowcase} from "./scoregame.js";
 import {visual, visualInit} from "./visualgame.js";
 import { adjustWidth, adjustHeight, myApp, lerp} from "./globalfunc.js";
 import { CH, sendToPhone } from "../main.js";
@@ -7,6 +7,7 @@ import { clearMapTicker } from "./mapstyles.js";
 const texture = await PIXI.Assets.load('./assets/img/pixelbluey.png');
 const safetyTexture = await PIXI.Assets.load('./assets/img/safety.jpg');
 const loadTexture = await PIXI.Assets.load('./assets/img/loadingScreen.png');
+const endTexture = await PIXI.Assets.load('./assets/img/endScreen.png');
 
 const bluey = new PIXI.Sprite(texture);
 const app = new PIXI.Application();
@@ -25,8 +26,6 @@ var debug = false;
 var elapsedTime = 0;
 var deltaTime = 0; 
 var halfTime = 0;
-
-var isWaitingForThrow = false
 
 var gutterBallLeftThreshold = 0;
 var gutterBallRightThreshold = 0;
@@ -51,6 +50,17 @@ const pinPos = [
     {x: 0.850, y: 0.5475},
     {x: 0.800, y: 0.50}
 ]
+
+var menuObjList = new Array();
+const textMainStyle = new PIXI.TextStyle({
+    fill: 0xFFFFFF, fontSize: 40,
+    stroke: {color:0x000000, width:6, join:"round"}
+})
+const textHintStyle = new PIXI.TextStyle({
+    fill: 0xFFFFFF, fontSize: 20,
+    stroke: {color:0x000000, width:2, join:"round"},
+    wordWrap : true, wordWrapWidth : 300
+})
 
 const setPin = (pinNb) =>{
     let newPin = {
@@ -255,7 +265,7 @@ const update = (time) =>{
                 playBowlingVideo("./assets/video/fem.mp4", () => {
                     setTimeout(() => {
                         ball.speed.x = -0.075;
-                        ball.acceleration.x = -0.15;
+                        ball.acceleration.x = -0.185;
                         console.log("imgettingreset");
                     }, 1000);
                 })
@@ -270,13 +280,22 @@ const update = (time) =>{
             ball.spr.y = app.screen.height/2;
             ball.speed.y = 0; ball.speed.x = 0;
             ball.acceleration.y = 0; ball.acceleration.x = 0;
-            let frameText = new PIXI.Text({text:`Fin.`});
+
+            let frameText = new PIXI.Text({text:`Fin.`, style: textMainStyle});
+            let endScreen = new PIXI.Sprite(endTexture);
         
-            frameText.x = app.screen.width*0.75;
-            frameText.y = app.screen.height*0.4;
-            frameText.zIndex = 1200;
+            frameText.x = app.screen.width*0.82;
+            frameText.y = app.screen.height*0.07;
+            frameText.zIndex = 1300;
+
+            endScreen.x = app.screen.width*0.31;
+            endScreen.zIndex = 1299;
 
             app.stage.addChild(frameText);
+            app.stage.addChild(endScreen);
+
+            finalScoreShowcase(textMainStyle);
+
             sendToPhone(CH.game, {player: ""});
         }else{
             setPinsUp(result);
@@ -306,27 +325,16 @@ const update = (time) =>{
 
 }
 
-var menuObjList = new Array();
-const txtMainStyle = new PIXI.TextStyle({
-    fill: 0xFFFFFF, fontSize: 40,
-    stroke: {color:0x000000, width:6, join:"round"}
-})
-const txtHintStyle = new PIXI.TextStyle({
-    fill: 0xFFFFFF, fontSize: 20,
-    stroke: {color:0x000000, width:2, join:"round"},
-    wordWrap : true, wordWrapWidth : 300
-})
-
 const mainMenuShow = () => {
     let textMain = new PIXI.Text({
-        text: "Bowling", style: txtMainStyle,
+        text: "Bowling", style: textMainStyle,
         x : adjustWidth(34), y : adjustHeight(45)
     });
 
     let textHint = new PIXI.Text({
         text: "To start the game, press \"Play\" on your phone and adjust the settings to your preferences.",
         x : adjustWidth(55), y : adjustHeight(100),
-        style: txtHintStyle
+        style: textHintStyle
     });
 
     let safetyImage = new PIXI.Sprite(safetyTexture)
@@ -377,14 +385,14 @@ const mainStart = async () => {
 const main = (playerNames, roundNb, map) => {
     mainRestart(false);
     
-    let loadTime = 1000
+    let loadTime = 750
     let loadingImage = new PIXI.Sprite(loadTexture)
     loadingImage.zIndex = 9999
 
     let textLoad = new PIXI.Text({
         text: "Loading....",
         x : adjustWidth(705), y : adjustHeight(100),
-        style: txtMainStyle,
+        style: textMainStyle,
         zIndex: 999999
     });
 

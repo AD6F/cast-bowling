@@ -18,7 +18,11 @@ const rebuildGame = (action) => {
 }
 
 const sendToPhone = (channel, msg) => {
-    context.sendCustomMessage(channel, undefined, msg);
+    try{
+        context.sendCustomMessage(channel, undefined, msg);
+    }catch(e){
+        document.querySelector("#error").innerText = "cast send error"
+    }
 }
 
 var settings = {
@@ -125,22 +129,22 @@ context.start(options);
 
 export { CH, sendToPhone }
 
-//main(["owo", "iwi"], 4, 3);
+//main(["owo", "axol"], 4, 5);
 //
 //setTimeout( () => {
 //    rebuildGame(0)
 //}, 5000)
 //throwBall({ 
-//    speed: {x: 8, y:-0.955},
+//    speed: {x: 35, y:-0.955},
 //    acceleration: {x: -0.002, y:0.0150},
 //    position: 0.275
 //})
 //
 //
-//setTimeout( () => {
+//setInterval( () => {
 //    throwBall({ 
-//        speed: {x: 8, y:-0.955},
+//        speed: {x: 35, y:-1.085},
 //        acceleration: {x: -0.002, y:0.0150},
-//        position: 0.275
+//        position: 0.5
 //    })
-//}, 1000);
+//}, 8000);
