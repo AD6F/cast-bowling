@@ -66,9 +66,7 @@ const setPin = (pinNb) =>{
 const checkPinsHit = (hidePin = true) => {
     let hits = 0;
     for (let i = 0; i < pinList.length; i++) {
-        if (pinList[i].hit==1){
-            hits++; if (hidePin) { pinList[i].hit = 2; }
-        }
+        if (pinList[i].hit==1){ hits++; if (hidePin) { pinList[i].hit = 2; } }
     }
     return hits;
 }
@@ -120,25 +118,23 @@ const pinMove = (pin, time) => {
 
     if (pin.offset.y>-adjustHeight(20)){
         for (let i = 0; i < pinList.length; i++) {
-            if (!pinList[i].hit)
-                pinCheckCollision(pin.pin, pinList[i], pinCollisionSize*0.8);
+            if (!pinList[i].hit) {
+                pinCheckCollision(pin.pin, pinList[i], pinCollisionSize*0.8);}
         }
     }
 }
 
 const pinUpdate = (time) =>{
     for (let i = 0; i < pinList.length; i++) {
-        if (pinList[i].hit)
-            pinMove(pinList[i], time);
-        else
-            pinCheckCollision(bluey, pinList[i], 24);
+        if (pinList[i].hit){ pinMove(pinList[i], time); }
+        else{ pinCheckCollision(bluey, pinList[i], 24);}
     }
 }
 
 
 const moveSelf = (obj) => {
-    if (obj.speed.x<2 && obj.offset.y==0 && obj.spr.x<0 && obj.speed.x!=0)
-        obj.speed.x = 2; obj.acceleration.x = 0; obj.acceleration.y *= 1.15
+    if (obj.speed.x<2 && obj.offset.y==0 && obj.spr.x<0 && obj.speed.x!=0){
+        obj.speed.x = 2; obj.acceleration.x = 0; obj.acceleration.y *= 1.15 }
 
     obj.speed.x += obj.acceleration.x * halfTime;
     obj.spr.x += adjustWidth(obj.speed.x) * deltaTime;
@@ -154,16 +150,15 @@ const approach = (curPos, tPos, perc) => {
 }
 
 const checkGutter = (obj) => {
-    const moveAmnt = 1/18, flag = true;
-    if (obj.spr.y>gutterBallRightThreshold)
+    const moveAmnt = 1/18; let flag = true;
+    if (obj.spr.y>gutterBallRightThreshold){
         obj.spr.y = approach(obj.spr.y, gutterBallRightPos, moveAmnt);
-    else if (obj.spr.y<gutterBallLeftThreshold)
+    }else if (obj.spr.y<gutterBallLeftThreshold){
         obj.spr.y = approach(obj.spr.y, gutterBallLeftPos, moveAmnt);
-    else{ flag = false; }
+    }else{ flag = false; }
 
     if (flag){
-        if (obj.offset.y==0)
-            obj.acceleration.x = 0; obj.speed.x = Math.max(obj.speed.x, 6);
+        if (obj.offset.y==0){ obj.acceleration.x = 0; obj.speed.x = Math.max(obj.speed.x, 6);}
         obj.acceleration.y = 0; obj.speed.y = 0;
         obj.offset.y = approach(obj.offset.y, 20, moveAmnt)
     }
@@ -194,10 +189,9 @@ const update = (time) =>{
     if (ball.spr.x> app.screen.width && ball.speed.x!=0){
         ball.spr.x = app.screen.width; ball.speed = {x: 0, y:0};
         ball.acceleration = {x: 0, y:0};
-        if (ball.spr.y>(app.screen.height/2))
-            yPosTo = gutterBallRightPos+adjustHeight(32);
-        else
-            yPosTo = gutterBallLeftPos-adjustHeight(32);
+        
+        yPosTo = gutterBallLeftPos + 
+            ( (ball.spr.y>(app.screen.height/2)) ? 1 : -1) * adjustHeight(32);
         
         if (debug){ ball.spr.x = -470; ball.speed.x = -.001; ball.offset.y = 1; }
         else{
@@ -276,11 +270,9 @@ const mainMenuShow = () => {
 const mainRestart = (includeMenu = true) => {
     clearMapTicker(app); app.ticker.remove(mainLoop)
     
-    while (app.stage.children.length>0)
-        app.stage.removeChildAt(0);
+    while (app.stage.children.length>0){ app.stage.removeChildAt(0); }
     
-    if (includeMenu)
-        mainMenuShow();
+    if (includeMenu){ mainMenuShow(); }
 }
 
 const mainStart = async () => {
@@ -364,8 +356,7 @@ setTimeout( async () => {
     }
     app.ticker.add(mainLoop)
 
-    while(menuObjList.length>0)
-        app.stage.removeChild(menuObjList.shift())
+    while(menuObjList.length>0){ app.stage.removeChild(menuObjList.shift()); }
 
     sendToPhone(CH.game, {player: playerNames[0]});
 
