@@ -54,8 +54,14 @@ const pinPos = [
 var menuObjList = new Array();
 const textMainStyle = new PIXI.TextStyle({
     fill: 0xFFFFFF, fontSize: 40,
-    stroke: {color:0x000000, width:6, join:"round"}
+    stroke: {color:0x000000, width:5, join:"round"}
 })
+
+const textLargeStyle = new PIXI.TextStyle({
+    fill: 0xFFFFFF, fontSize: 56,
+    stroke: {color:0x000000, width:7, join:"round"}
+})
+
 const textHintStyle = new PIXI.TextStyle({
     fill: 0xFFFFFF, fontSize: 20,
     stroke: {color:0x000000, width:2, join:"round"},
@@ -281,15 +287,14 @@ const update = (time) =>{
             ball.speed.y = 0; ball.speed.x = 0;
             ball.acceleration.y = 0; ball.acceleration.x = 0;
 
-            let frameText = new PIXI.Text({text:`Fin.`, style: textMainStyle});
+            let frameText = new PIXI.Text({text:`The End.`, style: textLargeStyle});
             let endScreen = new PIXI.Sprite(endTexture);
         
-            frameText.x = app.screen.width*0.88;
-            frameText.y = app.screen.height*0.07;
-            frameText.zIndex = 1300;
+            frameText.x = app.screen.width*0.745;
+            frameText.y = app.screen.height*0.85;
+            frameText.zIndex = 19300;
 
-            endScreen.x = app.screen.width*0.31;
-            endScreen.zIndex = 1299;
+            endScreen.zIndex = 19299;
 
             app.stage.addChild(frameText);
             app.stage.addChild(endScreen);
@@ -391,8 +396,8 @@ const main = (playerNames, roundNb, map) => {
 
     let textLoad = new PIXI.Text({
         text: "Loading....",
-        x : adjustWidth(705), y : adjustHeight(100),
-        style: textMainStyle,
+        x : adjustWidth(650), y : adjustHeight(80),
+        style: textLargeStyle,
         zIndex: 999999
     });
 
