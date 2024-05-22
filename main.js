@@ -45,10 +45,10 @@ context.addCustomMessageListener(CH.settings,(customEvent) => {
 
 context.addCustomMessageListener(CH.nav,(customEvent) => {
     let page = customEvent.data.page
-    if (page!=undefined && page!=null){
-        rebuildGame(page)
-    }else{
+    if (page==""){
         page = (getApp().stage.children.length<10) ? 0 : 1
+    }else{
+        rebuildGame(page)
     }
     sendToPhone(CH.nav, {page: page})
 });
@@ -62,7 +62,7 @@ context.addCustomMessageListener(CH.game, (customEvent) => {
 
     const accelAngle = (( ( (data.tilt/100)*180) - 90 ) * 0.5) * Math.PI /180
     //const accelAngle = (((data.tilt-70)/40)*75) * Math.PI /180
-    const accelForce = force/64;
+    const accelForce = force/96;
 
     var result = { 
         speed: {
@@ -70,13 +70,13 @@ context.addCustomMessageListener(CH.game, (customEvent) => {
             y: Math.sin(throwRadian)*force
         },
         acceleration: {
-            x: 0,//Math.cos(accelAngle)*accelForce, 
-            y: Math.abs((data.tilt-50))/3000//Math.sin(accelAngle)*accelForce
+            x: Math.cos(accelAngle)*accelForce, 
+            y: Math.abs((data.tilt-50))/3000 + Math.sin(accelAngle)*accelForce
         },
         position: 0.5 - (Math.sin(throwRadian)*0.105)
     }
 
-    result.acceleration.y *= -Math.sign(result.speed.y);
+    result.acceleration.y *= -0.9*(result.speed.y);
     result.speed.y = Math.sqrt(Math.abs(result.speed.y))*Math.sign(result.speed.y)
 
     throwBall(result);
