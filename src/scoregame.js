@@ -1,5 +1,8 @@
 import { adjustWidth, adjustHeight } from "./globalfunc.js";
 
+const colorPurple = new PIXI.Color(0x4616cc);
+const colorBlack = new PIXI.Color(0x000000)
+
 var bgScore = null;
 var bgWhiteBG = null;
 var app = null;
@@ -16,6 +19,10 @@ var maxRound = 0;
 var scoreShowcase = [
     
 ]
+
+var xStart = adjustWidth(40), xOff = adjustWidth(12);
+var yOff = adjustHeight(100), xLength = adjustWidth(420)
+var yStart = yOff-16, barSepAmnt = 4;
 
 const getCurrentPlayer = () => {
     return playerNames[scorePlayerIndex].text
@@ -73,31 +80,34 @@ const updateScore = () => {
     let minFrame = getMinFrameDisplay(scoreFrame-1);
     minFrame = (minFrame<=0) ? 0 : minFrame;
     let maxFrame = Math.min(minFrame+4, 10);
-  for (let pId = 0; pId < scoreBoard.length; pId++) {
-    for (let fId = minFrame; fId < maxFrame; fId++) {
-        let txt = "";
-        
-        for (let rId = 0; rId < scoreBoard[pId][fId].length; rId++) {
-            let score = scoreBoard[pId][fId][rId]
-            let scoreTotal = score;
-            for (let rId2 = 0; rId2 < rId; rId2++){
-                scoreTotal += scoreBoard[pId][fId][rId2];
+    for (let pId = 0; pId < scoreBoard.length; pId++) {
+        for (let fId = minFrame; fId < maxFrame; fId++) {
+            let txt = "";
+            
+            for (let rId = 0; rId < scoreBoard[pId][fId].length; rId++) {
+                let score = scoreBoard[pId][fId][rId]
+                let scoreTotal = score;
+                for (let rId2 = 0; rId2 < rId; rId2++){
+                    scoreTotal += scoreBoard[pId][fId][rId2];
+                }
+                txt += (score==undefined) ? 
+                    "-" : (score == 10) ? "X": (scoreTotal==10) ? "/" : score;
+                txt += " ";
             }
-            txt += (score==undefined) ? 
-                "-" : (score == 10) ? "X": (scoreTotal==10) ? "/" : score;
-            txt += " ";
-        }
-        const txtElement = scoreShowcase[fId-minFrame][pId + 1]
-        if (txt !== txtElement.text){
-            txtElement.text = txt;
+            const txtElement = scoreShowcase[fId-minFrame][pId + 1]
+            if (txt !== txtElement.text){
+                txtElement.text = txt;
+            }
         }
     }
-  }
 }
 
 // Bowling scoring reference https://www.wikihow.com/Score-Bowling
 const scoreAdvance = (pinsHit) => {
     let flagShouldReset = false;
+
+    playerNames[scorePlayerIndex].style.fill = colorBlack
+    scoreShowcase[scoreFrame][0].style.fill = colorBlack
 
     scoreBoard[scorePlayerIndex][scoreFrame][scoreRound] = pinsHit;
 
@@ -115,6 +125,9 @@ const scoreAdvance = (pinsHit) => {
             updateScore();
         }
     }
+    console.log(playerNames[scorePlayerIndex].style)
+    playerNames[scorePlayerIndex].style.fill = colorPurple
+    scoreShowcase[scoreFrame][0].style.fill = colorPurple
 
     if (scoreFrame>=maxRound){
         return 2
@@ -163,9 +176,6 @@ const scoreInit = (playerCount, pNames, roundCount, appToSet, debug) =>{
 
     playerNames = new Array(pNames.length);
 
-    let xStart = adjustWidth(40); let xOff = adjustWidth(12);
-    let yOff = adjustHeight(100); let xLength = adjustWidth(420)
-    let yStart = yOff-16;
     for (let i = 0; i < pNames.length; i++) {
         playerNames[i] = new PIXI.Text({text:pNames[i]});
         const player = playerNames[i];
@@ -187,8 +197,6 @@ const scoreInit = (playerCount, pNames, roundCount, appToSet, debug) =>{
     .fill(0x000000); bar.zIndex = 1200;
     app.stage.addChild(bar);
 
-
-    let barSepAmnt = 4;
     scoreShowcase = new Array(barSepAmnt);
 
     for (let i = 0; i < barSepAmnt; i++) {
@@ -223,10 +231,9 @@ const scoreInit = (playerCount, pNames, roundCount, appToSet, debug) =>{
         app.stage.addChild(frameText);
         scoreShowcase[i].unshift(frameText)
     }
-}
-
-const score = (time) => {
     
+    playerNames[scorePlayerIndex].style.fill = colorPurple
+    scoreShowcase[scoreFrame][0].style.fill = colorPurple
 }
 
-export {score, scoreInit, scoreAdvance, getCurrentPlayer, finalScoreShowcase, getCurrentPlayerScore};
+export {scoreInit, scoreAdvance, getCurrentPlayer, finalScoreShowcase, getCurrentPlayerScore};

@@ -138,15 +138,14 @@ export { CH, sendToPhone }
 //    position: 0.25
 //})
 //
-//
 //setInterval( () => {
 //    throwBall({
 //        speed: {
-//            x: 12+Math.random(), 
+//            x: 32+Math.random(), 
 //            y: Math.sin(Math.random()*Math.PI*2)*2
 //        }, acceleration: {
 //            x: Math.sin(Math.random()*Math.PI*2)*0.008, 
 //            y: Math.sin(Math.random()*Math.PI*2)*0.025
 //        }, position: Math.random()
 //    })
-//}, 8000);
+//}, 11000);

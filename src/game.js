@@ -1,4 +1,4 @@
-import {score, scoreInit, scoreAdvance, getCurrentPlayer, finalScoreShowcase, getCurrentPlayerScore} from "./scoregame.js";
+import {scoreInit, scoreAdvance, getCurrentPlayer, finalScoreShowcase, getCurrentPlayerScore} from "./scoregame.js";
 import {visual, visualInit} from "./visualgame.js";
 import { adjustWidth, adjustHeight, myApp, lerp} from "./globalfunc.js";
 import { CH, sendToPhone } from "../main.js";
@@ -346,9 +346,7 @@ setTimeout( async () => {
 
     mainLoop = (time) =>{
         try{
-            update(time); score(time);
-            visual(time,  ball, pinList);
-            pinUpdate(time);
+            update(time); visual(time,  ball, pinList); pinUpdate(time);
         }catch(e){
             document.querySelector("#error").innerText = e.message;
             sendToPhone(CH.data, {error: e.message}); console.error(e);
