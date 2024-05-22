@@ -1,4 +1,4 @@
-import { adjustWidth, adjustHeight } from "./globalfunc.js";
+import { adjustWidth, adjustHeight, clamp } from "./globalfunc.js";
 
 const colorPurple = new PIXI.Color(0x4616cc);
 const colorBlack = new PIXI.Color(0x000000)
@@ -69,7 +69,7 @@ const finalScoreShowcase = (textStyle) => {
 
 const updateFrameTop = () => {
     let minFrame = getMinFrameDisplay(scoreFrame);
-    scoreShowcase[scoreFrame-minFrame][0].style.fill = colorBlack;
+    scoreShowcase[clamp(scoreFrame-minFrame, 0, 3)][0].style.fill = colorBlack;
     
     for (let i = 0; i < scoreShowcase.length; i++) {
         const element = scoreShowcase[i];
@@ -103,7 +103,7 @@ const updateScore = () => {
     }
 
     //currentRoundBox.x = xStart-xOff + xLength*((scoreFrame-minFrame+1)/(barSepAmnt+1));
-    scoreShowcase[scoreFrame-minFrame][0].style.fill = colorPurple
+    scoreShowcase[clamp(scoreFrame-minFrame, 0, 3)][0].style.fill = colorPurple
 }
 
 // Bowling scoring reference https://www.wikihow.com/Score-Bowling
@@ -112,7 +112,7 @@ const scoreAdvance = (pinsHit) => {
 
     playerNames[scorePlayerIndex].style.fill = colorBlack
 
-    scoreBoard[scorePlayerIndex][scoreFrame][scoreRound] = pinsHit;
+    scoreBoard[scorePlayerIndex][clamp(scoreFrame, 0, maxRound-1)][scoreRound] = pinsHit;
 
     scoreRound++;
     updateScore();

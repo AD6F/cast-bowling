@@ -127,7 +127,6 @@ options.disableIdleTimeout = true;
 context.start(options);
 
 
-
 export { CH, sendToPhone }
 
 //main(["owo", "axol"], 4, 5);
@@ -141,11 +140,11 @@ export { CH, sendToPhone }
 //setInterval( () => {
 //    throwBall({
 //        speed: {
-//            x: 32+Math.random(), 
+//            x: 182+Math.random(), 
 //            y: Math.sin(Math.random()*Math.PI*2)*2
 //        }, acceleration: {
 //            x: Math.sin(Math.random()*Math.PI*2)*0.008, 
 //            y: Math.sin(Math.random()*Math.PI*2)*0.025
 //        }, position: Math.random()
 //    })
-//}, 11000);
+//}, 13000);
