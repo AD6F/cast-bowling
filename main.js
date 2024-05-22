@@ -1,17 +1,19 @@
 import { main, mainRestart, mainStart, throwBall } from "./src/game.js";
+import { getApp } from "./src/globalfunc.js";
 
 const castDebugLogger = cast.debug.CastDebugLogger.getInstance();
 const context = cast.framework.CastReceiverContext.getInstance();
 const CH = {
     settings : 'urn:x-cast:setting',
     game : 'urn:x-cast:game',
-    data : 'urn:x-cast:data'
+    data : 'urn:x-cast:data',
+    nav : 'urn:x-cast:navigation'
 };
 
 const rebuildGame = (action) => {
     mainRestart(action);
 
-    if (action==0){
+    if (action==1){
         main(settings.players, settings.round, settings.map);
         sendToPhone(CH.game, {player: settings.players[0]})
     }
@@ -41,14 +43,18 @@ context.addCustomMessageListener(CH.settings,(customEvent) => {
     document.querySelector("#result").innerText = pos;
 });
 
+context.addCustomMessageListener(CH.nav,(customEvent) => {
+    let page = customEvent.data.page
+    if (page!=undefined && page!=null){
+        rebuildGame(page)
+    }else{
+        page = (getApp().stage.children.length<10) ? 0 : 1
+    }
+    sendToPhone(CH.nav, {page: page})
+});
 context.addCustomMessageListener(CH.game, (customEvent) => {
     const data = customEvent.data;
     document.querySelector("#result").innerText = JSON.stringify(data);
-    if (data.endGameAction!=undefined){
-        rebuildGame(data.endGameAction)
-
-        return 0;
-    }
 
     const throwAngle = (( (data.rotation/100)*180 ) - 90)*0.9;
     const throwRadian = throwAngle * Math.PI /180;
