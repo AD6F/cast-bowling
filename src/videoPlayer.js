@@ -71,10 +71,6 @@ const playVideo = async (url, customFunc) =>{
 }
 
 const playBowlingVideo = async (scoreList, pinNb, isGutter, customFunc) => {
-    console.log(scoreList)
-    console.log(pinNb)
-    console.log(isGutter)
-
     let chosenVideo = "fem.mp4";
     let key = "any"
 

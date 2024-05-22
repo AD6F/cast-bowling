@@ -93,8 +93,6 @@ const visualInit = async (theme, appToSet) => {
     .poly(polygon).fill(bgMap[theme].alley);
     bgBowlingFloor.zIndex = 10;
 
-    console.log(floor)
-
     app.stage.addChild(bgBowlingFloor);
 
     let gutterPolygon = [
@@ -103,7 +101,7 @@ const visualInit = async (theme, appToSet) => {
         {x: app.screen.width*0.8, y:app.screen.height*0.5},
         {x: app.screen.width*0.7, y:app.screen.height*0.5}
     ]
-    console.log(gutterPolygon)
+    
     gutterPolygon[0].x -= adjustWidth(78)
     gutterPolygon[1].x += adjustWidth(78)
     gutterPolygon[3].x -= adjustWidth(22)

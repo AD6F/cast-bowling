@@ -57,13 +57,12 @@ const finalScoreShowcase = (textStyle) => {
 
         app.stage.addChild(text)
     }
-
-    console.log(totalScores)
+    
 }
 
 const updateFrameTop = () => {
     let minFrame = getMinFrameDisplay(scoreFrame);
-    console.log("min frame" + minFrame)
+    
     for (let i = 0; i < scoreShowcase.length; i++) {
         const element = scoreShowcase[i];
         element[0].text = `F${minFrame + (i+1)}`
@@ -90,7 +89,6 @@ const updateScore = () => {
         }
         const txtElement = scoreShowcase[fId-minFrame][pId + 1]
         if (txt !== txtElement.text){
-            console.log(`${txt} ${fId-minFrame} ${pId + 1}`);
             txtElement.text = txt;
         }
     }
@@ -118,7 +116,6 @@ const scoreAdvance = (pinsHit) => {
         }
     }
 
-    console.log(scoreBoard);
     if (scoreFrame>=maxRound){
         return 2
     }
@@ -226,8 +223,6 @@ const scoreInit = (playerCount, pNames, roundCount, appToSet, debug) =>{
         app.stage.addChild(frameText);
         scoreShowcase[i].unshift(frameText)
     }
-
-    console.log(scoreShowcase)
 }
 
 const score = (time) => {

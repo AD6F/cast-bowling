@@ -218,9 +218,6 @@ const throwBall = (values) => {
 
     ball.acceleration = values.acceleration;
 
-    console.log(lerp(gutterBallLeftThreshold, 
-        gutterBallRightThreshold, values.position))
-
     gotGutter = false;
 }
 
@@ -264,7 +261,6 @@ const update = (time) =>{
                     setTimeout(() => {
                         ball.speed.x = -0.075;
                         ball.acceleration.x = -0.185;
-                        console.log("imgettingreset");
                     }, 1000);
                 })
             }, 1500);
@@ -308,11 +304,7 @@ const update = (time) =>{
                     }, position: Math.random()
                 })
             }else{
-                try{
-                    sendToPhone(CH.game, {player: getCurrentPlayer()});
-                }catch(e){
-                    document.querySelector("#result").innerText = "error: " + getCurrentPlayer()
-                }
+                sendToPhone(CH.game, {player: getCurrentPlayer()});
                 ball.spr.x = -180; ball.speed.x = 0;
                 ball.acceleration = { x: 0, y: 0};
             }
@@ -351,7 +343,7 @@ const mainMenuShow = () => {
 const mainRestart = (includeMenu = true) => {
     clearMapTicker(app);
     app.ticker.remove(mainLoop)
-    console.log(app.stage.children)
+    
     while (app.stage.children.length>0) {
         app.stage.removeChildAt(0);
     }
@@ -473,10 +465,6 @@ setTimeout( async () => {
         }
     }
     app.ticker.add(mainLoop)
-
-    console.log(app.ticker)
-
-    console.log(menuObjList)
 
     while(menuObjList.length>0){
         app.stage.removeChild(menuObjList.shift())
