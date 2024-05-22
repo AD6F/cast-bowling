@@ -204,9 +204,9 @@ const update = (time) =>{
                     setTimeout(() => {
                         ball.speed.x = -0.075;
                         ball.acceleration.x = -0.185;
-                    }, 1000);
+                    }, 750);
                 })
-            }, 1500);
+            }, 1250);
         }
     }else if (ball.spr.x < -200 && ball.speed.x<0){
         let pinsHit = checkPinsHit(), result = scoreAdvance(pinsHit);
