@@ -11,7 +11,7 @@ const CH = {
 };
 
 const rebuildGame = (action) => {
-    mainRestart(action);
+    mainRestart(action==0);
 
     if (action==1){
         main(settings.players, settings.round, settings.map);
