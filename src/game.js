@@ -190,7 +190,7 @@ const update = (time) =>{
         ball.spr.x = app.screen.width; ball.speed = {x: 0, y:0};
         ball.acceleration = {x: 0, y:0};
         
-        yPosTo = gutterBallLeftPos + 
+        yPosTo = ( (ball.spr.y>(app.screen.height/2)) ? gutterBallRightPos : gutterBallLeftPos ) + 
             ( (ball.spr.y>(app.screen.height/2)) ? 1 : -1) * adjustHeight(32);
         
         if (debug){ ball.spr.x = -470; ball.speed.x = -.001; ball.offset.y = 1; }

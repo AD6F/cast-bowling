@@ -11,7 +11,6 @@ const videos = {
         "strikeschool",
         "trollbowl",
         "strikegirl",
-        "strikeez",
         "strikefall"
     ],
     "gutter":[
@@ -34,7 +33,6 @@ const videos = {
         "pincounter"
     ],
     "any": [
-        "ballboom",
         "slapball",
         "heck",
         "fem",
