@@ -44,14 +44,9 @@ context.addCustomMessageListener(CH.settings,(customEvent) => {
 });
 
 context.addCustomMessageListener(CH.nav,(customEvent) => {
-    let page = customEvent.data.page
-    if (page==""){
-        page = (getApp().stage.children.length<10) ? 0 : 1
-    }else{
-        rebuildGame(page)
-    }
-    sendToPhone(CH.nav, {page: page})
+    rebuildGame(customEvent.data.page)
 });
+
 context.addCustomMessageListener(CH.game, (customEvent) => {
     const data = customEvent.data;
     document.querySelector("#result").innerText = JSON.stringify(data);
