@@ -40,15 +40,15 @@ const pinPos = [
 ]
 
 var menuObjList = new Array();
-const textMainStyle = new PIXI.TextStyle({ fill: 0xFFFFFF, fontSize: 40,
-    stroke: {color:0x000000, width:5, join:"round"} })
+const textMainStyle = new PIXI.TextStyle({ fill: 0xFFFFFF, fontSize: 56,
+    stroke: {color:0x000000, width:6, join:"round"}})
 
 const textLargeStyle = new PIXI.TextStyle({ fill: 0xFFFFFF, fontSize: 56,
-    stroke: {color:0x000000, width:7, join:"round"} })
+    stroke: {color:0x000000, width:8, join:"round"} })
 
-const textHintStyle = new PIXI.TextStyle({ fill: 0xFFFFFF, fontSize: 20,
-    stroke: {color:0x000000, width:2, join:"round"},
-    wordWrap : true, wordWrapWidth : 300 })
+const textHintStyle = new PIXI.TextStyle({ fill: 0xFFFFFF, fontSize: 24,
+    stroke: {color:0x000000, width:4, join:"round"},
+    wordWrap : true, wordWrapWidth : 500, align: "center" })
 
 const setPin = (pinNb) =>{
     let newPin = {
@@ -253,18 +253,23 @@ const update = (time) =>{
 }
 
 const mainMenuShow = () => {
-    let textMain = new PIXI.Text({ text: "Bowling", style: textMainStyle,
-        x : adjustWidth(34), y : adjustHeight(45) });
+    let textMain = new PIXI.Text({ text: "Bowling Game", style: textMainStyle,
+        x : adjustWidth(480), y : adjustHeight(45) });
 
     let textHint = new PIXI.Text({ text: "To start the game, press \"Play\" on your phone and adjust the settings to your preferences.",
-        x : adjustWidth(55), y : adjustHeight(100), style: textHintStyle });
+        x : adjustWidth(480), y : adjustHeight(132), style: textHintStyle });
+    textMain.anchor.set(0.5); textHint.anchor.set(0.5);
 
-    let safetyImage = new PIXI.Sprite(safetyTexture); safetyImage.scale = 0.5;
-    safetyImage.x = adjustWidth(400); safetyImage.y = adjustHeight(32);
+    let safetyImage = new PIXI.Sprite(safetyTexture);
+    safetyImage.scale = 0.5; safetyImage.anchor.set(0.5)
+    safetyImage.x = adjustWidth(480); safetyImage.y = adjustHeight(355);
 
-    app.stage.addChild(textMain, textHint, safetyImage);
+    let len = adjustWidth(100);
+    let line = new PIXI.Graphics().rect(-len*2,0,len*4, 4).fill(0); 
+    line.x = adjustWidth(480); line.y = adjustHeight(82);
 
-    menuObjList.push(textMain, textHint, safetyImage);
+    app.stage.addChild(textMain, textHint, safetyImage, line);
+    menuObjList.push(textMain, textHint, safetyImage, line);
 }
 
 const mainRestart = (includeMenu = true) => {
@@ -278,7 +283,7 @@ const mainRestart = (includeMenu = true) => {
 const mainStart = async () => {
     await app.init({ 
         width  : window.innerWidth -4, height : window.innerHeight-4,
-        width :  480*2, height : 270*2, background: '#111111',
+        width :  480*2, height : 270*2, background: '#67AF89',
         //scale_mode: PIXI.SCALE_MODES.NEAREST
     });
     myApp(app); document.querySelector("#pixi-container").appendChild(app.canvas); 
