@@ -119,6 +119,9 @@ castDebugLogger.loggerLevelByEvents = {
 const options = new cast.framework.CastReceiverOptions();
 
 options.customNamespaces = Object.assign({});
+options.customNamespaces[CH.settings] = cast.framework.system.MessageType.JSON;
+options.customNamespaces[CH.game] = cast.framework.system.MessageType.JSON;
+options.customNamespaces[CH.data] = cast.framework.system.MessageType.JSON;
 options.disableIdleTimeout = true;
 
 context.start(options);
