@@ -68,7 +68,7 @@ const visualDrawObj = (spr,offset) =>{
 
 const visualInit = async (theme, appToSet) => {
     app = appToSet;
-    ballSpr = new PIXI.Sprite((Math.random()<0.1) ? secretTexture : texture);
+
     await bgMap[theme].init(app);
 
     bgGame = new PIXI.Graphics()
