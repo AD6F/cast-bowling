@@ -317,15 +317,8 @@ const bgMap = [
             var shakeTex = await PIXI.Assets.load("./assets/img/gshake.png");
             var lightTex = await PIXI.Assets.load("./assets/img/lightray.png");
             var bgSpr = new PIXI.Sprite(bgTex);
-            var shakeL = new PIXI.Sprite(shakeTex);
-            var shakeR = new PIXI.Sprite(shakeTex);
-            var lightL = new PIXI.Sprite(lightTex);
-            var lightR = new PIXI.Sprite(lightTex);
-
-            // Grimache alt (big head)
-            //bgSpr.anchor.set(0.48, 0); bgSpr.scale = 0.8
-            //bgSpr.x = app.screen.width*0.75;
-            //bgSpr.zIndex = -0.5; bgSpr.alpha = 0.75;
+            var shakeL = new PIXI.Sprite(shakeTex), shakeR = new PIXI.Sprite(shakeTex);
+            var lightL = new PIXI.Sprite(lightTex), lightR = new PIXI.Sprite(lightTex);
 
             bgSpr.anchor.set(0.575, 0.05); bgSpr.scale = 0.8
             bgSpr.x = app.screen.width*0.75;
@@ -353,10 +346,21 @@ const bgMap = [
             lightR.y = app.screen.height*0.65;
             lightR.scale.set(1, 1.5);
 
-            app.stage.addChild(shakeL);
-            app.stage.addChild(shakeR);
-            app.stage.addChild(lightL);
-            app.stage.addChild(lightR);
+            app.stage.addChild(shakeL,shakeR,lightL,lightR);
+        }
+    },
+    { // Deltarune
+        sky : 0x000000, alley : 0x97D5E4,
+        gutter : new PIXI.Color({r:0,g:0,b:0,a:0.4}),
+        init : async (app) => {
+            var bgTex = await PIXI.Assets.load("./assets/mapBG/bg.webp");
+            var bgSpr = new PIXI.Sprite(bgTex); 
+            
+            bgSpr.anchor.set(0.5, 0); bgSpr.scale = 0.9;
+            bgSpr.x = app.screen.width*0.75; bgSpr.y = -10;
+            bgSpr.zIndex = -0.5; bgSpr.alpha = 1;
+
+            app.stage.addChild(bgSpr)
         }
     }
 ]

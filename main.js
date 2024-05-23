@@ -129,7 +129,7 @@ context.start(options);
 
 export { CH, sendToPhone }
 
-//main(["owo", "axol"], 4, 5);
+//main(["owo", "axol"], 4, 7);
 //
 //throwBall({ 
 //    speed: {x: 35, y:-1.085},
