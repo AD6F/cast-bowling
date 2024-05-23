@@ -19,7 +19,7 @@ const ball = {
     offset: {x: 0, y: 0, ogSize: 125}
 }
 
-var debug = false, deltaTime = 0, halfTime = 0;
+var debug = true, deltaTime = 0, halfTime = 0;
 var yPosTo = 0, gotGutter = false;
 var gutterBallLeftThreshold = 0, gutterBallRightThreshold = 0;
 var gutterBallLeftPos = 0, gutterBallRightPos = 0;

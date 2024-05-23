@@ -1,6 +1,10 @@
 import { adjustWidth, adjustHeight, lerp } from "./globalfunc.js";
 import { bgMap } from "./mapstyles.js";
 
+const secretTexture = await PIXI.Assets.load('./assets/img/pixelbluey.png');
+const texture = await PIXI.Assets.load('./assets/img/bowlingBall.png');
+const texturePin = await PIXI.Assets.load('./assets/img/bin.webp');
+
 var bgGame = null;
 var bgBowlingFloor = null;
 var app = null;
@@ -12,12 +16,7 @@ var floor = {
     topRight : 0
 }
 
-// Load the bluey texture.
-const texture = await PIXI.Assets.load('./assets/img/pixelbluey.png');
-const texturePin = await PIXI.Assets.load('./assets/img/bin.webp');
-
-// Create a new Sprite from an image path
-const ballSpr = new PIXI.Sprite(texture);
+var canResetSpr = false;
 
 const pinSprList = [
     new PIXI.Sprite(texturePin),
@@ -31,6 +30,8 @@ const pinSprList = [
     new PIXI.Sprite(texturePin),
     new PIXI.Sprite(texturePin)
 ]
+
+var ballSpr = new PIXI.Sprite(texture);
 
 const visualDrawObj = (spr,offset) =>{
     let oldx = spr.x;
@@ -67,7 +68,7 @@ const visualDrawObj = (spr,offset) =>{
 
 const visualInit = async (theme, appToSet) => {
     app = appToSet;
-
+    ballSpr = new PIXI.Sprite((Math.random()<0.1) ? secretTexture : texture);
     await bgMap[theme].init(app);
 
     bgGame = new PIXI.Graphics()
@@ -129,6 +130,13 @@ const visualInit = async (theme, appToSet) => {
 }
 
 const visual = (time, ballObj, pinList) => {
+    if ((ballObj.spr.x<=-100) && canResetSpr){
+        ballSpr.texture = ((Math.random()>=0.95) ? secretTexture : texture);
+        console.log(ballSpr.texture)
+        canResetSpr = false;
+    }else if (ballObj.spr.x>0){
+        canResetSpr = true;
+    }
     ballSpr.x = ballObj.spr.x;
     ballSpr.y = ballObj.spr.y;
     ballSpr.angle += ballObj.speed.x * time.deltaTime * 1.25;
