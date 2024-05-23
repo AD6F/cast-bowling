@@ -15,5 +15,7 @@ canvas {
 
 #logo {
     position: fixed;
-    top : calc(100% - 55px);
+    transform-origin: bottom left;
+    top : calc(100% - 55px - 1em);
+    margin: 0.5em;
 }
