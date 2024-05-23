@@ -264,9 +264,9 @@ const mainMenuShow = () => {
     safetyImage.scale = 0.5; safetyImage.anchor.set(0.5)
     safetyImage.x = adjustWidth(480); safetyImage.y = adjustHeight(356);
 
-    let len = adjustWidth(100);
-    let line = new PIXI.Graphics().rect(-len*2,0,len*4, 4).fill(0); 
-    line.x = adjustWidth(480); line.y = adjustHeight(82);
+    let len = adjustWidth(102);
+    let line = new PIXI.Graphics().rect(-len*2,0,len*4, 3).fill(0xFFFFFF); 
+    line.x = adjustWidth(480); line.y = adjustHeight(86);
 
     app.stage.addChild(textMain, textHint, safetyImage, line);
     menuObjList.push(textMain, textHint, safetyImage, line);
@@ -283,7 +283,7 @@ const mainRestart = (includeMenu = true) => {
 const mainStart = async () => {
     await app.init({ 
         width  : window.innerWidth -4, height : window.innerHeight-4,
-        width :  480*2, height : 270*2, background: '#67AF89',
+        width :  480*2, height : 270*2, background: '#111111',
         //scale_mode: PIXI.SCALE_MODES.NEAREST
     });
     myApp(app); document.querySelector("#pixi-container").appendChild(app.canvas); 
