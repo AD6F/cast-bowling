@@ -257,12 +257,12 @@ const mainMenuShow = () => {
         x : adjustWidth(480), y : adjustHeight(45) });
 
     let textHint = new PIXI.Text({ text: "To start the game, press \"Play\" on your phone and adjust the settings to your preferences.",
-        x : adjustWidth(480), y : adjustHeight(132), style: textHintStyle });
+        x : adjustWidth(480), y : adjustHeight(136), style: textHintStyle });
     textMain.anchor.set(0.5); textHint.anchor.set(0.5);
 
     let safetyImage = new PIXI.Sprite(safetyTexture);
     safetyImage.scale = 0.5; safetyImage.anchor.set(0.5)
-    safetyImage.x = adjustWidth(480); safetyImage.y = adjustHeight(355);
+    safetyImage.x = adjustWidth(480); safetyImage.y = adjustHeight(356);
 
     let len = adjustWidth(100);
     let line = new PIXI.Graphics().rect(-len*2,0,len*4, 4).fill(0); 
