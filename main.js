@@ -128,23 +128,3 @@ context.start(options);
 
 
 export { CH, sendToPhone }
-
-//main(["owo", "axol"], 4, 7);
-//
-//throwBall({ 
-//    speed: {x: 35, y:-1.085},
-//    acceleration: {x: -0.002, y:0.0150},
-//    position: 0.25
-//})
-//
-//setInterval( () => {
-//    throwBall({
-//        speed: {
-//            x: 182+Math.random(), 
-//            y: Math.sin(Math.random()*Math.PI*2)*2
-//        }, acceleration: {
-//            x: Math.sin(Math.random()*Math.PI*2)*0.008, 
-//            y: Math.sin(Math.random()*Math.PI*2)*0.025
-//        }, position: Math.random()
-//    })
-//}, 13000);

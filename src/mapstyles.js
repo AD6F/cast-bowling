@@ -350,8 +350,7 @@ const bgMap = [
         }
     },
     { // Deltarune
-        sky : 0x000000, alley : 0x97D5E4,
-        gutter : new PIXI.Color({r:0,g:0,b:0,a:0.4}),
+        sky : 0x000000, alley : 0x97D5E4, gutter : 0x005b82,
         init : async (app) => {
             var bgTex = await PIXI.Assets.load("./assets/mapBG/bg.webp");
             var bgSpr = new PIXI.Sprite(bgTex); 
