@@ -20,7 +20,7 @@ const videos = {
         "gutterballed",
         "wronggutter",
         "disappointed",
-        "kirbyfalling"
+        "kirby-falling"
     ],
     "split":[
         "split-yeen",
