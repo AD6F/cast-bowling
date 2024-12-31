@@ -38,7 +38,6 @@ const videos = {
         "splatmiss2"
     ],
     "any": [
-        "splitdepressed",
         "single",
         "heck",
         "fem",
