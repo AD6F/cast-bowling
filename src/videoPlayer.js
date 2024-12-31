@@ -22,6 +22,7 @@ const videos = {
         "kirby-falling"
     ],
     "split":[
+        "splitdepressed",
         "split-yeen",
         "woah",
         "splitter"
@@ -37,6 +38,7 @@ const videos = {
         "splatmiss2"
     ],
     "any": [
+        "splitdepressed",
         "single",
         "heck",
         "fem",
