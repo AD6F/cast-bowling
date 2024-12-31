@@ -9,7 +9,6 @@ const videos = {
     ],
     "strike": [
         "bowleg",
-        "strikeboom",
         "trollbowl",
         "strikegirl",
         "strikefall",
