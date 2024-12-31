@@ -20,6 +20,10 @@ The image is an edited version of a warning screen users would see when launchin
 
 You then need to follow the instructions on your phone to select the player count, player names, and the map you'd like to play on.
 
-You'll then see this loading screen here.
+After a second or so of loading, the game will start!
 
-![image](https://github.com/user-attachments/assets/3ba88a99-c612-4909-bfd3-bfaeb3938d73)
+![image](https://github.com/user-attachments/assets/8168925f-4f0c-484a-ad5d-9a37cbbac3e8)
+
+### Gameplay
+
+Insert gameplay here
