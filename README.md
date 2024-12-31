@@ -42,7 +42,7 @@ Once you hit the pins, a video will play, just like those bowling alley animatio
 
 The video played depends on how many pins you hit. For example, if you hit 8 pins and get a split, the selected video will match appropriately.
 
-![image](https://github.com/user-attachments/assets/0c8be2bc-ee82-494d-97ca-58a7a28cf939)
+![image](https://github.com/user-attachments/assets/ec369a3d-f609-487c-be67-79db68c8682c)
 
 Same thing for a strike.
 
