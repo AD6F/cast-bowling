@@ -2,6 +2,11 @@
 
 This is the repository that contains the Chromecast section of our bowling game, which you can play with the [Bowling Controller App](https://github.com/AD6F/bowling-controller)
 
+## Contributors
+
+- [@JF195](https://www.github.com/JF195) -> [Chromecast Game (this)](https://github.com/AD6F/cast-bowling)
+- [@AchrafGroiez](https://github.com/AchrafGroiez) -> [Android Controller](https://github.com/AD6F/bowling-controller/)
+
 ## Technologies
 
 - Google Cast framework for JavaScript
