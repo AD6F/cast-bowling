@@ -202,7 +202,7 @@ const bgMap = [
         alley : new PIXI.Color({r: 0xc0, g: 0xc0, b: 0xc0, a:0.125}),
         gutter : new PIXI.Color({r: 0x47, g: 0x4e, b: 0x5e, a: 0.125 }),
         init : async (app) => {
-            let colorOfLaser = {width:2, color:0xFF0000, alpha: 0.4};
+            let colorOfLaser = {width:2.5, color:0xFF0000, alpha: 0.4};
 
             var laser = new PIXI.Graphics()
             .moveTo(app.screen.width*0.5,0)
@@ -224,10 +224,21 @@ const bgMap = [
             .lineTo(app.screen.width*0.5, app.screen.height)
             .stroke(colorOfLaser);
 
-            app.stage.addChild(laser);
-            app.stage.addChild(laser2);
-            app.stage.addChild(laser3);
-            app.stage.addChild(laser4);
+            var lasers = [laser, laser2, laser3, laser4]
+
+            app.stage.addChild(...lasers);
+
+            var timeV = 0;
+
+            let laserAlpha = (time) => {
+                timeV += time.deltaTime*0.01;
+                for(let i =0; i < lasers.length; i++){
+                    lasers[i].alpha = 0.35 + (Math.random()*0.45)
+                }
+            }
+
+            app.ticker.add(laserAlpha)
+            mapTickerList.push(laserAlpha)
 
             var bgTex = await PIXI.Assets.load("./assets/mapBG/vault.png");
             var bgSpr = new PIXI.Sprite(bgTex);
