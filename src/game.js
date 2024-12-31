@@ -24,8 +24,8 @@ var yPosTo = 0, gotGutter = false;
 var gutterBallLeftThreshold = 0, gutterBallRightThreshold = 0;
 var gutterBallLeftPos = 0, gutterBallRightPos = 0;
 
-var pinList = new Array(10), pinCollisionSize = 16, mainLoop = undefined
-
+var pinList = new Array(10), mainLoop = undefined
+const ballCollisionSize = 25, pinCollisionSize = 18
 const pinPos = [
     {x: 0.950, y: 0.355},
     {x: 0.950, y: 0.4525},
@@ -127,7 +127,7 @@ const pinMove = (pin, time) => {
 const pinUpdate = (time) =>{
     for (let i = 0; i < pinList.length; i++) {
         if (pinList[i].hit){ pinMove(pinList[i], time); }
-        else{ pinCheckCollision(bluey, pinList[i], 24);}
+        else{ pinCheckCollision(bluey, pinList[i], ballCollisionSize);}
     }
 }
 
