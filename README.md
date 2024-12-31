@@ -65,3 +65,33 @@ When the game ends, the final score is calculated and the winner is declared. Be
 ![image](https://github.com/user-attachments/assets/3707b4c1-8b59-4905-ac96-c12f0dbd051e)
 
 Once you finish, you can start a new match in the phone app.
+
+### Maps
+
+There are multiple maps you can choose from when playing the game. Here are a few examples :
+
+#### Regular
+
+![classic](https://github.com/user-attachments/assets/372f1383-87c2-44aa-83d8-7dfa2a602304)
+
+#### New York
+
+![new_york](https://github.com/user-attachments/assets/d2b7a1a0-fd55-4f56-9a9c-20cb31285042)
+
+#### Matrix
+
+![matrix](https://github.com/user-attachments/assets/37e89b5d-a964-4c10-b283-e549fa40b70d)
+
+#### Cold sea
+
+![cold sea](https://github.com/user-attachments/assets/8a48b528-4262-4542-817a-0bf4a3348a11)
+
+#### Infiltration
+
+![infiltration](https://github.com/user-attachments/assets/9cddb410-a09a-4f8d-b155-85570de29b35)
+
+#### Galaxy
+
+![galaxy](https://github.com/user-attachments/assets/4cfbe70e-3e10-497f-bd8c-686490824b4c)
+
+And 4 other maps!
