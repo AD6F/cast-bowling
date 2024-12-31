@@ -59,3 +59,9 @@ After the video ends, the ball will automatically roll back towards the player, 
 The scoreboard will also update once the ball comes back. The name highlighted in purple is the current player, as well as the current round. Make sure to pass around the controller when it's someone else's turn.
 
 ![image](https://github.com/user-attachments/assets/15a06181-9e83-492c-9ca6-5f8d291f3912)
+
+When the game ends, the final score is calculated and the winner is declared. Because the demo here features 4 rounds, instead of the usual 10, the score is lower than you'd expect.
+
+![image](https://github.com/user-attachments/assets/3707b4c1-8b59-4905-ac96-c12f0dbd051e)
+
+Once you finish, you can start a new match in the phone app.
