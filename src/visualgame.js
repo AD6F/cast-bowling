@@ -49,7 +49,8 @@ const visualDrawObj = (spr,offset) =>{
 
     spr.x = lerp(leftSide, rightSide, percent) + app.screen.width * 0.75;
 
-    spr.setSize( Math.abs( adjustHeight(offset.ogSize) * (((1- (vpercentage*1.15))/2) + 0.25) ) );
+    let size = adjustHeight(offset.ogSize) * (((1- (vpercentage*1.15))/2) + 0.25)
+    spr.setSize( (size<0) ? 0 : size );
 
     spr.y -= spr.height/2
 
