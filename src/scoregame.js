@@ -59,7 +59,7 @@ const finalScoreShowcase = (textStyle) => {
             style: textStyle
         })
         text.x = adjustWidth(335)
-        text.y = adjustHeight(20 + (i*(46)))
+        text.y = adjustHeight(20 + (i*(50)))
         text.zIndex = 92568
 
         app.stage.addChild(text)
