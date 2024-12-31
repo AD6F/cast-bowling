@@ -26,4 +26,14 @@ After a second or so of loading, the game will start!
 
 ### Gameplay
 
-Insert gameplay here
+When the game looks like this, it's waiting for the player's input, being throwing the ball onto the pins.
+
+When you do throw the ball, you'll see it rolling towards the pins, like this.
+
+![image](https://github.com/user-attachments/assets/a0629874-531d-4e53-b977-2881e46e8cb3)
+
+If you aim correctly, the ball will hit the pins, like this.
+
+![image](https://github.com/user-attachments/assets/f3f94aaf-85df-4b29-a088-a59d8f86a1ea)
+
+
