@@ -388,6 +388,25 @@ const bgMap = [
 
             app.stage.addChild(bgSpr)
         }
+    },
+    { // House
+        sky : 0xc4dd84, 
+        alley : new PIXI.Color({r: 0x51,g: 0xb6,b: 0xc0,a: 0.1}),
+        gutter: new PIXI.Color({r: 0x52,g: 0xb6,b: 0x4a,a: 0.1}), 
+        init : async (app) => {
+            var bgTex = await PIXI.Assets.load({
+                src: "./assets/mapBG/house.jpg",
+                data:{ loop: true }
+            });
+            var bgSpr = new PIXI.Sprite(bgTex);
+            var bgSpr2 = new PIXI.Sprite(bgTex);
+
+            bgSpr.anchor.set(0.435725, 0.05);
+            bgSpr.x = app.screen.width*0.75;
+            bgSpr.scale = 0.675; bgSpr.zIndex = -0.5;
+
+            app.stage.addChild(bgSpr);
+        }
     }
 ]
 
