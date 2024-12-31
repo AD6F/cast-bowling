@@ -340,11 +340,27 @@ const bgMap = [
             lightL.x = app.screen.width*0.6;
             lightL.y = app.screen.height*0.65;
             lightL.scale.set(-1, 1.5);
+            lightL.zIndex = -0.25;
 
             lightR.anchor.set(0.5, 1);  lightR.angle = 5;
             lightR.x = app.screen.width*0.9;
             lightR.y = app.screen.height*0.65;
             lightR.scale.set(1, 1.5);
+            lightR.zIndex = -0.25;
+
+            var timeV = 0;
+
+            let timer = (time) => {
+                timeV += time.deltaTime*0.0325;
+                shakeL.angle =-8 - (Math.cos(timeV)*4);
+                shakeR.angle = 8 + (Math.cos(timeV)*4);
+
+                lightL.angle =-5 - (Math.sin(timeV/2)*3);
+                lightR.angle = 5 + (Math.sin(timeV/2)*3);
+            }
+
+            app.ticker.add(timer)
+            mapTickerList.push(timer)
 
             app.stage.addChild(shakeL,shakeR,lightL,lightR);
         }
