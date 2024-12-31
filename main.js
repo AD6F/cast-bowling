@@ -126,5 +126,26 @@ options.disableIdleTimeout = true;
 
 context.start(options);
 
+//setTimeout(()=>{
+//    main(["player", "loki", "kira", "jesse"], 4, 0)
+//    
+//    setInterval(()=>{
+//        //throwBall({
+//        //    speed:{x:9, y:-1.01},
+//        //    position:0.465,
+//        //    acceleration:{x:0.1085,y:0.02125}
+//        //})
+//        //throwBall({
+//        //    speed:{x:7.1, y:-1.01},
+//        //    position:0.45,
+//        //    acceleration:{x:0.1085,y:0.02525}
+//        //})
+//        throwBall({
+//            speed:{x:15+Math.random(), y:-1+Math.random()},
+//            position:0.25+(Math.random()/2),
+//            acceleration:{x:0.12*Math.random(),y:0.02*Math.random()}
+//        })
+//    }, 14500)
+//}, 100)
 
 export { CH, sendToPhone }
