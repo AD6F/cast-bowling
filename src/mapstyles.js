@@ -407,6 +407,43 @@ const bgMap = [
 
             app.stage.addChild(bgSpr);
         }
+    },
+    { // House
+        sky : 0x000000, alley : 0x154a34, gutter : 0x0f3424,
+        init : async (app) => {
+            var bgTex = await PIXI.Assets.load("./assets/mapBG/cmv.jpg");
+            var bgSpr = new PIXI.Sprite(bgTex); 
+            var sponsorTex = await PIXI.Assets.load("./assets/mapBG/sponsorship.jpg");
+            var sponsorSpr = new PIXI.Sprite(sponsorTex); 
+            var sponsorSpr2 = new PIXI.Sprite(sponsorTex); 
+
+            bgSpr.anchor.set(0.5, 0); 
+            bgSpr.scale.x = 0.5;
+            bgSpr.scale.y = 0.63;
+            bgSpr.x = app.screen.width*0.75; bgSpr.y = -10;
+            bgSpr.zIndex = -0.5; bgSpr.alpha = 1;
+
+            app.stage.addChild(bgSpr)
+
+            sponsorSpr.anchor.set(0.5, 0);
+            sponsorSpr.width = app.screen.width*0.5;
+            sponsorSpr.height = 84;
+            sponsorSpr.x = app.screen.width*0.75; sponsorSpr.y = 0;
+            sponsorSpr.zIndex = 1; sponsorSpr.alpha = 1;
+            app.stage.addChild(sponsorSpr)
+
+            var timeV = 0;
+
+            let timer = (time) => {
+                timeV += time.deltaTime*0.1;
+                sponsorSpr.height = 84 + (Math.cos(timeV)*8);
+                sponsorSpr.angle = 0 + (Math.sin(timeV/2)*3.5);
+                sponsorSpr.anchor.x = 0.5 + (Math.cos(timeV/2)*0.025);
+            }
+
+            app.ticker.add(timer)
+            mapTickerList.push(timer)
+        }
     }
 ]
 
