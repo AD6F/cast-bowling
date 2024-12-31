@@ -3,21 +3,24 @@ import { adjustHeight, adjustWidth, getApp } from "./globalfunc.js";
 const videos = {
     "spare": [
         "arrowball",
-        "masterball"
+        "masterball",
+        "helldivers",
+        "spareback"
     ],
     "strike": [
         "bowleg",
         "strikeboom",
-        "strikeschool",
         "trollbowl",
         "strikegirl",
-        "strikefall"
+        "strikefall",
+        "helldivers"
     ],
     "gutter":[
         "ballfall",
         "gutterballed",
         "wronggutter",
-        "disappointed"
+        "disappointed",
+        "kirby-falling"
     ],
     "split":[
         "split-yeen",
@@ -30,15 +33,19 @@ const videos = {
         "pinJumped",
         "absolutemiss",
         "sadmiss",
-        "pincounter"
+        "pincounter",
+        "splatmiss",
+        "splatmiss2"
     ],
     "any": [
-        "slapball",
+        "single",
         "heck",
         "fem",
         "fish",
         "tantrum",
-        "evilball"
+        "evilball",
+        "blueycar",
+        "queen"
     ]
 }
 
