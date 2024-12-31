@@ -1,6 +1,6 @@
 # Cast Bowling
 
-This is the repository that holds the Chromecast section of our bowling game, which you can play with using the [Bowling Mobile App](https://github.com/AD6F/bowling-controller)
+This is the repository that contains the Chromecast section of our bowling game, which you can play with the [Bowling Controller App](https://github.com/AD6F/bowling-controller)
 
 ## Technologies
 
