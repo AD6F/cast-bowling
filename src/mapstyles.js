@@ -408,7 +408,7 @@ const bgMap = [
             app.stage.addChild(bgSpr);
         }
     },
-    { // House
+    { // School
         sky : 0x000000, alley : 0x154a34, gutter : 0x0f3424,
         init : async (app) => {
             var bgTex = await PIXI.Assets.load("./assets/mapBG/cmv.jpg");
