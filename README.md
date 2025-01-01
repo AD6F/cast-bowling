@@ -9,7 +9,7 @@ This is the repository that contains the Chromecast section of our bowling game,
 
 ## Technologies
 
-- Google Cast framework for JavaScript
+- Google Cast SDK
 - PixiJS
 - JavaScript
 - HTML
