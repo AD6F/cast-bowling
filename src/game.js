@@ -7,8 +7,8 @@ import { playBowlingVideo } from "./videoPlayer.js";
 
 const texture = await PIXI.Assets.load('./assets/img/pixelbluey.png');
 const safetyTexture = await PIXI.Assets.load('./assets/img/safety.jpg');
-const loadTexture = await PIXI.Assets.load('./assets/img/loadingScreen.png');
-const endTexture = await PIXI.Assets.load('./assets/img/endScreen.png');
+const loadTexture = await PIXI.Assets.load('./assets/img/endScreen.png'); // loadingScreen.png
+const endTexture = loadTexture; //await PIXI.Assets.load('./assets/img/endScreen.png');
 
 const bluey = new PIXI.Sprite(texture), app = new PIXI.Application();
 const pinGravity = .325;
