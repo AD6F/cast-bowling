@@ -40,10 +40,10 @@ const pinPos = [
 ]
 
 var menuObjList = new Array();
-const textMainStyle = new PIXI.TextStyle({ fill: 0xFFFFFF, fontSize: 56,
-    stroke: {color:0x000000, width:6, join:"round"}})
+const textMainStyle = new PIXI.TextStyle({ fill: 0xFFFFFF, fontSize: 52,
+    stroke: {color:0x000000, width:5, join:"round"}})
 
-const textLargeStyle = new PIXI.TextStyle({ fill: 0xFFFFFF, fontSize: 56,
+const textLargeStyle = new PIXI.TextStyle({ fill: 0xFFFFFF, fontSize: 60,
     stroke: {color:0x000000, width:8, join:"round"} })
 
 const textHintStyle = new PIXI.TextStyle({ fill: 0xFFFFFF, fontSize: 24,
@@ -296,7 +296,7 @@ const mainStart = async () => {
 const main = (playerNames, roundNb, map) => {
     mainRestart(false);
     
-    let loadTime = 750, loadingImage = new PIXI.Sprite(loadTexture);
+    let loadTime = 2250, loadingImage = new PIXI.Sprite(loadTexture);
     loadingImage.zIndex = 9999;
 
     let textLoad = new PIXI.Text({ text: "Loading....",
