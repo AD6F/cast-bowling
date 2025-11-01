@@ -40,7 +40,7 @@ const visualDrawObj = (spr,offset) =>{
     let hpercentage = ((oldy/app.screen.height)) 
     let vpercentage = ((oldx/app.screen.width))
 
-    spr.y = app.screen.height*1 - ( (oldx/app.screen.width) * app.screen.height*0.5 ); 
+    spr.y = app.screen.height*1 - ( vpercentage * app.screen.height*0.5 ); 
 
     let rightSide = lerp(floor.bottomRight, floor.topRight, vpercentage);
     let leftSide = lerp(floor.bottomLeft, floor.topLeft, vpercentage);
@@ -80,16 +80,16 @@ const visualInit = async (theme, appToSet) => {
     app.stage.addChild(bgGame);
 
     let polygon = [
-        {x: (app.screen.width/2)-adjustWidth(64), y: app.screen.height},
-        {x: (app.screen.width)+adjustWidth(64), y: app.screen.height},
-        {x: app.screen.width*0.8, y:app.screen.height*0.5},
-        {x: app.screen.width*0.7, y:app.screen.height*0.5}
+        {x: (app.screen.width/2)-adjustWidth(77), y: app.screen.height},
+        {x: (app.screen.width)+adjustWidth(77), y: app.screen.height},
+        {x: app.screen.width*0.795, y:app.screen.height*0.5},
+        {x: app.screen.width*0.705, y:app.screen.height*0.5}
     ]
 
-    floor.bottomLeft = polygon[0].x - app.screen.width*0.75; 
-    floor.bottomRight = polygon[1].x - app.screen.width*0.75;
-    floor.topLeft = polygon[3].x - app.screen.width*0.75; 
-    floor.topRight = polygon[2].x - app.screen.width*0.75;
+    floor.bottomLeft  = polygon[0].x - app.screen.width*(0.75-0.03621); 
+    floor.bottomRight = polygon[1].x - app.screen.width*(0.75+0.03621);
+    floor.topLeft     = polygon[3].x - app.screen.width*0.75; 
+    floor.topRight    = polygon[2].x - app.screen.width*0.75;
 
     bgBowlingFloor = new PIXI.Graphics()
     .poly(polygon).fill(bgMap[theme].alley);
