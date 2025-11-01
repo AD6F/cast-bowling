@@ -19,3 +19,12 @@ canvas {
     top : calc(100% - 55px - 1em);
     margin: 0.5em;
 }
+
+#version {
+    position: fixed;
+    color: white;
+    transform-origin: bottom right;
+    top : calc(100% - 2em);
+    right : 0em;
+    margin: 0.5em;
+}
